@@ -5,58 +5,6 @@
     "lastModified": "2026-10-22"
   },
   {
-    "path": "/tmp/old/zeiss-old",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/copy-8",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old-home",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old/microsoft-change",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old/microsoft-todo",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old/buzzforbees",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old/rowa",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old/mbos-brand",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old/pitch",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old/zeiss_old_old",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old/walterknoll-sheru",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/old/copy-1/mbos-brand",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/tmp/copy-1",
-    "lastModified": "2026-10-22"
-  },
-  {
     "path": "/projects/galvany",
     "lastModified": "2026-10-22"
   },
