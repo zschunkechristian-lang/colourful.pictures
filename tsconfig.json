@@ -11,6 +11,7 @@
       "ESNext"
     ],
     "types": [
+      "node",
       "vite/client",
       "@webstudio-is/react-sdk/placeholder",
       "./vike.d.ts"
