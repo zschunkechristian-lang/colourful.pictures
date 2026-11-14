@@ -1,0 +1,1 @@
+{"failure":{"tool":"list-css-variables","code":"INVALID_INPUT","elapsedMs":234,"issues":[{"path":["limit"],"code":"invalid_type","constraint":"type:number"}]},"at":1794690240264,"targets":[{"target":{"tool":"get-page-by-path","entityIds":[{"field":"pageId","id":"aXeghuJt-MoRUuMktrmCx"}]},"at":1794690228591}]}
