@@ -37,23 +37,11 @@
     "lastModified": "2026-10-22"
   },
   {
-    "path": "/projects/template",
-    "lastModified": "2026-10-22"
-  },
-  {
     "path": "/projects/microsoft",
     "lastModified": "2026-10-22"
   },
   {
-    "path": "/projects/zoozoos",
-    "lastModified": "2026-10-22"
-  },
-  {
     "path": "/projects/mbos",
-    "lastModified": "2026-10-22"
-  },
-  {
-    "path": "/animation_test",
     "lastModified": "2026-10-22"
   }
 ];

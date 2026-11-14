@@ -39,7 +39,7 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
 }): PageMeta => {
   return {
     title: "lavita - companion",
-    description: "Galvany asked what it would take to make their brand feel as effortless as their technology.",
+    description: "A LaVita animation that skips the typical explainer and follows the brand as a companion for the immune system and wellbeing through life.",
     excludePageFromSearch: false,
     language: undefined,
     socialImageAssetName: undefined,

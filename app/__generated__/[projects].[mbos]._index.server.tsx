@@ -39,7 +39,7 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
 }): PageMeta => {
   return {
     title: "MERCEDES - MBOS",
-    description: "Galvany asked what it would take to make their brand feel as effortless as their technology.",
+    description: "Translating Mercedes-Benz luxury into the digital space with MB.OS: visual metaphors in metal and glass instead of feature lists.",
     excludePageFromSearch: false,
     language: undefined,
     socialImageAssetName: undefined,

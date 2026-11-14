@@ -40,7 +40,7 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
   return {
     title: "playground",
     description: "Hi, I'm Chris. I was born, stuff happend now I create digital art, nurture talent and fight bullshit → Get in touch",
-    excludePageFromSearch: false,
+    excludePageFromSearch: true,
     language: undefined,
     socialImageAssetName: undefined,
     socialImageUrl: undefined,

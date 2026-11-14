@@ -39,7 +39,7 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
 }): PageMeta => {
   return {
     title: "EUCERIN – MOA",
-    description: "Galvany asked what it would take to make their brand feel as effortless as their technology.",
+    description: "Digital sculptures that visualize Eucerin's key ingredients and move the brand closer to beauty while honoring its scientific roots.",
     excludePageFromSearch: false,
     language: undefined,
     socialImageAssetName: undefined,

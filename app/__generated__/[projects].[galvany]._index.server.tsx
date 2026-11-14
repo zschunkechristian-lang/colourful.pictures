@@ -39,7 +39,7 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
 }): PageMeta => {
   return {
     title: "GALVANY – Brand",
-    description: "Galvany asked what it would take to make their brand feel as effortless as their technology.",
+    description: "GALVANY came for a hero video and stayed to reshape how they talk about their business: a brand as effortless as their subscription-based heat pump technology.",
     excludePageFromSearch: false,
     language: undefined,
     socialImageAssetName: undefined,

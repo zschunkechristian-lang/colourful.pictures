@@ -39,7 +39,7 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
 }): PageMeta => {
   return {
     title: "ZDF - Spring",
-    description: "Galvany asked what it would take to make their brand feel as effortless as their technology.",
+    description: "Seasonal branding animations for ZDF: embroidered grass, linen-textured figures and crafted flowers replace the knitted blanket of snow.",
     excludePageFromSearch: false,
     language: undefined,
     socialImageAssetName: undefined,

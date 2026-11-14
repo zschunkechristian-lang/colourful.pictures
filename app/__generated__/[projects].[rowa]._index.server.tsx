@@ -39,7 +39,7 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
 }): PageMeta => {
   return {
     title: "rowa - pharmacy of the future",
-    description: "Galvany asked what it would take to make their brand feel as effortless as their technology.",
+    description: "A playful, tangible world of visual metaphors for Rowa's pan-European campaign on the pharmacy of the future.",
     excludePageFromSearch: false,
     language: undefined,
     socialImageAssetName: undefined,

@@ -40,7 +40,7 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
   return {
     title: "rowa - pharmacy of the future",
     description: "Galvany asked what it would take to make their brand feel as effortless as their technology.",
-    excludePageFromSearch: false,
+    excludePageFromSearch: true,
     language: undefined,
     socialImageAssetName: undefined,
     socialImageUrl: undefined,

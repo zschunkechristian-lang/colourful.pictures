@@ -39,7 +39,7 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
 }): PageMeta => {
   return {
     title: "Microsoft - Change",
-    description: "",
+    description: "How Microsoft said goodbye to Wunderlist and welcomed its users to Microsoft To Do, making the farewell feel human.",
     excludePageFromSearch: false,
     language: undefined,
     socialImageAssetName: undefined,

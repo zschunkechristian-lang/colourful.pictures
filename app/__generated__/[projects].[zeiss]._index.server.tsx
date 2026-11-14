@@ -38,8 +38,8 @@ export const getManagedFormResourceGraph = (formId: string, _managedFormProps: {
   resources: Record<string, any>;
 }): PageMeta => {
   return {
-    title: "GALVANY – Brand",
-    description: "Galvany asked what it would take to make their brand feel as effortless as their technology.",
+    title: "ZEISS – Smile",
+    description: "A new ZEISS brand concept: a genome of layered glass sheets applied across global markets. A project about focus, literally and creatively.",
     excludePageFromSearch: false,
     language: undefined,
     socialImageAssetName: undefined,
