@@ -153,3 +153,9 @@ body.is-editing .feature__overlay [data-cms-text] { pointer-events: auto; }
 .cms-frames__item img { width: 44px; height: 32px; object-fit: cover; border-radius: 4px; }
 .cms-frames__item span { flex: 1; }
 .cms-sec .feature > .cms-slot { z-index: 1; }
+
+.cms-in { font: inherit; color: var(--cms-fg); background: #0e0e0e; border: 1px solid var(--cms-line); border-radius: 6px; padding: 3px 8px; width: 11em; }
+.cms-in--wide { width: 16em; }
+.cms-in:focus { outline: 1px solid var(--cms-accent); }
+.cms-credit-x { gap: 0; }
+.credit:hover > span.cms-credit-x { display: flex; }

@@ -95,7 +95,15 @@ export function Text({ as: Tag = "div", className, value, onChange, format, mult
         } else if (e.key === "Enter") {
           e.preventDefault();
           if (onEnter) {
-            onEnter();
+            const sel = getSelection();
+            let caret = toText(ref.current!, format).length;
+            if (sel && sel.rangeCount && ref.current!.contains(sel.anchorNode)) {
+              const r = document.createRange();
+              r.selectNodeContents(ref.current!);
+              r.setEnd(sel.anchorNode!, sel.anchorOffset);
+              caret = r.toString().length;
+            }
+            onEnter(caret);
             const here = e.currentTarget as HTMLElement;
             requestAnimationFrame(() => (here.nextElementSibling as HTMLElement | null)?.focus());
           }

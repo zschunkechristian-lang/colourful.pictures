@@ -15,6 +15,8 @@ import {
 type Commit = (next: Project, coalesceKey?: string) => void;
 type Props = { project: Project; commit: Commit; slot: HTMLElement; selected: string | null; select: (id: string | null) => void; pick: (t: PickTarget) => void };
 
+const swap = <T,>(a: T[], i: number, j: number) => { const n = [...a]; [n[i], n[j]] = [n[j], n[i]]; return n; };
+
 const TYPE_LABEL: Record<Section["type"], string> = {
   hero: "Hero", film: "Film", credits: "Credits", statement: "Statement", carousel: "Carousel",
   row: "Row", feature: "Feature", closing: "Closing", aside: "Aside",
@@ -93,6 +95,18 @@ function Bar({ section, i, count, project, commit, select, pick }: { section: Se
       {section.type === "film" && <button onClick={() => pick({ sectionId: section.id, kind: "film" })}>Film…</button>}
       {section.type === "carousel" && <button onClick={() => pick({ sectionId: section.id, kind: "frames" })}>Frames ({section.frames.length})…</button>}
 
+      {section.type === "closing" && (
+        section.link ? (
+          <>
+            <input className="cms-in" value={section.link.label} placeholder="Link text" aria-label="Link text" onChange={(e) => set({ ...section, link: { ...section.link!, label: e.target.value } }, `${section.id}:ll`)} />
+            <input className="cms-in cms-in--wide" value={section.link.href} placeholder="https:// or mailto:" aria-label="Link address" onChange={(e) => set({ ...section, link: { ...section.link!, href: e.target.value } }, `${section.id}:lh`)} />
+            <button title="Remove link" onClick={() => { const { link, ...rest } = section; void link; set(rest as Section); }}>No link</button>
+          </>
+        ) : (
+          <button onClick={() => set({ ...section, link: { href: "", label: "" } })}>+ Link</button>
+        )
+      )}
+
       {section.type === "statement" && (
         <>
           <span className="cms-sum">col</span>
@@ -156,7 +170,11 @@ export function EditableSections({ project, commit, slot, selected, select, pick
       ),
       creditControls: (section, index) =>
         section.type === "credits" ? (
-          <button className="cms cms-credit-x" title="Remove entry" onClick={() => set({ ...section, items: section.items.filter((_, j) => j !== index) })}>×</button>
+          <span className="cms cms-credit-x">
+            <button title="Earlier" disabled={index === 0} onClick={() => set({ ...section, items: swap(section.items, index, index - 1) })}>↑</button>
+            <button title="Later" disabled={index === section.items.length - 1} onClick={() => set({ ...section, items: swap(section.items, index, index + 1) })}>↓</button>
+            <button title="Remove entry" onClick={() => set({ ...section, items: section.items.filter((_, j) => j !== index) })}>×</button>
+          </span>
         ) : null,
       addCredit: (section) =>
         section.type === "credits" ? (

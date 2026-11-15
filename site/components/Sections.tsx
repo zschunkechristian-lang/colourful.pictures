@@ -25,7 +25,7 @@ export type TextProps = {
   multiline?: boolean;
   placeholder: string;
   /** Enter in a paragraph list: split / remove */
-  onEnter?: () => void;
+  onEnter?: (caret: number) => void;
   onBackspaceEmpty?: () => void;
 };
 
@@ -81,7 +81,7 @@ export function SectionView({ section, edit }: { section: Section; edit?: Sectio
                     <T
                       key={i} as="p" value={p} format="plain" placeholder="Intro paragraph"
                       onChange={(v) => set({ intro: section.intro.map((x, j) => (j === i ? v : x)) }, `intro${i}`)}
-                      onEnter={() => edit!.update({ ...section, intro: [...section.intro.slice(0, i + 1), "", ...section.intro.slice(i + 1)] })}
+                      onEnter={(at) => edit!.update({ ...section, intro: [...section.intro.slice(0, i), p.slice(0, at), p.slice(at), ...section.intro.slice(i + 1)] })}
                       onBackspaceEmpty={() => section.intro.length > 1 && edit!.update({ ...section, intro: section.intro.filter((_, j) => j !== i) })}
                     />
                   ) : <p key={i}>{p}</p>,
