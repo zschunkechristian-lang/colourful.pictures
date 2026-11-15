@@ -3,8 +3,8 @@
 import { useMemo, useRef, useState } from "react";
 import manifest from "../content/media-manifest.json";
 import { masterUrls, stillUrl, videoUrls } from "../lib/assets";
-import type { Project, Section } from "../lib/schema";
-import { itemKey, itemToMedia, mediaToItem, replaceSection, usedKeys, type Item, type PickTarget } from "./model";
+import type { Project, Section, SiteData } from "../lib/schema";
+import { itemKey, itemToMedia, mediaToItem, patchTileRow, replaceSection, usedKeys, type Item, type PickTarget } from "./model";
 
 type M = { base: string; projects: Record<string, { stills: string[]; videos: ({ type: "header" } | { type: "master"; file: string } | { type: "clip"; n: string })[] }> };
 const MANIFEST = manifest as M;
@@ -56,10 +56,12 @@ function FocusPicker({ item, value, onChange }: { item: Item; value: string; onC
   );
 }
 
-export function Picker({ project, target, commit, onClose }: { project: Project; target: PickTarget; commit: (p: Project, key?: string) => void; onClose: () => void }) {
-  const section = sectionOf(project, target);
+export function Picker({ project, site, target, commit, commitSite, onClose }: { project: Project; site: SiteData; target: PickTarget; commit: (p: Project, key?: string) => void; commitSite: (s: SiteData, key?: string) => void; onClose: () => void }) {
+  const tileT = target.kind === "tile";
+  const section = tileT ? undefined : sectionOf(project, target);
+  const tile = target.kind === "tile" ? site.projectGrid[target.row]?.tiles[target.index] : undefined;
   const isFrames = target.kind === "frames";
-  const cur = section ? currentItem(section, target) : null;
+  const cur = tileT ? mediaToItem(tile?.media ?? null) : section ? currentItem(section, target) : null;
   const carouselProject = section?.type === "carousel" && section.frames.length ? section.project ?? project.slug : null;
 
   const names = Object.keys(MANIFEST.projects);
@@ -68,7 +70,7 @@ export function Picker({ project, target, commit, onClose }: { project: Project;
   const [tab, setTab] = useState<Tab>(cur && cur.kind !== "still" ? "videos" : allowed[0]);
   const [only, setOnly] = useState<"all" | "unused">("all");
   const used = useMemo(() => usedKeys(project), [project]);
-  if (!section) return null;
+  if (!section && !tile) return null;
 
   const entry = MANIFEST.projects[proj];
   let items: Item[] = [];
@@ -79,29 +81,32 @@ export function Picker({ project, target, commit, onClose }: { project: Project;
       .map((v): Item => (v.type === "header" ? { kind: "header", project: proj } : v.type === "master" ? { kind: "master", project: proj, file: v.file } : { kind: "clip", project: proj, n: v.n }));
   if (only === "unused") items = items.filter((i) => !used.has(itemKey(i)));
 
-  const frames = section.type === "carousel" ? section.frames : [];
-  const frameProject = section.type === "carousel" ? section.project ?? project.slug : proj;
+  const frames = section?.type === "carousel" ? section.frames : [];
+  const frameProject = section?.type === "carousel" ? section.project ?? project.slug : proj;
   const set = (next: Section, key?: string) => commit(replaceSection(project, next), key);
+  const setTileMedia = (m: ReturnType<typeof itemToMedia>) => target.kind === "tile" && commitSite(patchTileRow(site, target.row, (ts) => ts.map((t, j) => (j === target.index ? { ...t, media: m } : t))));
 
   const assign = (i: Item) => {
     lastProject = i.project;
-    if (target.kind === "cell" && section.type === "row")
+    if (tileT) setTileMedia(itemToMedia(i));
+    else if (target.kind === "cell" && section?.type === "row")
       set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return { ...rest, media: itemToMedia(i) }; }) });
-    else if (target.kind === "media" && (section.type === "hero" || section.type === "feature")) set({ ...section, media: itemToMedia(i) });
-    else if (target.kind === "film" && section.type === "film" && i.kind === "master") set({ ...section, project: i.project, file: i.file });
-    else if (isFrames && section.type === "carousel" && i.kind === "still") {
+    else if (target.kind === "media" && (section?.type === "hero" || section?.type === "feature")) set({ ...section, media: itemToMedia(i) });
+    else if (target.kind === "film" && section?.type === "film" && i.kind === "master") set({ ...section, project: i.project, file: i.file });
+    else if (isFrames && section?.type === "carousel" && i.kind === "still") {
       const has = section.frames.includes(i.n);
       set({ ...section, project: i.project, frames: has ? section.frames.filter((n) => n !== i.n) : [...section.frames, i.n] });
     }
   };
   const clear = () => {
-    if (target.kind === "cell" && section.type === "row") set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return { ...rest, media: null }; }) });
-    else if (target.kind === "media" && (section.type === "hero" || section.type === "feature")) set({ ...section, media: null });
-    else if (target.kind === "film" && section.type === "film") set({ ...section, project: "", file: undefined });
-    else if (isFrames && section.type === "carousel") set({ ...section, frames: [] });
+    if (tileT) setTileMedia(null);
+    else if (target.kind === "cell" && section?.type === "row") set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return { ...rest, media: null }; }) });
+    else if (target.kind === "media" && (section?.type === "hero" || section?.type === "feature")) set({ ...section, media: null });
+    else if (target.kind === "film" && section?.type === "film") set({ ...section, project: "", file: undefined });
+    else if (isFrames && section?.type === "carousel") set({ ...section, frames: [] });
   };
   const moveFrame = (i: number, d: -1 | 1) => {
-    if (section.type !== "carousel") return;
+    if (section?.type !== "carousel") return;
     const f = [...section.frames]; const j = i + d;
     if (j < 0 || j >= f.length) return;
     [f[i], f[j]] = [f[j], f[i]];
@@ -109,7 +114,7 @@ export function Picker({ project, target, commit, onClose }: { project: Project;
   };
 
   const isOn = (i: Item) => (isFrames ? i.kind === "still" && frames.includes(i.n) && frameProject === i.project : cur && itemKey(cur) === itemKey(i));
-  const cell = target.kind === "cell" && section.type === "row" ? section.cells[target.index] : null;
+  const cell = target.kind === "cell" && section?.type === "row" ? section.cells[target.index] : null;
 
   return (
     <aside className="cms-panel cms-picker" aria-label="Media picker">
@@ -149,7 +154,7 @@ export function Picker({ project, target, commit, onClose }: { project: Project;
           <button onClick={clear}>Clear slot</button>
         </div>
       )}
-      {cell && cur && (cur.kind === "still" || cur.kind === "clip" || cur.kind === "header") && target.kind === "cell" && section.type === "row" && (
+      {cell && cur && (cur.kind === "still" || cur.kind === "clip" || cur.kind === "header") && target.kind === "cell" && section?.type === "row" && (
         <FocusPicker
           item={cur} value={cell.position ?? ""}
           onChange={(v) => set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return v ? { ...rest, position: v } : rest; }) }, `${section.id}:pos${target.index}`)}

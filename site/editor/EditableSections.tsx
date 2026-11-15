@@ -22,7 +22,9 @@ const TYPE_LABEL: Record<Section["type"], string> = {
   row: "Row", feature: "Feature", closing: "Closing", aside: "Aside",
 };
 
-function Inserter({ index, onInsert }: { index: number; onInsert: (index: number, make: (typeof CATALOG)[number]) => void }) {
+export type MenuGroup = { head: string; items: { key: string; label: string }[] };
+
+export function Inserter({ index, groups, onPick }: { index: number; groups: MenuGroup[]; onPick: (index: number, key: string) => void }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -35,14 +37,14 @@ function Inserter({ index, onInsert }: { index: number; onInsert: (index: number
   }, [open]);
   return (
     <div className={`cms cms-ins ${open ? "is-open" : ""} ${index === 0 ? "cms-ins--first" : ""}`} ref={ref}>
-      <button className="cms-ins__btn" onClick={() => setOpen(!open)} aria-label="Insert section here" title="Insert section here">+</button>
+      <button className="cms-ins__btn" onClick={() => setOpen(!open)} aria-label="Insert here" title="Insert here">+</button>
       {open && (
         <div className="cms-menu" role="menu">
-          {(["Row", "Section"] as const).map((g) => (
-            <div key={g}>
-              <div className="cms-menu__head">{g === "Row" ? "Rows (media grid)" : "Sections"}</div>
-              {CATALOG.filter((c) => c.group === g).map((c) => (
-                <button key={c.key} role="menuitem" onClick={() => { setOpen(false); onInsert(index, c); }}>{c.label}</button>
+          {groups.map((g) => (
+            <div key={g.head}>
+              <div className="cms-menu__head">{g.head}</div>
+              {g.items.map((c) => (
+                <button key={c.key} role="menuitem" onClick={() => { setOpen(false); onPick(index, c.key); }}>{c.label}</button>
               ))}
             </div>
           ))}
@@ -52,7 +54,12 @@ function Inserter({ index, onInsert }: { index: number; onInsert: (index: number
   );
 }
 
-const NumberField = ({ value, onChange, label, min = 1, max = 12 }: { value: number; onChange: (n: number) => void; label: string; min?: number; max?: number }) => (
+const SECTION_MENU: MenuGroup[] = [
+  { head: "Rows (media grid)", items: CATALOG.filter((c) => c.group === "Row") },
+  { head: "Sections", items: CATALOG.filter((c) => c.group === "Section") },
+];
+
+export const NumberField = ({ value, onChange, label, min = 1, max = 12 }: { value: number; onChange: (n: number) => void; label: string; min?: number; max?: number }) => (
   <input
     className="cms-num" type="number" min={min} max={max} value={value} aria-label={label} title={label}
     onChange={(e) => e.target.value !== "" && onChange(clampSpan(Number(e.target.value)))}
@@ -185,15 +192,15 @@ export function EditableSections({ project, commit, slot, selected, select, pick
     };
   }, [project, commit, pick]);
 
-  const onInsert = (index: number, entry: (typeof CATALOG)[number]) => {
-    const s = entry.make(project.slug);
+  const onInsert = (index: number, key: string) => {
+    const s = CATALOG.find((c) => c.key === key)!.make(project.slug);
     commit(insertSection(project, index, s));
     select(s.id);
   };
 
   return createPortal(
     <>
-      <Inserter index={0} onInsert={onInsert} />
+      <Inserter index={0} groups={SECTION_MENU} onPick={onInsert} />
       {project.sections.map((s, i) => (
         <Fragment key={s.id}>
           <div
@@ -204,7 +211,7 @@ export function EditableSections({ project, commit, slot, selected, select, pick
             <SectionView section={s} edit={edit} />
             <Bar section={s} i={i} count={project.sections.length} project={project} commit={commit} select={select} pick={pick} />
           </div>
-          <Inserter index={i + 1} onInsert={onInsert} />
+          <Inserter index={i + 1} groups={SECTION_MENU} onPick={onInsert} />
         </Fragment>
       ))}
     </>,

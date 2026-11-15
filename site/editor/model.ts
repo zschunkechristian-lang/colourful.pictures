@@ -1,6 +1,6 @@
 // Pure content operations for the editor: section catalog, row presets, insert/move/duplicate/
 // delete, empty-slot counting. No React here, so everything is easy to reason about.
-import { newId, type Cell, type Project, type Section } from "../lib/schema";
+import { newId, type Cell, type Project, type Section, type SiteData, type Tile } from "../lib/schema";
 
 export type RowPreset = { label: string; spans: number[] };
 
@@ -84,7 +84,8 @@ export type PickTarget =
   | { sectionId: string; kind: "cell"; index: number }
   | { sectionId: string; kind: "media" } // hero, feature
   | { sectionId: string; kind: "film" }
-  | { sectionId: string; kind: "frames" }; // carousel
+  | { sectionId: string; kind: "frames" } // carousel
+  | { sectionId: string; kind: "tile"; row: number; index: number }; // project-grid tile (sectionId unused)
 
 import type { Media } from "../lib/schema";
 
@@ -125,3 +126,25 @@ export function usedKeys(p: Project): Set<string> {
   }
   return used;
 }
+
+// ── site data (project grid, footer) ─────────────────────────────────────
+
+type Grid = SiteData["projectGrid"];
+const withGrid = (s: SiteData, projectGrid: Grid): SiteData => ({ ...s, projectGrid });
+
+export const emptyTile = (span: number): Tile => ({ span, title: [""], media: null });
+
+export const insertTileRow = (s: SiteData, at: number, spans: number[]) =>
+  withGrid(s, [...s.projectGrid.slice(0, at), { tiles: spans.map(emptyTile) }, ...s.projectGrid.slice(at)]);
+export const removeTileRow = (s: SiteData, row: number) => withGrid(s, s.projectGrid.filter((_, i) => i !== row));
+export function moveTileRow(s: SiteData, row: number, dir: -1 | 1) {
+  const j = row + dir;
+  if (j < 0 || j >= s.projectGrid.length) return s;
+  const g = [...s.projectGrid];
+  [g[row], g[j]] = [g[j], g[row]];
+  return withGrid(s, g);
+}
+export const patchTileRow = (s: SiteData, row: number, f: (tiles: Tile[]) => Tile[]) =>
+  withGrid(s, s.projectGrid.map((r, i) => (i === row ? { ...r, tiles: f(r.tiles) } : r)));
+
+export const countEmptyTiles = (s: SiteData) => s.projectGrid.reduce((n, r) => n + r.tiles.filter((t) => !t.media).length, 0);

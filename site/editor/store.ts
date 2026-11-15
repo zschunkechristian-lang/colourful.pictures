@@ -1,21 +1,23 @@
-// Editor state: the project being edited, undo/redo history, and saving.
-// Plain React (useReducer-style via useState) — no extra state library.
+// Editor state: the page's project and the shared site data (project grid, footer), one undo/redo
+// history over both, and saving. Plain React, no extra state library.
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { Project } from "../lib/schema";
+import type { Project, SiteData } from "../lib/schema";
 
 type SaveState = { kind: "idle" } | { kind: "saving" } | { kind: "saved" } | { kind: "error"; message: string };
+type Doc = { project: Project; site: SiteData };
 
 const COALESCE_MS = 800;
 
 /**
  * @param initial  the project as loaded from disk
- * @param onChange called with every new present state so the page can re-render
+ * @param initialSite the shared site data as loaded from disk
+ * @param onChange / onSiteChange called with every new present state so the page can re-render
  */
-export function useProjectStore(initial: Project, onChange: (p: Project) => void) {
-  const [present, setPresent] = useState(initial);
-  const [past, setPast] = useState<Project[]>([]);
-  const [future, setFuture] = useState<Project[]>([]);
-  const [savedJson, setSavedJson] = useState(() => JSON.stringify(initial));
+export function useProjectStore(initial: Project, initialSite: SiteData, onChange: (p: Project) => void, onSiteChange: (s: SiteData) => void) {
+  const [doc, setDoc] = useState<Doc>({ project: initial, site: initialSite });
+  const [past, setPast] = useState<Doc[]>([]);
+  const [future, setFuture] = useState<Doc[]>([]);
+  const [saved, setSaved] = useState(() => ({ project: JSON.stringify(initial), site: JSON.stringify(initialSite) }));
   const [save, setSave] = useState<SaveState>({ kind: "idle" });
   const [canSave, setCanSave] = useState<boolean | null>(null); // null = still checking
   const last = useRef<{ key: string; at: number } | null>(null);
@@ -25,55 +27,70 @@ export function useProjectStore(initial: Project, onChange: (p: Project) => void
     fetch("/__cms/ping").then((r) => setCanSave(r.ok)).catch(() => setCanSave(false));
   }, []);
 
-  const apply = useCallback((next: Project) => { setPresent(next); onChange(next); }, [onChange]);
+  const apply = useCallback((next: Doc) => {
+    setDoc(next);
+    if (next.project !== doc.project) onChange(next.project);
+    if (next.site !== doc.site) onSiteChange(next.site);
+  }, [doc, onChange, onSiteChange]);
 
   /** Record an edit. Edits with the same `coalesceKey` in quick succession share one undo step (typing). */
-  const commit = useCallback((next: Project, coalesceKey?: string) => {
+  const commitDoc = useCallback((next: Doc, coalesceKey?: string) => {
     const now = Date.now();
     const merge = coalesceKey && last.current?.key === coalesceKey && now - last.current.at < COALESCE_MS;
     last.current = coalesceKey ? { key: coalesceKey, at: now } : null;
-    if (!merge) setPast((p) => [...p, present].slice(-100));
+    if (!merge) setPast((p) => [...p, doc].slice(-100));
     setFuture([]);
     setSave((s) => (s.kind === "saved" ? { kind: "idle" } : s));
     apply(next);
-  }, [present, apply]);
+  }, [doc, apply]);
+
+  const commit = useCallback((project: Project, key?: string) => commitDoc({ ...doc, project }, key), [doc, commitDoc]);
+  const commitSite = useCallback((site: SiteData, key?: string) => commitDoc({ ...doc, site }, key), [doc, commitDoc]);
 
   const undo = useCallback(() => {
     const prev = past[past.length - 1];
     if (!prev) return;
     last.current = null;
     setPast(past.slice(0, -1));
-    setFuture((f) => [present, ...f]);
+    setFuture((f) => [doc, ...f]);
     apply(prev);
-  }, [past, present, apply]);
+  }, [past, doc, apply]);
 
   const redo = useCallback(() => {
     const next = future[0];
     if (!next) return;
     last.current = null;
     setFuture(future.slice(1));
-    setPast((p) => [...p, present]);
+    setPast((p) => [...p, doc]);
     apply(next);
-  }, [future, present, apply]);
+  }, [future, doc, apply]);
 
-  const dirty = useMemo(() => JSON.stringify(present) !== savedJson, [present, savedJson]);
+  const projectDirty = useMemo(() => JSON.stringify(doc.project) !== saved.project, [doc.project, saved.project]);
+  const siteDirty = useMemo(() => JSON.stringify(doc.site) !== saved.site, [doc.site, saved.site]);
+  const dirty = projectDirty || siteDirty;
+
+  const post = async (url: string, body: unknown) => {
+    const res = await fetch(url, { method: "POST", headers: { "content-type": "application/json", "x-cms": "1" }, body: JSON.stringify(body) });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(j.error ? `${j.error}${j.issues ? `: ${j.issues[0].path.join(".")} ${j.issues[0].message}` : ""}` : `HTTP ${res.status}`);
+  };
 
   const saveNow = useCallback(async () => {
     setSave({ kind: "saving" });
     try {
-      const res = await fetch(`/__cms/project/${present.slug}`, {
-        method: "POST",
-        headers: { "content-type": "application/json", "x-cms": "1" },
-        body: JSON.stringify(present),
-      });
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(body.error ? `${body.error}${body.issues ? `: ${body.issues[0].path.join(".")} ${body.issues[0].message}` : ""}` : `HTTP ${res.status}`);
-      setSavedJson(JSON.stringify(present));
+      if (projectDirty) {
+        await post(`/__cms/project/${doc.project.slug}`, doc.project);
+        setSaved((s) => ({ ...s, project: JSON.stringify(doc.project) }));
+      }
+      if (siteDirty) {
+        await post("/__cms/site", doc.site);
+        setSaved((s) => ({ ...s, site: JSON.stringify(doc.site) }));
+      }
       setSave({ kind: "saved" });
     } catch (err) {
       setSave({ kind: "error", message: err instanceof Error ? err.message : "save failed" });
     }
-  }, [present]);
+  }, [doc, projectDirty, siteDirty]);
 
-  return { present, commit, undo, redo, canUndo: past.length > 0, canRedo: future.length > 0, dirty, save, saveNow, canSave };
+  return { present: doc.project, site: doc.site, commit, commitSite, undo, redo, canUndo: past.length > 0, canRedo: future.length > 0, dirty, projectDirty, siteDirty, save, saveNow, canSave };
 }

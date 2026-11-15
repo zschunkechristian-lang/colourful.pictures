@@ -1,5 +1,5 @@
 import type { ComponentType, CSSProperties, ReactNode } from "react";
-import type { Cell, Section, Tile } from "../lib/types";
+import type { Cell, Section, SiteData, Tile } from "../lib/types";
 import { MediaView } from "./Media";
 import { Player } from "./Player";
 import { Carousel } from "./Carousel";
@@ -45,6 +45,17 @@ export type SectionEdit = {
   /** small add/remove controls for the credits table */
   creditControls: (section: Section, index: number) => ReactNode;
   addCredit: (section: Section) => ReactNode;
+};
+
+/** Hooks for editing the shared site data (project grid, footer) in place; dev editor only. */
+export type SiteEdit = {
+  Text: ComponentType<TextProps>;
+  update: (next: SiteData, key?: string) => void;
+  /** controls drawn inside a tile */
+  tile: (row: number, index: number) => ReactNode;
+  /** controls for one footer link / adding a link */
+  link: (index: number) => ReactNode;
+  addLink: () => ReactNode;
 };
 
 function CellView({ cell, hover, children }: { cell: Cell; hover?: boolean; children?: ReactNode }) {
@@ -193,25 +204,85 @@ export function SectionView({ section, edit }: { section: Section; edit?: Sectio
   }
 }
 
-export function TileRow({ row }: { row: { window?: number; tiles: Tile[] } }) {
+export function TileRow({ row, rowIndex = 0, site, edit }: { row: { window?: number; tiles: Tile[] }; rowIndex?: number; site?: SiteData; edit?: SiteEdit }) {
+  const T = edit?.Text;
   return (
     <div className="row tiles" data-reveal="cells">
       <div className="row__grid">
         {row.tiles.map((t, i) => {
+          const setTile = (patch: Partial<Tile>, key: string) =>
+            edit!.update(
+              { ...site!, projectGrid: site!.projectGrid.map((r, ri) => (ri !== rowIndex ? r : { ...r, tiles: r.tiles.map((x, ti) => (ti === i ? { ...x, ...patch } : x)) })) },
+              `tile${rowIndex}.${i}:${key}`,
+            );
           const body = (
             <>
               <div className="tile__overlay">
-                <h1 className={`tile__title ${t.titleAlign === "start" ? "tile__title--start" : ""}`}>
-                  {t.title.map((l, j) => <span key={j}>{j ? <br /> : null}{l}</span>)}
-                </h1>
+                {T ? (
+                  <T
+                    as="h1" className={`tile__title ${t.titleAlign === "start" ? "tile__title--start" : ""}`} value={t.title.join("\n")} format="plain" multiline placeholder="TITLE"
+                    onChange={(v) => setTile({ title: v.split("\n") }, "title")}
+                  />
+                ) : (
+                  <h1 className={`tile__title ${t.titleAlign === "start" ? "tile__title--start" : ""}`}>
+                    {t.title.map((l, j) => <span key={j}>{j ? <br /> : null}{l}</span>)}
+                  </h1>
+                )}
               </div>
               <MediaView media={t.media} hover />
+              {edit?.tile(rowIndex, i)}
             </>
           );
           const props = { className: "tile", style: vars({ "--span": t.span }) };
-          return t.href ? <a key={i} href={t.href} {...props}>{body}</a> : <div key={i} {...props}>{body}</div>;
+          return t.href && !edit ? <a key={i} href={t.href} {...props}>{body}</a> : <div key={i} {...props}>{body}</div>;
         })}
       </div>
     </div>
+  );
+}
+
+export function FooterView({ footer, site, edit }: { footer: SiteData["footer"]; site?: SiteData; edit?: SiteEdit }) {
+  const T = edit?.Text;
+  const set = (next: SiteData["footer"], key: string) => edit!.update({ ...site!, footer: next }, `footer:${key}`);
+  return (
+    <section className="footer">
+      <div className="footer__grid">
+        <div className="footer__col">
+          <div className="footer__head">
+            {T ? <T as="span" value={footer.contact.heading} format="plain" placeholder="Heading" onChange={(v) => set({ ...footer, contact: { ...footer.contact, heading: v } }, "ch")} /> : <span>{footer.contact.heading}</span>}
+            <hr />
+          </div>
+          <div className="footer__links">
+            {footer.contact.links.map((l, i) =>
+              T ? (
+                <a key={i} href={l.href || undefined}>
+                  <T as="span" value={l.label} format="plain" placeholder="Link text" onChange={(v) => set({ ...footer, contact: { ...footer.contact, links: footer.contact.links.map((x, j) => (j === i ? { ...x, label: v } : x)) } }, `ll${i}`)} />
+                  {edit!.link(i)}
+                </a>
+              ) : <a key={l.href} href={l.href} target="_blank" rel="noreferrer">{l.label}</a>,
+            )}
+            {edit?.addLink()}
+          </div>
+        </div>
+        <div className="footer__col">
+          <div className="footer__head">
+            {T ? <T as="span" value={footer.philosophy.heading} format="plain" placeholder="Heading" onChange={(v) => set({ ...footer, philosophy: { ...footer.philosophy, heading: v } }, "ph")} /> : <span>{footer.philosophy.heading}</span>}
+            <hr />
+          </div>
+          <div className="footer__text">
+            {footer.philosophy.paragraphs.map((p, i) =>
+              T ? (
+                <T
+                  key={i} as="p" value={p} format="plain" placeholder="Paragraph"
+                  onChange={(v) => set({ ...footer, philosophy: { ...footer.philosophy, paragraphs: footer.philosophy.paragraphs.map((x, j) => (j === i ? v : x)) } }, `pp${i}`)}
+                  onEnter={(at) => set({ ...footer, philosophy: { ...footer.philosophy, paragraphs: [...footer.philosophy.paragraphs.slice(0, i), p.slice(0, at), p.slice(at), ...footer.philosophy.paragraphs.slice(i + 1)] } }, `pe${i}`)}
+                  onBackspaceEmpty={() => footer.philosophy.paragraphs.length > 1 && set({ ...footer, philosophy: { ...footer.philosophy, paragraphs: footer.philosophy.paragraphs.filter((_, j) => j !== i) } }, `pd${i}`)}
+                />
+              ) : <p key={i}>{p}</p>,
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

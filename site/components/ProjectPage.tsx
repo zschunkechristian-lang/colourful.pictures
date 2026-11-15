@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { Project, SiteData } from "../lib/types";
 import { initMotion } from "../lib/motion";
 import { Cursor, Nav, useSmoothScroll } from "./Shell";
-import { SectionView, TileRow } from "./Sections";
+import { FooterView, SectionView, TileRow } from "./Sections";
 import type { Mode } from "../editor/Editor";
 import "../styles/fonts.css";
 import "../styles/site.css";
@@ -11,11 +11,14 @@ import "../styles/site.css";
 // this whole branch (and the editor module) is removed from the bundle.
 const Editor = import.meta.env.DEV ? lazy(() => import("../editor/Editor")) : null;
 
-export function ProjectPage({ project: loaded, site }: { project: Project; site: SiteData }) {
+export function ProjectPage({ project: loaded, site: loadedSite }: { project: Project; site: SiteData }) {
   const root = useRef<HTMLDivElement>(null);
   const [project, setProject] = useState(loaded);
   const [mode, setMode] = useState<Mode>("off");
   const [slot, setSlot] = useState<HTMLElement | null>(null);
+  const [tilesSlot, setTilesSlot] = useState<HTMLElement | null>(null);
+  const [footerSlot, setFooterSlot] = useState<HTMLElement | null>(null);
+  const [site, setSite] = useState(loadedSite);
   const editing = mode === "edit";
 
   // `?edit` in the URL opens the editor straight away (client-side only, so SSR stays plain)
@@ -24,6 +27,7 @@ export function ProjectPage({ project: loaded, site }: { project: Project; site:
   }, []);
   // a fresh load of the file from disk (e.g. after a save, or an edit made outside the editor)
   useEffect(() => setProject(loaded), [loaded]);
+  useEffect(() => setSite(loadedSite), [loadedSite]);
 
   useSmoothScroll(!editing);
   useEffect(() => (root.current && !editing ? initMotion(root.current) : undefined), [project.slug, editing]);
@@ -38,25 +42,10 @@ export function ProjectPage({ project: loaded, site }: { project: Project; site:
         <main className="content">
           {/* edit mode: the editor draws the sections itself (same SectionView, plus controls) into this slot */}
           {editing ? <div ref={setSlot} style={{ display: "contents" }} /> : project.sections.map((s) => <SectionView key={s.id} section={s} />)}
-          {site.projectGrid.map((row, i) => <TileRow key={i} row={row} />)}
+          {editing ? <div ref={setTilesSlot} style={{ display: "contents" }} /> : site.projectGrid.map((row, i) => <TileRow key={i} row={row} />)}
         </main>
       </div>
-      <section className="footer">
-        <div className="footer__grid">
-          <div className="footer__col">
-            <div className="footer__head"><span>{footer.contact.heading}</span><hr /></div>
-            <div className="footer__links">
-              {footer.contact.links.map((l) => <a key={l.href} href={l.href} target="_blank" rel="noreferrer">{l.label}</a>)}
-            </div>
-          </div>
-          <div className="footer__col">
-            <div className="footer__head"><span>{footer.philosophy.heading}</span><hr /></div>
-            <div className="footer__text">
-              {footer.philosophy.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
-            </div>
-          </div>
-        </div>
-      </section>
+      {editing ? <div ref={setFooterSlot} style={{ display: "contents" }} /> : <FooterView footer={footer} />}
       {import.meta.env.DEV && mode === "off" && (
         <button
           onClick={() => setMode("edit")}
@@ -67,7 +56,7 @@ export function ProjectPage({ project: loaded, site }: { project: Project; site:
       )}
       {Editor && mode !== "off" && (
         <Suspense fallback={null}>
-          <Editor project={project} onChange={setProject} mode={mode} setMode={setMode} slot={editing ? slot : null} />
+          <Editor project={project} site={site} onChange={setProject} onSiteChange={setSite} mode={mode} setMode={setMode} slots={editing ? { sections: slot, tiles: tilesSlot, footer: footerSlot } : null} />
         </Suspense>
       )}
       </div>

@@ -1,10 +1,12 @@
 // The in-page editor (dev only). ProjectPage mounts this lazily when edit mode is
 // switched on; production builds never include it (guarded by import.meta.env.DEV).
 import { useEffect, useState } from "react";
-import type { Project } from "../lib/schema";
+import type { Project, SiteData } from "../lib/schema";
 import { useProjectStore } from "./store";
 import { EditableSections } from "./EditableSections";
-import { countEmpty, type PickTarget } from "./model";
+import { EditableSite } from "./EditableSite";
+import { NewProject } from "./NewProject";
+import { countEmpty, countEmptyTiles, type PickTarget } from "./model";
 import { Picker } from "./Picker";
 import "./editor.css";
 
@@ -12,11 +14,13 @@ export type Mode = "off" | "edit" | "preview";
 
 type Props = {
   project: Project;
+  site: SiteData;
   onChange: (p: Project) => void;
+  onSiteChange: (s: SiteData) => void;
   mode: Mode;
   setMode: (m: Mode) => void;
-  /** where the editable sections are drawn (exists in edit mode only) */
-  slot: HTMLElement | null;
+  /** where the editable page parts are drawn (exist in edit mode only) */
+  slots: { sections: HTMLElement | null; tiles: HTMLElement | null; footer: HTMLElement | null } | null;
 };
 
 const isTyping = (t: EventTarget | null) => {
@@ -25,14 +29,22 @@ const isTyping = (t: EventTarget | null) => {
   return !!el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || (el.isContentEditable && !el.hasAttribute("data-cms-text")));
 };
 
-export default function Editor({ project, onChange, mode, setMode, slot }: Props) {
-  const store = useProjectStore(project, onChange);
-  const { present, commit, undo, redo, dirty, save, saveNow, canSave } = store;
-  const [panel, setPanel] = useState<"page" | null>(null);
+export default function Editor({ project, site: initialSite, onChange, onSiteChange, mode, setMode, slots }: Props) {
+  const store = useProjectStore(project, initialSite, onChange, onSiteChange);
+  const { present, site, commit, commitSite, undo, redo, dirty, save, saveNow, canSave } = store;
+  const [panel, setPanel] = useState<"page" | "new" | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [target, setTarget] = useState<PickTarget | null>(null);
-  const empty = countEmpty(present);
+  const empty = countEmpty(present) + countEmptyTiles(site);
   const editing = mode === "edit";
+
+  // after "New project": the dev server reloaded the page while picking up the new file
+  useEffect(() => {
+    try {
+      const slug = sessionStorage.getItem("cms-open");
+      if (slug) { sessionStorage.removeItem("cms-open"); window.location.replace(`/projects/${slug}?edit`); }
+    } catch { /* ignore */ }
+  }, []);
 
   // body class lets editor.css switch off link navigation etc.
   useEffect(() => {
@@ -87,7 +99,7 @@ export default function Editor({ project, onChange, mode, setMode, slot }: Props
 
   return (
     <div className="cms">
-      {editing && slot && <EditableSections project={present} commit={commit} slot={slot} selected={selected} select={setSelected} pick={(t) => { setPanel(null); setTarget(t); }} />}
+      {editing && slots?.sections && <EditableSections project={present} commit={commit} slot={slots.sections} selected={selected} select={setSelected} pick={(t) => { setPanel(null); setTarget(t); }} />}
       <div className="cms-toolbar" role="toolbar" aria-label="Editor">
         <div className="cms-seg">
           <button aria-pressed={editing} onClick={() => setMode("edit")}>Edit</button>
@@ -96,13 +108,16 @@ export default function Editor({ project, onChange, mode, setMode, slot }: Props
         <button onClick={undo} disabled={!store.canUndo} title="Undo (⌘Z)">↶</button>
         <button onClick={redo} disabled={!store.canRedo} title="Redo (⇧⌘Z)">↷</button>
         <button aria-pressed={panel === "page"} onClick={() => { setTarget(null); setPanel(panel === "page" ? null : "page"); }}>Page</button>
+        <button aria-pressed={panel === "new"} onClick={() => { setTarget(null); setPanel(panel === "new" ? null : "new"); }} title="Create a new project page">New…</button>
         {empty > 0 && <span className="cms-warn" title="Empty slots render nothing on the live site. Saving still works.">⚠ {empty} empty</span>}
         <span className={`cms-status cms-status--${save.kind === "error" || canSave === false ? "error" : dirty ? "dirty" : "ok"}`}>{status}</span>
         <button className="cms-primary" onClick={saveNow} disabled={!dirty || !canSave || save.kind === "saving"} title="Save (⌘S)">Save</button>
         <button onClick={close} title="Close editor">✕</button>
       </div>
 
-      {editing && target && <Picker key={JSON.stringify(target)} project={present} target={target} commit={commit} onClose={() => setTarget(null)} />}
+      {editing && slots && <EditableSite project={present} site={site} commitSite={commitSite} slots={slots} pick={(t) => { setPanel(null); setTarget(t); }} />}
+      {editing && target && <Picker key={JSON.stringify(target)} project={present} site={site} target={target} commit={commit} commitSite={commitSite} onClose={() => setTarget(null)} />}
+      {panel === "new" && <NewProject dirty={dirty} onClose={() => setPanel(null)} />}
       {panel === "page" && (
         <aside className="cms-panel" aria-label="Page settings">
           <header><h2>Page</h2><button onClick={() => setPanel(null)} aria-label="Close panel">✕</button></header>

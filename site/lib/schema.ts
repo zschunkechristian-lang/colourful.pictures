@@ -65,7 +65,7 @@ export const tileSchema = z.strictObject({
   title: z.array(z.string()).min(1),
   titleAlign: z.literal("start").optional(),
   span: spanSchema,
-  media: mediaSchema,
+  media: mediaSchema.nullable(), // null = empty tile (editor placeholder)
 });
 export const siteSchema = z.strictObject({
   projectGrid: z.array(z.strictObject({ window: z.number().int().optional(), tiles: z.array(tileSchema).min(1) })),
@@ -89,3 +89,6 @@ export const newId = () => crypto.randomUUID().replace(/-/g, "").slice(0, 8);
 
 /** Canonical on-disk form: stable key order from the schema, 2-space indent, trailing newline (clean git diffs). */
 export const serializeProject = (p: Project) => JSON.stringify(projectSchema.parse(p), null, 2) + "\n";
+
+/** Same canonical form for the shared site data (site.json). */
+export const serializeSite = (s: SiteData) => JSON.stringify(siteSchema.parse(s), null, 2) + "\n";
