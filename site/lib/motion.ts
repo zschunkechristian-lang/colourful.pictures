@@ -52,10 +52,31 @@ export function initMotion(root: HTMLElement): () => void {
   gsap.registerPlugin(ScrollTrigger, SplitText);
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   // ?nomotion renders the final layout (for screenshots and layout comparisons)
-  if (reduce || location.search.includes("nomotion")) return () => {};
+  const loadEls = root.querySelectorAll<HTMLElement>('[data-reveal="load"], [data-reveal="load-fade"]');
+  if (reduce || location.search.includes("nomotion")) {
+    loadEls.forEach((el) => (el.style.opacity = "1")); // the stylesheet hides them until motion takes over
+    return () => {};
+  }
 
   const splits: SplitText[] = [];
+  let alive = true;
+  // Header copy plays once on page load, not on scroll. After a page transition (see
+  // lib/page-transition.ts) it waits until the clip has landed.
+  const ready = Promise.all([document.fonts?.ready, (window as unknown as { __vtDone?: Promise<unknown> }).__vtDone]);
   const ctx = gsap.context(() => {
+    root.querySelectorAll<HTMLElement>('[data-reveal="load"]').forEach((el) => {
+      const split = new SplitText(el, { type: "words", wordsClass: "w" });
+      splits.push(split);
+      gsap.set(split.words, { opacity: 0, y: 20, filter: "blur(10px)" });
+      gsap.set(el, { opacity: 1 }); // visible now; the words are hidden individually
+      const tween = gsap.to(split.words, { opacity: 1, y: 0, filter: "blur(0px)", ease: "power2.out", duration: 0.9, stagger: Math.min(0.06, 1.2 / split.words.length), paused: true }); // the whole block lands within ~2s, however long it is
+      ready.then(() => { if (alive) tween.play(); });
+    });
+    root.querySelectorAll<HTMLElement>('[data-reveal="load-fade"]').forEach((el) => {
+      const tween = gsap.fromTo(el, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", paused: true });
+      ready.then(() => { if (alive) tween.delay(0.6).play(); });
+    });
+
     // Text: words rise + un-blur, scrubbed through the first half of the viewport.
     root.querySelectorAll<HTMLElement>('[data-reveal="text"]').forEach((el) => {
       const split = new SplitText(el, { type: "words", wordsClass: "w" });
@@ -92,6 +113,7 @@ export function initMotion(root: HTMLElement): () => void {
   ro.observe(root);
 
   return () => {
+    alive = false;
     ro.disconnect();
     window.removeEventListener("load", refresh);
     splits.forEach((s) => s.revert());

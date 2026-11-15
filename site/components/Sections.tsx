@@ -74,19 +74,19 @@ export function SectionView({ section, edit }: { section: Section; edit?: Sectio
   switch (section.type) {
     case "hero":
       return (
-        <section className="hero" data-reveal="fade">
+        <section className="hero">
           <div className="hero__media">
-            <MediaView media={section.media} />
+            <MediaView media={section.media} resume />
             {edit?.mediaSlot(section)}
           </div>
           <div className="hero__text">
             {T ? (
               <T as="h1" className="hero__title" value={section.title} format="rich" multiline placeholder="Title" onChange={(v) => set({ title: v }, "title")} />
             ) : (
-              <h1 className="hero__title" data-reveal="text">{inline(section.title)}</h1>
+              <h1 className="hero__title" data-reveal="load">{inline(section.title)}</h1>
             )}
             <div>
-              <div className="hero__intro" data-reveal="text">
+              <div className="hero__intro" data-reveal={edit ? undefined : "load"}>
                 {section.intro.map((p, i) =>
                   T ? (
                     <T
@@ -101,7 +101,7 @@ export function SectionView({ section, edit }: { section: Section; edit?: Sectio
               {T ? (
                 <T as="div" className="hero__credit" value={section.credit} format="rich" placeholder="Credit line" onChange={(v) => set({ credit: v }, "credit")} />
               ) : (
-                <div className="hero__credit">{inline(section.credit)}</div>
+                <div className="hero__credit" data-reveal="load-fade">{inline(section.credit)}</div>
               )}
             </div>
           </div>

@@ -13,7 +13,7 @@ export const Head = ({ data }: { data: { project: Project } }) => (
     {/* apply a saved theme before first paint (no flash); the toggle that sets it is in Shell.tsx */}
     <script
       dangerouslySetInnerHTML={{
-        __html: `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`,
+        __html: `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}document.documentElement.classList.add("js")`,
       }}
     />
     <link rel="icon" href="/assets/favicon_Hbj8jU66HfCXfbngKsu24.ico" />

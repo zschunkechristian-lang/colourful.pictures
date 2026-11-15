@@ -18,8 +18,8 @@
   --cg-font-h1: clamp(1.8rem, calc(0.47rem + 2.659vw), 4.73rem);
   --cg-font-h3: clamp(1.4rem, calc(0.366rem + 2.068vw), 3.67rem);
   --cg-font-h5: clamp(1.2rem, calc(0.314rem + 1.773vw), 3.15rem);
-  --cg-font-small: clamp(0.9rem, calc(0.28rem + 0.775vw), 1.52rem);
-  --cg-font-tiny: clamp(0.53rem, calc(-0.065rem + 0.744vw), 1.13rem);
+  --cg-font-small: clamp(1.05rem, calc(0.62rem + 0.5vw), 1.52rem); /* body copy: floor raised from 0.9rem; meets the old curve again near 2560px */
+  --cg-font-tiny: clamp(11px, calc(-0.065rem + 0.744vw), 1.13rem); /* small print: never below 11px */
 
   --gap: 16px; /* grid gutter between media cells */
   /* Height of one gallery section (image rows, feature clip, tiles and the carousel
@@ -29,6 +29,11 @@
      to their content. */
   --row-h: calc(clamp(50lvh, calc(50lvh + 50lvh * ((100vw - 1280px) / 160px)), 100lvh) - 40px);
   --gutter: 20px; /* page gutter */
+  /* Master film: as tall as a screen minus the gutters (100vh - 40px), but never larger than
+     1920x1080 (it then stays centred), and never wider than the page minus 120px. The credits
+     below it use the same width. */
+  --film-h: min(calc(100dvh - 40px), 1080px);
+  --film-w: min(calc(var(--film-h) * 16 / 9), calc(100lvw - 120px));
 
 
   scrollbar-width: none;
@@ -220,6 +225,17 @@ button {
   letter-spacing: 0.1rem;
   text-wrap: balance;
 }
+/* Header copy plays once on load (lib/motion.ts) instead of on scroll. The "js" class is set in
+   <head>, so there is no flash of visible text first; the 4s animation is a failsafe in case
+   the script never runs. */
+.js [data-reveal="load"],
+.js [data-reveal="load-fade"] {
+  opacity: 0;
+  animation: reveal-failsafe 0s 4s forwards;
+}
+@keyframes reveal-failsafe {
+  to { opacity: 1; }
+}
 .hero__title b {
   font-weight: 500;
 }
@@ -240,21 +256,30 @@ button {
   margin-bottom: 0;
 }
 .hero__credit {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+  display: block; /* (was a flex column, which put the bold part on a line of its own) */
+  white-space: nowrap; /* never two lines: lib/fit.ts shrinks the type to fit the column instead */
+  overflow: hidden;
   font-family: "PP Neue Montreal", sans-serif;
   font-size: var(--cg-font-tiny);
   font-weight: 200;
   letter-spacing: 2px;
-  text-align: center;
+  text-align: start;
 }
 .hero__credit b {
   font-weight: 700;
 }
+/* set by lib/fit.ts when the line still doesn't fit at the smallest allowed size: the text may
+   wrap to a second line, but the bold role never does */
+.hero__credit[data-wrap] {
+  white-space: normal;
+}
+.hero__credit[data-wrap] b {
+  white-space: nowrap;
+}
 .hero__credit::before,
 .hero__credit::after {
   content: "";
+  display: block;
   width: 100%;
   height: 1px;
   background: var(--fg);
@@ -273,14 +298,17 @@ button {
   width: 100%;
   margin-top: 5lvh;
   margin-bottom: 2lvh;
-  height: calc(clamp(66dvh, calc(66dvh + 34dvh * clamp(0, calc((100vw - 1280px) / 1280px), 1)), 100dvh) - 40px);
 }
 .film__inner {
   position: relative;
   margin: 0 auto;
-  height: 100%;
+  width: var(--film-w);
   aspect-ratio: 16 / 9;
-  max-width: calc(100lvw - 120px);
+}
+.film__inner > .player {
+  position: absolute;
+  inset: 0;
+  height: auto;
 }
 
 .player {
@@ -365,12 +393,15 @@ button {
   margin-bottom: 10lvh;
 }
 .credits {
-  display: grid;
+  /* one row across the full width of the film; if it ever runs out of room, whole entries
+     move to a second row, but an entry itself never breaks */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px var(--gutter);
   margin: 0;
-  grid-template-columns: repeat(10, 1fr);
-  column-gap: var(--gap);
   width: 100%;
-  max-width: calc((clamp(66dvh, calc(66dvh + 34dvh * clamp(0, calc((100vw - 1280px) / 1280px), 1)), 100dvh) - 40px) * 16 / 9);
+  max-width: var(--film-w);
   color: var(--fg);
   font-family: "Work Sans", sans-serif;
   font-size: var(--cg-font-tiny);
@@ -379,7 +410,7 @@ button {
 .credit {
   display: flex;
   column-gap: var(--gutter);
-  grid-column: span var(--credit-span, 1);
+  white-space: nowrap;
 }
 .credit dt,
 .credit dd {
@@ -396,6 +427,21 @@ button {
 }
 .credit--end {
   justify-content: end;
+}
+/* set by lib/fit.ts when the row still doesn't fit at the smallest allowed size: the names may
+   wrap onto a second line inside their entry, the role labels never do */
+.credits[data-wrap] {
+  flex-wrap: nowrap;
+}
+.credits[data-wrap] .credit {
+  min-width: 0;
+}
+.credits[data-wrap] .credit dt {
+  flex: none;
+}
+.credits[data-wrap] .credit dd {
+  min-width: 0;
+  white-space: normal;
 }
 
 /* ── Statement (text between media) ───────────────────────────────────── */
@@ -857,10 +903,13 @@ body.has-fine-pointer [role="button"] {
     margin-top: 2lvh;
   }
   .credits {
+    display: grid;
     grid-template-columns: 1fr;
     row-gap: 2px;
+    max-width: none;
   }
   .credit {
+    white-space: normal;
     grid-column: span 1;
     row-gap: 5px;
     column-gap: 5px;

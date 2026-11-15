@@ -10,6 +10,7 @@ import {
   /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
   // @ts-ignore
 } from "../app/__generated__/_index";
+import { pageTransitionCss, pageTransitionScript } from "../site/lib/page-transition";
 
 export const onRenderHtml: OnRenderHtmlAsync = async (pageContext) => {
   const lang = pageContext.data?.pageMeta?.language || "en";
@@ -27,6 +28,8 @@ export const onRenderHtml: OnRenderHtmlAsync = async (pageContext) => {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Head data={pageContext.data} />
         <CustomCode />
+        <style dangerouslySetInnerHTML={{ __html: pageTransitionCss }} />
+        <script dangerouslySetInnerHTML={{ __html: pageTransitionScript }} />
       </head>
       <Page data={pageContext.data} />
     </html>
