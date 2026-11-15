@@ -8,6 +8,7 @@ import { EditableSite } from "./EditableSite";
 import { NewProject } from "./NewProject";
 import { countEmpty, countEmptyTiles, type PickTarget } from "./model";
 import { Picker } from "./Picker";
+import { projectImage } from "../components/Seo";
 import "./editor.css";
 
 export type Mode = "off" | "edit" | "preview";
@@ -133,6 +134,14 @@ export default function Editor({ project, site: initialSite, onChange, onSiteCha
             Description
             <textarea rows={5} value={present.description ?? ""} onChange={(e) => commit({ ...present, description: e.target.value }, "description")} />
           </label>
+          <div className="cms-share">
+            <span>Share image <small>(link previews: WhatsApp, LinkedIn, …)</small></span>
+            {projectImage(present) ? <img src={projectImage(present)!.url} alt="" /> : <em>None: add hero media or choose one.</em>}
+            <div>
+              <button onClick={() => { setPanel(null); setTarget({ sectionId: "page", kind: "share" }); }}>Choose…</button>
+              {present.image && <button onClick={() => { const { image, ...rest } = present; void image; commit(rest); }}>Use hero instead</button>}
+            </div>
+          </div>
         </aside>
       )}
     </div>

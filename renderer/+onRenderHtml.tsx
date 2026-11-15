@@ -12,7 +12,7 @@ import {
 } from "../app/__generated__/_index";
 
 export const onRenderHtml: OnRenderHtmlAsync = async (pageContext) => {
-  const lang = pageContext.data.pageMeta?.language || "en";
+  const lang = pageContext.data?.pageMeta?.language || "en";
   const Head = pageContext.config.Head ?? (() => <></>);
   const Page = pageContext.Page ?? (() => <></>);
   const stream = await renderToReadableStream(

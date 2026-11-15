@@ -1,11 +1,15 @@
 import type { Project } from "../../../site/lib/types";
+import { Seo, projectImage, projectJsonLd } from "../../../site/components/Seo";
 
 export const Head = ({ data }: { data: { project: Project } }) => (
   <>
-    <meta charSet="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{data.project.title}</title>
-    {data.project.description && <meta name="description" content={data.project.description} />}
+    <Seo
+      title={data.project.title ?? data.project.slug}
+      description={data.project.description}
+      path={`/projects/${data.project.slug}`}
+      image={projectImage(data.project)}
+      jsonLd={projectJsonLd(data.project, projectImage(data.project))}
+    />
     {/* apply a saved theme before first paint (no flash); the toggle that sets it is in Shell.tsx */}
     <script
       dangerouslySetInnerHTML={{

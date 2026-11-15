@@ -34,7 +34,7 @@ export function AutoVideo({ media, className }: { media: Video; className?: stri
   useLazyVideo(ref, urls, { autoplay: true });
   return (
     <div className={`media ${className ?? ""}`}>
-      <video key={urls.mp4} ref={ref} muted loop playsInline autoPlay />
+      <video key={urls.mp4} ref={ref} muted loop playsInline autoPlay aria-label={media.alt || undefined} />
     </div>
   );
 }
@@ -52,13 +52,13 @@ export function HoverVideo({ media }: { media: Video }) {
       onMouseLeave={() => !small && ref.current?.pause()}
       onTouchStart={() => { const v = ref.current; if (v && !small) (v.paused ? v.play().catch(() => {}) : v.pause()); }}
     >
-      <video key={urls.mp4} ref={ref} muted loop playsInline />
+      <video key={urls.mp4} ref={ref} muted loop playsInline aria-label={media.alt || undefined} />
     </div>
   );
 }
 
 export function Still({ media, alt = "" }: { media: Extract<MediaT, { kind: "still" }>; alt?: string }) {
-  return <img src={stillUrl(media)} alt={alt} loading="lazy" decoding="async" />;
+  return <img src={stillUrl(media)} alt={media.alt ?? alt} loading="lazy" decoding="async" />;
 }
 
 /** `media: null` is an empty slot: it renders nothing in the site, the editor draws a placeholder over it. */

@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import manifest from "../content/media-manifest.json";
 import { masterUrls, stillUrl, videoUrls } from "../lib/assets";
-import type { Project, Section, SiteData } from "../lib/schema";
+import { frameAlt, frameN, withFrameAlt, type Project, type Section, type SiteData } from "../lib/schema";
 import { itemKey, itemToMedia, mediaToItem, patchTileRow, replaceSection, usedKeys, type Item, type PickTarget } from "./model";
 
 type M = { base: string; projects: Record<string, { stills: string[]; videos: ({ type: "header" } | { type: "master"; file: string } | { type: "clip"; n: string })[] }> };
@@ -58,10 +58,11 @@ function FocusPicker({ item, value, onChange }: { item: Item; value: string; onC
 
 export function Picker({ project, site, target, commit, commitSite, onClose }: { project: Project; site: SiteData; target: PickTarget; commit: (p: Project, key?: string) => void; commitSite: (s: SiteData, key?: string) => void; onClose: () => void }) {
   const tileT = target.kind === "tile";
-  const section = tileT ? undefined : sectionOf(project, target);
+  const shareT = target.kind === "share";
+  const section = tileT || shareT ? undefined : sectionOf(project, target);
   const tile = target.kind === "tile" ? site.projectGrid[target.row]?.tiles[target.index] : undefined;
   const isFrames = target.kind === "frames";
-  const cur = tileT ? mediaToItem(tile?.media ?? null) : section ? currentItem(section, target) : null;
+  const cur = tileT ? mediaToItem(tile?.media ?? null) : shareT ? mediaToItem(project.image ?? null) : section ? currentItem(section, target) : null;
   const carouselProject = section?.type === "carousel" && section.frames.length ? section.project ?? project.slug : null;
 
   const names = Object.keys(MANIFEST.projects);
@@ -70,7 +71,7 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
   const [tab, setTab] = useState<Tab>(cur && cur.kind !== "still" ? "videos" : allowed[0]);
   const [only, setOnly] = useState<"all" | "unused">("all");
   const used = useMemo(() => usedKeys(project), [project]);
-  if (!section && !tile) return null;
+  if (!section && !tile && !shareT) return null;
 
   const entry = MANIFEST.projects[proj];
   let items: Item[] = [];
@@ -88,22 +89,37 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
 
   const assign = (i: Item) => {
     lastProject = i.project;
-    if (tileT) setTileMedia(itemToMedia(i));
+    if (shareT) commit({ ...project, image: itemToMedia(i) ?? undefined });
+    else if (tileT) setTileMedia(itemToMedia(i));
     else if (target.kind === "cell" && section?.type === "row")
       set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return { ...rest, media: itemToMedia(i) }; }) });
     else if (target.kind === "media" && (section?.type === "hero" || section?.type === "feature")) set({ ...section, media: itemToMedia(i) });
     else if (target.kind === "film" && section?.type === "film" && i.kind === "master") set({ ...section, project: i.project, file: i.file });
     else if (isFrames && section?.type === "carousel" && i.kind === "still") {
-      const has = section.frames.includes(i.n);
-      set({ ...section, project: i.project, frames: has ? section.frames.filter((n) => n !== i.n) : [...section.frames, i.n] });
+      const has = section.frames.some((f) => frameN(f) === i.n);
+      set({ ...section, project: i.project, frames: has ? section.frames.filter((f) => frameN(f) !== i.n) : [...section.frames, i.n] });
     }
   };
   const clear = () => {
-    if (tileT) setTileMedia(null);
+    if (shareT) { const { image, ...rest } = project; void image; commit(rest); }
+    else if (tileT) setTileMedia(null);
     else if (target.kind === "cell" && section?.type === "row") set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return { ...rest, media: null }; }) });
     else if (target.kind === "media" && (section?.type === "hero" || section?.type === "feature")) set({ ...section, media: null });
     else if (target.kind === "film" && section?.type === "film") set({ ...section, project: "", file: undefined });
     else if (isFrames && section?.type === "carousel") set({ ...section, frames: [] });
+  };
+  /** Media object of the slot being edited (for its alt text). */
+  const curMedia = tileT ? tile?.media ?? null : shareT ? project.image ?? null
+    : section?.type === "row" && target.kind === "cell" ? section.cells[target.index]?.media ?? null
+    : section?.type === "hero" || section?.type === "feature" ? section.media : null;
+  const setAlt = (alt: string) => {
+    if (!curMedia) return;
+    const next = (({ alt: _a, ...rest }) => (alt ? { ...rest, alt } : rest))(curMedia) as NonNullable<typeof curMedia>;
+    const key = `alt:${JSON.stringify(target)}`;
+    if (shareT) commit({ ...project, image: next }, key);
+    else if (tileT && target.kind === "tile") commitSite(patchTileRow(site, target.row, (ts) => ts.map((t, j) => (j === target.index ? { ...t, media: next } : t))), key);
+    else if (section?.type === "row" && target.kind === "cell") set({ ...section, cells: section.cells.map((c, j) => (j === target.index ? { ...c, media: next } : c)) }, key);
+    else if (section?.type === "hero" || section?.type === "feature") set({ ...section, media: next }, key);
   };
   const moveFrame = (i: number, d: -1 | 1) => {
     if (section?.type !== "carousel") return;
@@ -113,13 +129,13 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
     set({ ...section, frames: f });
   };
 
-  const isOn = (i: Item) => (isFrames ? i.kind === "still" && frames.includes(i.n) && frameProject === i.project : cur && itemKey(cur) === itemKey(i));
+  const isOn = (i: Item) => (isFrames ? i.kind === "still" && frames.some((f) => frameN(f) === i.n) && frameProject === i.project : cur && itemKey(cur) === itemKey(i));
   const cell = target.kind === "cell" && section?.type === "row" ? section.cells[target.index] : null;
 
   return (
     <aside className="cms-panel cms-picker" aria-label="Media picker">
       <header>
-        <h2>{isFrames ? "Carousel frames" : target.kind === "film" ? "Choose film" : "Choose media"}</h2>
+        <h2>{isFrames ? "Carousel frames" : target.kind === "film" ? "Choose film" : shareT ? "Share image" : "Choose media"}</h2>
         <button onClick={onClose} aria-label="Close picker">✕</button>
       </header>
 
@@ -136,13 +152,17 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
       {isFrames && (
         <div className="cms-frames">
           <div className="cms-frames__head"><span>{frames.length} frame{frames.length === 1 ? "" : "s"} in order</span><button onClick={clear} disabled={!frames.length}>Clear all</button></div>
-          {frames.map((n, i) => (
-            <div key={n} className="cms-frames__item">
-              <img src={thumb({ kind: "still", project: frameProject, n })} alt="" loading="lazy" />
-              <span>{n}</span>
+          {frames.map((f, i) => (
+            <div key={frameN(f)} className="cms-frames__item">
+              <img src={thumb({ kind: "still", project: frameProject, n: frameN(f) })} alt="" loading="lazy" />
+              <span>{frameN(f)}</span>
               <button onClick={() => moveFrame(i, -1)} disabled={i === 0} title="Earlier">↑</button>
               <button onClick={() => moveFrame(i, 1)} disabled={i === frames.length - 1} title="Later">↓</button>
               <button onClick={() => set({ ...section, frames: frames.filter((_, j) => j !== i) } as Section)} title="Remove">×</button>
+              <input
+                className="cms-frames__alt" value={frameAlt(f) ?? ""} placeholder="Alt text for this frame" aria-label={`Alt text for frame ${frameN(f)}`}
+                onChange={(e) => set({ ...section, frames: frames.map((x, j) => (j === i ? withFrameAlt(x, e.target.value) : x)) } as Section, `${section!.id}:falt${i}`)}
+              />
             </div>
           ))}
         </div>
@@ -153,6 +173,12 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
           <span>Now: {cur.project} · {label(cur)}</span>
           <button onClick={clear}>Clear slot</button>
         </div>
+      )}
+      {curMedia && !isFrames && (
+        <label className="cms-alt">
+          Alt text <small>(what the image shows, for screen readers and search)</small>
+          <input value={curMedia.alt ?? ""} placeholder="e.g. Heat pump node on a rooftop at dusk" onChange={(e) => setAlt(e.target.value)} />
+        </label>
       )}
       {cell && cur && (cur.kind === "still" || cur.kind === "clip" || cur.kind === "header") && target.kind === "cell" && section?.type === "row" && (
         <FocusPicker

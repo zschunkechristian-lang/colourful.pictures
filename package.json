@@ -3,7 +3,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "vike build && vike prerender",
+    "build": "vike build && vike prerender && node scripts/build-seo.mjs",
     "dev": "vite dev",
     "start": "vite preview",
     "typecheck": "tsc --noEmit",

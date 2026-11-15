@@ -1,6 +1,6 @@
 // Pure content operations for the editor: section catalog, row presets, insert/move/duplicate/
 // delete, empty-slot counting. No React here, so everything is easy to reason about.
-import { newId, type Cell, type Project, type Section, type SiteData, type Tile } from "../lib/schema";
+import { frameN, newId, type Cell, type Project, type Section, type SiteData, type Tile } from "../lib/schema";
 
 export type RowPreset = { label: string; spans: number[] };
 
@@ -85,7 +85,8 @@ export type PickTarget =
   | { sectionId: string; kind: "media" } // hero, feature
   | { sectionId: string; kind: "film" }
   | { sectionId: string; kind: "frames" } // carousel
-  | { sectionId: string; kind: "tile"; row: number; index: number }; // project-grid tile (sectionId unused)
+  | { sectionId: string; kind: "tile"; row: number; index: number } // project-grid tile (sectionId unused)
+  | { sectionId: string; kind: "share" }; // the project's link-preview image (sectionId unused)
 
 import type { Media } from "../lib/schema";
 
@@ -122,7 +123,7 @@ export function usedKeys(p: Project): Set<string> {
     if (s.type === "row") s.cells.forEach((c) => add(c.media));
     else if (s.type === "hero" || s.type === "feature") add(s.media);
     else if (s.type === "film" && s.project) used.add(itemKey({ kind: "master", project: s.project, file: s.file ?? "master_01" }));
-    else if (s.type === "carousel") s.frames.forEach((n) => used.add(itemKey({ kind: "still", project: s.project ?? p.slug, n })));
+    else if (s.type === "carousel") s.frames.forEach((f) => used.add(itemKey({ kind: "still", project: s.project ?? p.slug, n: frameN(f) })));
   }
   return used;
 }

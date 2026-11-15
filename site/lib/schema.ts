@@ -10,12 +10,14 @@ const still = z.strictObject({
   project: z.string().min(1),
   n: z.string().min(1),
   optimize: z.literal(false).optional(),
+  alt: z.string().optional(), // describes the image for screen readers and search
 });
 const video = z.strictObject({
   kind: z.literal("video"),
   project: z.string().min(1),
   type: z.enum(["header", "master", "clip"]),
   n: z.string().min(1).optional(),
+  alt: z.string().optional(),
 });
 export const mediaSchema = z.discriminatedUnion("kind", [still, video]);
 
@@ -25,6 +27,9 @@ export const cellSchema = z.strictObject({
   media: mediaSchema.nullable(),
   position: z.string().optional(), // CSS object-position, e.g. "50% 20%"
 });
+
+/** A carousel frame: just its still number, or `{ n, alt }` once it has a description. */
+export const frameSchema = z.union([z.string().min(1), z.strictObject({ n: z.string().min(1), alt: z.string().optional() })]);
 
 const id = z.string().regex(/^[a-z0-9]{6,12}$/);
 
@@ -41,7 +46,7 @@ export const sectionSchema = z.discriminatedUnion("type", [
     align: z.enum(["start", "center", "end"]),
     text: z.string(),
   }).refine((s) => s.to >= s.from, "to must not be before from"),
-  z.strictObject({ id, type: z.literal("carousel"), frames: z.array(z.string().min(1)), project: z.string().optional() }),
+  z.strictObject({ id, type: z.literal("carousel"), frames: z.array(frameSchema), project: z.string().optional() }),
   z.strictObject({ id, type: z.literal("row"), window: z.number().int().optional(), cells: z.array(cellSchema).min(1) }),
   z.strictObject({ id, type: z.literal("feature"), title: z.string(), media: mediaSchema.nullable() }),
   z.strictObject({
@@ -57,6 +62,8 @@ export const projectSchema = z.strictObject({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   title: z.string().optional(),
   description: z.string().optional(),
+  /** Image for link previews (Open Graph). Falls back to the hero media's poster. */
+  image: mediaSchema.optional(),
   sections: z.array(sectionSchema),
 });
 
@@ -74,6 +81,12 @@ export const siteSchema = z.strictObject({
     philosophy: z.strictObject({ heading: z.string(), paragraphs: z.array(z.string()) }),
   }),
 });
+
+export type Frame = z.infer<typeof frameSchema>;
+export const frameN = (f: Frame) => (typeof f === "string" ? f : f.n);
+export const frameAlt = (f: Frame) => (typeof f === "string" ? undefined : f.alt);
+/** Set (or clear) a frame's alt text; a frame without alt stays a plain string in the file. */
+export const withFrameAlt = (f: Frame, alt: string): Frame => (alt ? { n: frameN(f), alt } : frameN(f));
 
 export type Media = z.infer<typeof mediaSchema>;
 export type Still = Extract<Media, { kind: "still" }>;
