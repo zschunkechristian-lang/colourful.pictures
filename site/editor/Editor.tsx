@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import type { Project } from "../lib/schema";
 import { useProjectStore } from "./store";
+import { EditableSections } from "./EditableSections";
+import { countEmpty, type PickTarget } from "./model";
+import { Picker } from "./Picker";
 import "./editor.css";
 
 export type Mode = "off" | "edit" | "preview";
@@ -12,17 +15,23 @@ type Props = {
   onChange: (p: Project) => void;
   mode: Mode;
   setMode: (m: Mode) => void;
+  /** where the editable sections are drawn (exists in edit mode only) */
+  slot: HTMLElement | null;
 };
 
 const isTyping = (t: EventTarget | null) => {
   const el = t as HTMLElement | null;
-  return !!el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable);
+  // our own inline text fields use the editor history (coalesced typing), so undo is not left to the browser there
+  return !!el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || (el.isContentEditable && !el.hasAttribute("data-cms-text")));
 };
 
-export default function Editor({ project, onChange, mode, setMode }: Props) {
+export default function Editor({ project, onChange, mode, setMode, slot }: Props) {
   const store = useProjectStore(project, onChange);
   const { present, commit, undo, redo, dirty, save, saveNow, canSave } = store;
   const [panel, setPanel] = useState<"page" | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [target, setTarget] = useState<PickTarget | null>(null);
+  const empty = countEmpty(present);
   const editing = mode === "edit";
 
   // body class lets editor.css switch off link navigation etc.
@@ -68,7 +77,7 @@ export default function Editor({ project, onChange, mode, setMode }: Props) {
     : save.kind === "saving" ? "Saving…"
     : save.kind === "error" ? `Save failed: ${save.message}`
     : dirty ? "Unsaved changes"
-    : save.kind === "saved" ? "Saved"
+    : save.kind === "saved" ? (empty ? `Saved with ${empty} empty slot${empty > 1 ? "s" : ""}` : "Saved")
     : "No changes";
 
   const close = () => {
@@ -78,6 +87,7 @@ export default function Editor({ project, onChange, mode, setMode }: Props) {
 
   return (
     <div className="cms">
+      {editing && slot && <EditableSections project={present} commit={commit} slot={slot} selected={selected} select={setSelected} pick={(t) => { setPanel(null); setTarget(t); }} />}
       <div className="cms-toolbar" role="toolbar" aria-label="Editor">
         <div className="cms-seg">
           <button aria-pressed={editing} onClick={() => setMode("edit")}>Edit</button>
@@ -85,12 +95,14 @@ export default function Editor({ project, onChange, mode, setMode }: Props) {
         </div>
         <button onClick={undo} disabled={!store.canUndo} title="Undo (⌘Z)">↶</button>
         <button onClick={redo} disabled={!store.canRedo} title="Redo (⇧⌘Z)">↷</button>
-        <button aria-pressed={panel === "page"} onClick={() => setPanel(panel === "page" ? null : "page")}>Page</button>
+        <button aria-pressed={panel === "page"} onClick={() => { setTarget(null); setPanel(panel === "page" ? null : "page"); }}>Page</button>
+        {empty > 0 && <span className="cms-warn" title="Empty slots render nothing on the live site. Saving still works.">⚠ {empty} empty</span>}
         <span className={`cms-status cms-status--${save.kind === "error" || canSave === false ? "error" : dirty ? "dirty" : "ok"}`}>{status}</span>
         <button className="cms-primary" onClick={saveNow} disabled={!dirty || !canSave || save.kind === "saving"} title="Save (⌘S)">Save</button>
         <button onClick={close} title="Close editor">✕</button>
       </div>
 
+      {editing && target && <Picker key={JSON.stringify(target)} project={present} target={target} commit={commit} onClose={() => setTarget(null)} />}
       {panel === "page" && (
         <aside className="cms-panel" aria-label="Page settings">
           <header><h2>Page</h2><button onClick={() => setPanel(null)} aria-label="Close panel">✕</button></header>

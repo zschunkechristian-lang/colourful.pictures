@@ -30,7 +30,8 @@ const id = z.string().regex(/^[a-z0-9]{6,12}$/);
 
 export const sectionSchema = z.discriminatedUnion("type", [
   z.strictObject({ id, type: z.literal("hero"), media: mediaSchema.nullable(), title: z.string(), intro: z.array(z.string()), credit: z.string() }),
-  z.strictObject({ id, type: z.literal("film"), project: z.string().min(1), file: z.string().optional() }),
+  // empty `project` = film slot not filled yet (editor placeholder; renders nothing in the site)
+  z.strictObject({ id, type: z.literal("film"), project: z.string(), file: z.string().optional() }),
   z.strictObject({ id, type: z.literal("credits"), items: z.array(z.strictObject({ label: z.string(), value: z.array(z.string()) })) }),
   z.strictObject({
     id,

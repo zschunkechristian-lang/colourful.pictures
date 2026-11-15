@@ -15,6 +15,7 @@ export function ProjectPage({ project: loaded, site }: { project: Project; site:
   const root = useRef<HTMLDivElement>(null);
   const [project, setProject] = useState(loaded);
   const [mode, setMode] = useState<Mode>("off");
+  const [slot, setSlot] = useState<HTMLElement | null>(null);
   const editing = mode === "edit";
 
   // `?edit` in the URL opens the editor straight away (client-side only, so SSR stays plain)
@@ -35,7 +36,8 @@ export function ProjectPage({ project: loaded, site }: { project: Project; site:
       <div className="frame">
         <Nav />
         <main className="content">
-          {project.sections.map((s) => <SectionView key={s.id} section={s} />)}
+          {/* edit mode: the editor draws the sections itself (same SectionView, plus controls) into this slot */}
+          {editing ? <div ref={setSlot} style={{ display: "contents" }} /> : project.sections.map((s) => <SectionView key={s.id} section={s} />)}
           {site.projectGrid.map((row, i) => <TileRow key={i} row={row} />)}
         </main>
       </div>
@@ -65,7 +67,7 @@ export function ProjectPage({ project: loaded, site }: { project: Project; site:
       )}
       {Editor && mode !== "off" && (
         <Suspense fallback={null}>
-          <Editor project={project} onChange={setProject} mode={mode} setMode={setMode} />
+          <Editor project={project} onChange={setProject} mode={mode} setMode={setMode} slot={editing ? slot : null} />
         </Suspense>
       )}
       </div>

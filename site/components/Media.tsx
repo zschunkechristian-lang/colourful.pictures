@@ -30,10 +30,11 @@ export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls
 /** Muted looping clip that plays on its own. */
 export function AutoVideo({ media, className }: { media: Video; className?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
-  useLazyVideo(ref, videoUrls(media), { autoplay: true });
+  const urls = videoUrls(media);
+  useLazyVideo(ref, urls, { autoplay: true });
   return (
     <div className={`media ${className ?? ""}`}>
-      <video ref={ref} muted loop playsInline autoPlay />
+      <video key={urls.mp4} ref={ref} muted loop playsInline autoPlay />
     </div>
   );
 }
@@ -42,7 +43,8 @@ export function AutoVideo({ media, className }: { media: Video; className?: stri
 export function HoverVideo({ media }: { media: Video }) {
   const ref = useRef<HTMLVideoElement>(null);
   const small = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
-  useLazyVideo(ref, videoUrls(media), { autoplay: small });
+  const urls = videoUrls(media);
+  useLazyVideo(ref, urls, { autoplay: small });
   return (
     <div
       className="media"
@@ -50,7 +52,7 @@ export function HoverVideo({ media }: { media: Video }) {
       onMouseLeave={() => !small && ref.current?.pause()}
       onTouchStart={() => { const v = ref.current; if (v && !small) (v.paused ? v.play().catch(() => {}) : v.pause()); }}
     >
-      <video ref={ref} muted loop playsInline />
+      <video key={urls.mp4} ref={ref} muted loop playsInline />
     </div>
   );
 }

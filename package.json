@@ -6,7 +6,8 @@
     "build": "vike build && vike prerender",
     "dev": "vite dev",
     "start": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "manifest": "node scripts/build-media-manifest.mjs"
   },
   "dependencies": {
     "@shikijs/langs": "4.4.1",
