@@ -1,0 +1,461 @@
+{
+  "slug": "galvany",
+  "title": "GALVANY – Brand",
+  "description": "GALVANY came for a hero video and stayed to reshape how they talk about their business: a brand as effortless as their subscription-based heat pump technology.",
+  "sections": [
+    {
+      "id": "c92b7a3c",
+      "type": "hero",
+      "media": {
+        "kind": "video",
+        "project": "galvany",
+        "type": "header"
+      },
+      "title": "Galvany asked what it would take to make their brand feel as** effortless** as their tech.",
+      "intro": [
+        "GALVANY came to me for a hero video but stayed to reshape how they talk about their business.",
+        "They're reinventing heatpump access - think monthly subscription instead of massive upfront costs. Distributed nodes across neighborhoods that optimize each other's efficiency. Good concept, great cause, but hard to visualize.",
+        "I took the challenge and the more focused my visual approach became, the more they liked it."
+      ],
+      "credit": "Comissioned Work | Galvany | 2025/26 | **Creative Direction & Artist  **"
+    },
+    {
+      "id": "cf9e68af",
+      "type": "film",
+      "project": "galvany",
+      "file": "master_01"
+    },
+    {
+      "id": "e5bce3ab",
+      "type": "credits",
+      "items": [
+        {
+          "label": "Client",
+          "value": [
+            "GALVANY"
+          ]
+        },
+        {
+          "label": "Year",
+          "value": [
+            "2025/26"
+          ]
+        },
+        {
+          "label": "Creative Direction",
+          "value": [
+            "Christian Zschunke"
+          ]
+        },
+        {
+          "label": "Producer",
+          "value": [
+            "Stephanie Baumgarte",
+            "Markus Trautmann"
+          ]
+        },
+        {
+          "label": "Artists",
+          "value": [
+            "Philipp Brates",
+            "Remo Gambacciani",
+            "Christian Zschunke"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5e6ebc17",
+      "type": "statement",
+      "from": 3,
+      "to": 10,
+      "align": "center",
+      "text": "Together we developed a sophisticated visual language for the brand that hinged on bold contrast and a subtle blend of physical materials."
+    },
+    {
+      "id": "8293cce4",
+      "type": "carousel",
+      "frames": [
+        "74",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73"
+      ]
+    },
+    {
+      "id": "ecba4f5b",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "08"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "26"
+          }
+        }
+      ]
+    },
+    {
+      "id": "40e0f1d9",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "40"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "48"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "43"
+          }
+        }
+      ]
+    },
+    {
+      "id": "8fe3f9ab",
+      "type": "statement",
+      "from": 1,
+      "to": 8,
+      "align": "start",
+      "text": "I leaned heavily into the visual language  of architechtural illustrations and combined it with a sense of modern technology."
+    },
+    {
+      "id": "24f2124f",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "galvany",
+            "type": "clip",
+            "n": "09"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "galvany",
+            "type": "clip",
+            "n": "04"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fd9690d1",
+      "type": "statement",
+      "from": 4,
+      "to": 12,
+      "align": "end",
+      "text": "Afterwards I applied these visual principles to Galvanys software eco-system, achieving a consistant brand impression for their clients."
+    },
+    {
+      "id": "bd7f63d6",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 3,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "75"
+          }
+        },
+        {
+          "span": 3,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "76"
+          }
+        },
+        {
+          "span": 3,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "77"
+          }
+        },
+        {
+          "span": 3,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "79"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4ea3bc07",
+      "type": "statement",
+      "from": 3,
+      "to": 10,
+      "align": "center",
+      "text": "The result was a new found sense of identity for the whole company that allowed Galvany to settle a premium niche in their market segment."
+    },
+    {
+      "id": "bcd6d3b2",
+      "type": "feature",
+      "title": "PROCESS",
+      "media": {
+        "kind": "video",
+        "project": "galvany",
+        "type": "clip",
+        "n": "05"
+      }
+    },
+    {
+      "id": "10601c22",
+      "type": "statement",
+      "from": 3,
+      "to": 10,
+      "align": "center",
+      "text": "I based our explorative process on my initial vision for the brand."
+    },
+    {
+      "id": "ff46ade4",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "17"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "video",
+            "project": "galvany",
+            "type": "clip",
+            "n": "08"
+          }
+        }
+      ]
+    },
+    {
+      "id": "a08c3bac",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "65"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "galvany",
+            "type": "clip",
+            "n": "07"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cb762d05",
+      "type": "statement",
+      "from": 4,
+      "to": 12,
+      "align": "end",
+      "text": "Their enthusiasm for creative freedom led to many  visual discoveries along the project."
+    },
+    {
+      "id": "fb6dea57",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "64",
+            "optimize": false
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "30"
+          }
+        }
+      ]
+    },
+    {
+      "id": "0f81ca8b",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "55"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "59"
+          }
+        }
+      ]
+    },
+    {
+      "id": "8da88bfd",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "21"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "34"
+          }
+        }
+      ]
+    },
+    {
+      "id": "62238347",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "36"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "26"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "27"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "37"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "43"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "46"
+          }
+        }
+      ]
+    },
+    {
+      "id": "501ee956",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "galvany",
+            "n": "74"
+          }
+        }
+      ]
+    },
+    {
+      "id": "16df5464",
+      "type": "closing",
+      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+      "link": {
+        "href": "mailto:hello@colourful.pictures",
+        "label": "@colourful.pictures"
+      }
+    },
+    {
+      "id": "81104732",
+      "type": "aside",
+      "text": "* or check out more"
+    }
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "projectGrid": [
+    {
+      "tiles": [
+        {
+          "href": "/projects/galvany",
+          "title": [
+            "GALAVANY",
+            "EFFORTLESS"
+          ],
+          "span": 12,
+          "media": {
+            "kind": "video",
+            "project": "galvany",
+            "type": "header"
+          }
+        }
+      ]
+    },
+    {
+      "window": 2,
+      "tiles": [
+        {
+          "href": "/projects/eucerin",
+          "title": [
+            "EUCERIN",
+            "SCIENCE"
+          ],
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "header"
+          }
+        },
+        {
+          "href": "/projects/zeiss",
+          "title": [
+            "ZEISS",
+            "SMILE"
+          ],
+          "span": 8,
+          "media": {
+            "kind": "video",
+            "project": "zeiss",
+            "type": "header"
+          }
+        }
+      ]
+    },
+    {
+      "window": 3,
+      "tiles": [
+        {
+          "href": "/projects/mbos",
+          "title": [
+            "MERCEDES",
+            "MBOS"
+          ],
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "mercedes02",
+            "type": "header"
+          }
+        },
+        {
+          "title": [
+            "MERCEDES",
+            "VISUALS"
+          ],
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "mercedes01",
+            "type": "header"
+          }
+        }
+      ]
+    },
+    {
+      "window": 3,
+      "tiles": [
+        {
+          "title": [
+            "WALTERKNOLL",
+            "SHERU"
+          ],
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "walterknoll",
+            "type": "header"
+          }
+        },
+        {
+          "title": [
+            "WELEDA",
+            "NATURAL"
+          ],
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "weleda",
+            "type": "clip",
+            "n": "02"
+          }
+        },
+        {
+          "title": [
+            "SEABOB",
+            "DESIRE"
+          ],
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "seabob",
+            "type": "header"
+          }
+        }
+      ]
+    },
+    {
+      "tiles": [
+        {
+          "href": "/projects/zdf",
+          "title": [
+            "ZDF",
+            "SPRING"
+          ],
+          "span": 12,
+          "media": {
+            "kind": "video",
+            "project": "zdf",
+            "type": "header"
+          }
+        }
+      ]
+    },
+    {
+      "window": 2,
+      "tiles": [
+        {
+          "title": [
+            "LOOK",
+            "CLOSER"
+          ],
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "look",
+            "type": "header"
+          }
+        },
+        {
+          "href": "/projects/lavita",
+          "title": [
+            "LAVITA",
+            "BYYOURSIDE"
+          ],
+          "span": 8,
+          "media": {
+            "kind": "video",
+            "project": "lavita",
+            "type": "header"
+          }
+        }
+      ]
+    },
+    {
+      "window": 2,
+      "tiles": [
+        {
+          "href": "/projects/rowa",
+          "title": [
+            "ROWA",
+            "FUTURE"
+          ],
+          "span": 5,
+          "media": {
+            "kind": "video",
+            "project": "rowa",
+            "type": "header"
+          }
+        },
+        {
+          "title": [
+            "BUZZ",
+            "FORBEES"
+          ],
+          "span": 7,
+          "media": {
+            "kind": "video",
+            "project": "buzzforbees",
+            "type": "header"
+          }
+        }
+      ]
+    },
+    {
+      "tiles": [
+        {
+          "href": "/projects/microsoft",
+          "title": [
+            "MICROSOFT",
+            "CHANGE"
+          ],
+          "titleAlign": "start",
+          "span": 12,
+          "media": {
+            "kind": "video",
+            "project": "microsoft",
+            "type": "header"
+          }
+        }
+      ]
+    },
+    {
+      "window": 2,
+      "tiles": [
+        {
+          "title": [
+            "VODAFONE",
+            "ZOOZOOS"
+          ],
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "zoozoos",
+            "type": "clip",
+            "n": "01"
+          }
+        },
+        {
+          "title": [
+            "DIARY",
+            "OF ME"
+          ],
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "portraits",
+            "type": "header"
+          }
+        }
+      ]
+    },
+    {
+      "window": 2,
+      "tiles": [
+        {
+          "title": [
+            "PITCH",
+            "LAUNCH"
+          ],
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "pitch",
+            "type": "header"
+          }
+        },
+        {
+          "title": [
+            "PAYPAL",
+            "INTRo"
+          ],
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "paypal",
+            "type": "header"
+          }
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "contact": {
+      "heading": "Get In Touch",
+      "links": [
+        {
+          "href": "mailto:hello@colourful.pictures?subject=Hi%21",
+          "label": "⟶ hello@colourful.pictures"
+        },
+        {
+          "href": "https://www.instagram.com/_colourful.pictures_",
+          "label": "⟶ @_colourful.pictures_"
+        },
+        {
+          "href": "https://www.linkedin.com/in/christian-zschunke-92324524/",
+          "label": "⟶ christian.zschunke"
+        }
+      ]
+    },
+    "philosophy": {
+      "heading": "Philosophy",
+      "paragraphs": [
+        "Creative work isn't about sounding smart. It's not about chasing whatever's trending or performing genius for people who aren't paying attention anyway.",
+        "It's about saying something, in a way that actually lands.",
+        "Collaboration is harder than people admit. It means talking about your actual ideas, not the polished version you think people want to hear. It means asking dumb questions. It means ego is the enemy.",
+        "Mistakes aren't failures. That's become a cliché, but it's still true. Some of the best decisions start as accidents. Imperfections aren't the thing you fix before you ship, sometimes they're the whole point.",
+        "If something doesn't serve the idea, cut it. Doesn't matter how long it took or how clever it is. The work should feel inevitable, not assembled.",
+        "Curiosity keeps things from getting stale. The moment I think I've figured out how to do something, the work starts to die a little. Standing still feels safe. It isn't.",
+        "If we're not enjoying it at least some of the time, something's wrong — with the brief, the process, or both. Worth finding out which."
+      ]
+    }
+  }
+}

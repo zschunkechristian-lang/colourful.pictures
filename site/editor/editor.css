@@ -1,0 +1,44 @@
+/* Editor chrome. Deliberately neutral and prefixed .cms-, so it never inherits the site's
+   fonts or theme variables. Only loaded in dev (the editor is lazy-imported). */
+.cms, .cms * { box-sizing: border-box; }
+.cms {
+  --cms-bg: #161616; --cms-fg: #f2f2f2; --cms-muted: #9a9a9a; --cms-line: #333; --cms-accent: #7aa2ff;
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--cms-fg);
+}
+.cms-toolbar {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 100000;
+  display: flex; align-items: center; gap: 6px; padding: 6px;
+  background: var(--cms-bg); border: 1px solid var(--cms-line); border-radius: 12px;
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.35);
+}
+.cms button {
+  font: inherit; color: var(--cms-fg); background: transparent; cursor: pointer;
+  border: 1px solid transparent; border-radius: 8px; padding: 6px 10px;
+}
+.cms button:hover:not(:disabled) { background: #262626; }
+.cms button:disabled { opacity: 0.35; cursor: default; }
+.cms button[aria-pressed="true"] { background: #2a2a2a; border-color: var(--cms-line); }
+.cms .cms-primary { background: var(--cms-accent); color: #0b1020; font-weight: 600; }
+.cms .cms-primary:hover:not(:disabled) { background: #96b4ff; }
+.cms-seg { display: flex; gap: 2px; padding: 2px; background: #0e0e0e; border-radius: 10px; }
+.cms-status { padding: 0 8px; color: var(--cms-muted); white-space: nowrap; max-width: 28ch; overflow: hidden; text-overflow: ellipsis; }
+.cms-status--dirty { color: #ffcf6b; }
+.cms-status--error { color: #ff7b7b; }
+.cms-panel {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 340px; z-index: 99999; padding: 16px;
+  display: flex; flex-direction: column; gap: 14px; overflow: auto;
+  background: var(--cms-bg); border-left: 1px solid var(--cms-line);
+}
+.cms-panel header { display: flex; align-items: center; justify-content: space-between; }
+.cms-panel h2 { margin: 0; font-size: 14px; font-weight: 600; }
+.cms-panel label { display: flex; flex-direction: column; gap: 6px; color: var(--cms-muted); }
+.cms-panel input, .cms-panel textarea {
+  font: inherit; color: var(--cms-fg); background: #0e0e0e; border: 1px solid var(--cms-line);
+  border-radius: 8px; padding: 8px 10px; resize: vertical;
+}
+.cms-panel input[readonly] { color: var(--cms-muted); }
+.cms-panel input:focus, .cms-panel textarea:focus { outline: 1px solid var(--cms-accent); border-color: var(--cms-accent); }
+
+/* in edit mode the page is not a website: links don't navigate */
+body.is-editing .content a, body.is-editing .footer a, body.is-editing nav a { pointer-events: none; }

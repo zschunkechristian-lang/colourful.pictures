@@ -1,0 +1,912 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   colourful.pictures – site styles
+   Replaces the atomic classes of the Webstudio export. Values were resolved
+   from the exported CSS; breakpoint is the old tablet breakpoint (991px).
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Theme. --bg/--fg flip with light/dark; text that sits on the page uses --fg
+     (the old page used mix-blend-mode: difference, which broke as soon as an
+     ancestor got a transform/opacity from the scroll animations). The accent and
+     link colours are what the old difference blend produced on each background. */
+  --bg: rgb(224 224 224);
+  --fg: rgb(31 31 31);
+  --link: rgb(4 31 174);
+  --accent: rgb(69 0 203);
+  color-scheme: light;
+  --cg-font-base: clamp(1.13rem, calc(-0.125rem + 1.563vw), 2.38rem);
+  --cg-font-h1: clamp(1.8rem, calc(0.47rem + 2.659vw), 4.73rem);
+  --cg-font-h3: clamp(1.4rem, calc(0.366rem + 2.068vw), 3.67rem);
+  --cg-font-h5: clamp(1.2rem, calc(0.314rem + 1.773vw), 3.15rem);
+  --cg-font-small: clamp(0.9rem, calc(0.28rem + 0.775vw), 1.52rem);
+  --cg-font-tiny: clamp(0.53rem, calc(-0.065rem + 0.744vw), 1.13rem);
+
+  --gap: 16px; /* grid gutter between media cells */
+  /* Height of one gallery section (image rows, feature clip, tiles and the carousel
+     frame): a full screen minus the 20px gutters above and below from 1440px wide and
+     up, scaling linearly down to half a screen at 1280px. Below 1280px it stays at
+     half until the tablet breakpoint (991px), where the layout stacks and rows size
+     to their content. */
+  --row-h: calc(clamp(50lvh, calc(50lvh + 50lvh * ((100vw - 1280px) / 160px)), 100lvh) - 40px);
+  --gutter: 20px; /* page gutter */
+
+
+  scrollbar-width: none;
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: --bg 1.5s ease-in-out, --fg 1.5s ease-in-out;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+@property --bg { syntax: "<color>"; inherits: true; initial-value: rgb(224 224 224); }
+@property --fg { syntax: "<color>"; inherits: true; initial-value: rgb(31 31 31); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: rgb(0 0 0);
+    --fg: rgb(255 255 255);
+    --link: rgb(220 255 50);
+    --accent: rgb(155 224 21);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: rgb(0 0 0);
+  --fg: rgb(255 255 255);
+  --link: rgb(220 255 50);
+  --accent: rgb(155 224 21);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Arial, Roboto, sans-serif;
+  line-height: normal; /* the export never resolved a line-height token, so text without its own uses `normal` */
+  background-color: var(--bg);
+  color: var(--fg);
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+video,
+svg {
+  display: block;
+}
+
+button {
+  font: inherit;
+}
+
+/* ── Page frame ───────────────────────────────────────────────────────── */
+
+.frame {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  /* column flex so sibling margins add up instead of collapsing (the old
+     page used inline-block wrappers for the same effect) */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding-top: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* ── Side nav ─────────────────────────────────────────────────────────── */
+
+.nav {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100px;
+  height: 100dvh;
+  padding: var(--gutter);
+  /* The sidebar blends as one group against whatever is behind it (the contact
+     artwork is white), so inside it use the raw pre-blend colours. */
+  mix-blend-mode: difference;
+  --nav-fg: #fff;
+  --nav-accent: rgb(155 224 21);
+  color: var(--nav-fg);
+}
+
+.nav__links {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__link {
+  display: block;
+  width: 60px;
+  margin-bottom: -4px;
+  color: var(--nav-fg);
+  transition:
+    transform 50ms ease,
+    color 200ms ease;
+}
+.nav__link svg {
+  display: inline;
+  width: 100%;
+  height: auto;
+}
+.nav__link:hover {
+  transform: skewX(-25deg);
+  color: var(--nav-accent);
+}
+.nav__link[aria-current="page"] {
+  color: var(--nav-accent);
+}
+
+.nav__theme {
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  cursor: none;
+  transition: scale 200ms ease-out;
+}
+.nav__theme:hover {
+  scale: 105% 105% 100%;
+}
+.nav__theme button {
+  all: unset;
+  display: block;
+  cursor: none;
+}
+.nav__theme svg {
+  width: 100%;
+  fill: none;
+}
+.nav__theme path {
+  fill: currentcolor;
+}
+
+.nav__contact {
+  position: relative;
+  width: 60px;
+}
+.nav__contact a {
+  display: block;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+
+.hero {
+  display: grid;
+  grid-auto-rows: minmax(0, 1fr); /* stacked on small screens: both rows take the taller height */
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--gutter);
+  margin-bottom: var(--gutter);
+}
+.hero__media {
+  grid-column: span 7;
+  position: relative;
+  height: calc(100dvh - 40px);
+  overflow: hidden;
+}
+.hero__text {
+  grid-column: span 5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: var(--gutter);
+  color: var(--fg);
+}
+.hero__title {
+  margin: 0 0 2rem;
+  font-family: "PP Hatton", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2rem, 4lvw, 5rem);
+  line-height: 1.2;
+  letter-spacing: 0.1rem;
+  text-wrap: balance;
+}
+.hero__title b {
+  font-weight: 500;
+}
+.hero__intro {
+  max-width: 50lvw;
+  padding-bottom: var(--gutter);
+  font-family: "Work Sans", sans-serif;
+  font-size: var(--cg-font-small);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0; /* the text itself resets the box's 0.02em */
+  text-wrap: pretty;
+}
+.hero__intro p {
+  margin: 0 0 1em;
+}
+.hero__intro p:last-child {
+  margin-bottom: 0;
+}
+.hero__credit {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-family: "PP Neue Montreal", sans-serif;
+  font-size: var(--cg-font-tiny);
+  font-weight: 200;
+  letter-spacing: 2px;
+  text-align: center;
+}
+.hero__credit b {
+  font-weight: 700;
+}
+.hero__credit::before,
+.hero__credit::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background: var(--fg);
+}
+.hero__credit::before {
+  margin-bottom: 8px;
+}
+.hero__credit::after {
+  margin-top: 8px;
+}
+
+/* ── Film (master player) ─────────────────────────────────────────────── */
+
+.film {
+  display: block;
+  width: 100%;
+  margin-top: 5lvh;
+  margin-bottom: 2lvh;
+  height: calc(clamp(66dvh, calc(66dvh + 34dvh * clamp(0, calc((100vw - 1280px) / 1280px), 1)), 100dvh) - 40px);
+}
+.film__inner {
+  position: relative;
+  margin: 0 auto;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  max-width: calc(100lvw - 120px);
+}
+
+.player {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: transform;
+}
+.player video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.player__toggle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2em;
+  cursor: none;
+  mix-blend-mode: difference;
+  z-index: 2;
+  outline: none;
+}
+.player__toggle svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+.player__fullscreen {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2em;
+  cursor: pointer;
+  mix-blend-mode: difference;
+  z-index: 3;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.player__bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.6em;
+  z-index: 4;
+  mix-blend-mode: difference;
+}
+.player__fill {
+  height: 100%;
+  width: 100%;
+  background: #ccc;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ── Credits ──────────────────────────────────────────────────────────── */
+
+.credits-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10lvh;
+}
+.credits {
+  display: grid;
+  margin: 0;
+  grid-template-columns: repeat(10, 1fr);
+  column-gap: var(--gap);
+  width: 100%;
+  max-width: calc((clamp(66dvh, calc(66dvh + 34dvh * clamp(0, calc((100vw - 1280px) / 1280px), 1)), 100dvh) - 40px) * 16 / 9);
+  color: var(--fg);
+  font-family: "Work Sans", sans-serif;
+  font-size: var(--cg-font-tiny);
+  line-height: 1.2;
+}
+.credit {
+  display: flex;
+  column-gap: var(--gutter);
+  grid-column: span var(--credit-span, 1);
+}
+.credit dt,
+.credit dd {
+  margin: 0;
+  align-self: start;
+}
+.credit dt {
+  text-align: end;
+  font-weight: 500;
+}
+.credit dd {
+  font-weight: 200;
+  text-wrap: pretty;
+}
+.credit--end {
+  justify-content: end;
+}
+
+/* ── Statement (text between media) ───────────────────────────────────── */
+
+.statement {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--gap);
+  width: 100%;
+  margin-bottom: var(--gutter);
+}
+.statement__text {
+  grid-row: 1;
+  grid-column: var(--from) / var(--to);
+  margin: 5lvh 0;
+  color: var(--fg);
+  font-family: "PP Hatton", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2rem, 3lvw, 5rem);
+  line-height: 1.2;
+  letter-spacing: 0.1rem;
+  text-wrap: pretty;
+}
+.statement__text p {
+  margin: 0;
+}
+.statement--start .statement__text {
+  text-align: start;
+}
+.statement--center .statement__text {
+  text-align: center;
+}
+.statement--end .statement__text {
+  text-align: end;
+}
+
+/* ── Carousel ─────────────────────────────────────────────────────────── */
+
+.carousel {
+  width: 100%;
+  margin-bottom: var(--gutter);
+}
+.carousel__stage {
+  position: relative;
+  width: 100%;
+  height: var(--row-h);
+  overflow: hidden;
+  cursor: none;
+}
+.carousel__track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+}
+.carousel__track--moving {
+  transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1);
+}
+.carousel__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.carousel__slide img,
+.carousel__slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.carousel__counter {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: var(--gutter);
+  color: #fff;
+  mix-blend-mode: difference; /* sits on the images, so it blends with them */
+  font-size: 3em;
+  line-height: 1;
+  pointer-events: none;
+}
+/* ── Media rows ───────────────────────────────────────────────────────── */
+
+.row {
+  margin-bottom: var(--gutter);
+}
+.row__grid {
+  display: grid;
+  height: var(--row-h); /* rows with two lines split it between them */
+  grid-auto-rows: minmax(0, 1fr);
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--gap);
+  row-gap: var(--gap);
+}
+.cell {
+  grid-column: span var(--span);
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.cell > img,
+.cell > .media,
+.hero__media > .media,
+.feature > .media,
+.tile > .media {
+  width: 100%;
+  height: 100%;
+}
+.cell > img {
+  object-fit: cover;
+  object-position: var(--pos, 50% 50%);
+}
+
+.media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Full-bleed clip with a big title on top */
+.feature {
+  position: relative;
+  width: 100%;
+  height: var(--row-h);
+  overflow: hidden;
+  margin-bottom: var(--gutter);
+}
+.feature__title,
+.tile__title {
+  margin: 0;
+  font-family: "DOT Norekk", sans-serif;
+  color: #fff;
+  line-height: 0.85;
+  text-align: end;
+  translate: 0 5px;
+}
+.feature__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+.feature__title {
+  font-size: 96px;
+}
+
+/* ── Closing lines ────────────────────────────────────────────────────── */
+
+.closing,
+.aside {
+  display: flex;
+  column-gap: var(--gutter);
+  color: var(--fg);
+  font-size: var(--cg-font-h1);
+  line-height: 1.2;
+}
+.closing {
+  /* the old page let the 20px row margin collapse into this one: 20 + 70 = 90 */
+  margin: calc(5rem - var(--gutter)) 0 5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "PP Hatton", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+}
+.closing a {
+  color: var(--link);
+  font-style: italic;
+}
+.aside {
+  margin: 0 0 5rem;
+  line-height: normal;
+  justify-content: end;
+  align-items: start;
+  font-family: "PP Hatton", sans-serif;
+  font-weight: 300;
+  text-align: center;
+}
+.aside em {
+  font-size: var(--cg-font-small);
+}
+
+/* ── More projects grid ───────────────────────────────────────────────── */
+
+.tiles {
+  margin-bottom: var(--gutter);
+}
+.tile {
+  grid-column: span var(--span);
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.tile__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  padding: 0 var(--gutter) var(--gutter) 0;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+.tile__title {
+  font-size: 48px;
+}
+.tile__title--start {
+  text-align: start;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+
+.footer {
+  min-height: 100lvh;
+  color: var(--fg);
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--gutter);
+  width: 100%;
+  padding: 120px 0 120px 100px;
+}
+.footer__col {
+  padding-right: 6rem;
+}
+.footer__head {
+  margin-bottom: 1rem;
+}
+.footer__head span {
+  display: block;
+  margin-bottom: 2rem;
+  font-family: "PP Hatton", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--cg-font-h1);
+  line-height: 1.2;
+  letter-spacing: 0.1rem;
+}
+.footer__head hr {
+  height: 2px;
+  margin: 0;
+  border: 0;
+  background: var(--fg);
+}
+.footer__links {
+  display: flex;
+  flex-direction: column;
+}
+.footer__links a {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: "PP Neue Montreal", sans-serif;
+  font-size: var(--cg-font-h5);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+.footer__text {
+  font-family: "Work Sans", sans-serif;
+  font-size: var(--cg-font-small);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+.footer__text p {
+  margin: 0 0 1.2em;
+}
+
+/* ── Cursor ───────────────────────────────────────────────────────────── */
+
+.custom-cursor {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%) translateZ(0);
+  opacity: 0;
+  transition:
+    transform 0.15s ease-out,
+    width 0.3s cubic-bezier(0.2, 0, 0, 1),
+    height 0.3s cubic-bezier(0.2, 0, 0, 1),
+    border-radius 0.3s ease,
+    clip-path 0.3s ease,
+    opacity 0.15s ease;
+  z-index: 99999;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  isolation: isolate;
+  will-change: transform;
+}
+.custom-cursor.is-right {
+  width: 2lvw;
+  height: 2lvw;
+  border-radius: 0;
+  clip-path: polygon(15% 5%, 15% 95%, 95% 50%);
+}
+.custom-cursor.is-left {
+  width: 2lvw;
+  height: 2lvw;
+  border-radius: 0;
+  clip-path: polygon(85% 5%, 85% 95%, 5% 50%);
+}
+.custom-cursor.hover {
+  width: 48px;
+  height: 48px;
+}
+body.has-fine-pointer {
+  cursor: none;
+}
+body.has-fine-pointer .custom-cursor {
+  opacity: 1;
+}
+body.has-fine-pointer a,
+body.has-fine-pointer button,
+body.has-fine-pointer input,
+body.has-fine-pointer textarea,
+body.has-fine-pointer select,
+body.has-fine-pointer [role="button"] {
+  cursor: none !important;
+}
+
+/* ── Tablet and below ─────────────────────────────────────────────────── */
+
+@media (max-width: 991px) {
+  .frame {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    width: 100lvw;
+  }
+  .content {
+    padding: 0;
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    height: 120px;
+    padding: var(--gutter);
+    overflow: hidden;
+    background-color: var(--bg);
+    mix-blend-mode: normal;
+    /* the bar has its own backdrop, so it uses the page theme colours directly */
+    --nav-fg: var(--fg);
+    --nav-accent: var(--accent);
+  }
+  .nav__links {
+    flex-direction: row;
+    column-gap: 2px;
+    row-gap: 2px;
+  }
+  .nav__link:hover,
+  .nav__link[aria-current="page"] {
+    transform: skewY(-25deg);
+  }
+  .nav__theme {
+    display: none;
+  }
+  .nav__contact {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero__media {
+    grid-column: span 1;
+    height: auto;
+  }
+  .hero {
+    row-gap: var(--gutter);
+    margin: 2lvh 0;
+    overflow: hidden;
+  }
+  .hero__text {
+    grid-column: span 1;
+    height: auto;
+    margin: 2lvh 0 54px;
+    padding: 0 5vw;
+    row-gap: 54px;
+  }
+  .hero__title {
+    font-size: var(--cg-font-h1);
+    line-height: 1.05;
+  }
+  .hero__intro {
+    max-width: 100lvw;
+    font-size: clamp(1rem, 1.4lvw, 2rem);
+  }
+  /* on small screens the headline and the credit line are not shown */
+  .hero__title,
+  .hero__credit {
+    display: none;
+  }
+
+  .film__inner {
+    max-width: none;
+    width: 100%;
+  }
+  .film {
+    margin-top: 0;
+    margin-bottom: 2lvh;
+  }
+
+  .credits-wrap {
+    margin-bottom: 2lvh;
+    margin-top: 2lvh;
+  }
+  .credits {
+    grid-template-columns: 1fr;
+    row-gap: 2px;
+  }
+  .credit {
+    grid-column: span 1;
+    row-gap: 5px;
+    column-gap: 5px;
+    justify-content: start;
+  }
+  .credit dt {
+    flex: 4 1 0;
+    text-align: start;
+  }
+  .credit dd {
+    flex: 7 1 0;
+    text-wrap: balance;
+  }
+
+  .statement__text {
+    grid-column: 1 / -1;
+    text-align: start !important;
+    font-size: var(--cg-font-h1);
+    line-height: 1.05;
+  }
+
+  .carousel {
+    margin: 2lvh 0;
+  }
+  .carousel__stage {
+    height: calc(100vw * 9 / 16);
+  }
+
+  .row {
+    margin: 2lvh 0;
+  }
+  .row__grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: hidden;
+  }
+  .cell {
+    grid-column: span 1;
+    height: auto !important;
+  }
+  .feature {
+    height: 100%;
+  }
+  .feature__title {
+    font-size: 2rem;
+  }
+
+  .tile {
+    grid-column: span 1;
+    height: 66lvh !important;
+  }
+  .tile__title {
+    font-size: 2rem;
+  }
+
+  .closing,
+  .aside {
+    margin: 2rem 0;
+    justify-content: center;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+    padding: 120px var(--gutter);
+  }
+  .footer__col {
+    padding-right: 0;
+  }
+}
