@@ -1036,4 +1036,10 @@ body.has-fine-pointer [role="button"] {
   top: var(--vt-y);
   width: var(--vt-w);
   height: var(--vt-h);
+  transition: opacity 50ms linear; /* fades in over the lifted tile clip once it is playing */
+}
+/* invisible until it is really playing (see lib/fly.ts): until then the lifted tile clip stays in view,
+   so the hero's poster frame never shows */
+:root[data-vt-fly]:not([data-vt-ready]) .hero__media > .media {
+  opacity: 0;
 }

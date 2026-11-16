@@ -30,17 +30,42 @@ let flying = false;
 let pending: Animation[] = [];
 let ghost: HTMLElement | null = null;
 
+// lib/fly.ts: the new hero clip is playing, so the lifted tile clip under it is no longer needed
+if (typeof window !== "undefined") window.addEventListener("vt-clip-ready", () => setTimeout(dropGhost, 100)); // once the 50ms fade-in of the hero clip is done (with a frame or two of margin)
+
 const dropGhost = () => {
   ghost?.querySelectorAll("video").forEach(releaseVideo);
   ghost?.remove();
   ghost = null;
 };
 
+/** Moving a video element makes browsers fall back to its poster until the next frame is shown. So the lifted clip
+ *  has no poster, and a still of the frame it is showing sits underneath it: any such gap shows that frame instead. */
+function underlay(box: HTMLElement, v: HTMLVideoElement, r: { w: number; h: number }) {
+  v.removeAttribute("poster");
+  v.style.position = "relative";
+  v.style.zIndex = "1";
+  try {
+    const c = document.createElement("canvas");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    c.width = Math.round(r.w * dpr);
+    c.height = Math.round(r.h * dpr);
+    Object.assign(c.style, { position: "absolute", inset: "0", width: "100%", height: "100%" });
+    // object-fit: cover, honouring object-position
+    const [px = 0.5, py = 0.5] = getComputedStyle(v).objectPosition.split(" ").map((p) => (p.endsWith("%") ? parseFloat(p) / 100 : 0.5));
+    const scale = Math.max(c.width / v.videoWidth, c.height / v.videoHeight);
+    const sw = c.width / scale, sh = c.height / scale;
+    c.getContext("2d")?.drawImage(v, (v.videoWidth - sw) * px, (v.videoHeight - sh) * py, sw, sh, 0, 0, c.width, c.height);
+    box.insertBefore(c, box.firstChild);
+  } catch { /* no still: the clip alone has to do */ }
+}
+
 /** Lift the tile's clip out of the page, onto the same spot, so it survives the page fading away. */
 function liftGhost(el: HTMLElement, r: { x: number; y: number; w: number; h: number }) {
   const box = el.parentElement;
   if (!box) return;
   const playing = el instanceof HTMLVideoElement && !el.paused;
+  if (el instanceof HTMLVideoElement) underlay(box, el, r);
   Object.assign(box.style, { position: "fixed", left: `${r.x}px`, top: `${r.y}px`, width: `${r.w}px`, height: `${r.h}px`, zIndex: "39", margin: "0", pointerEvents: "none" });
   document.body.appendChild(box);
   if (playing) (el as HTMLVideoElement).play().catch(() => {}); // moving a media element pauses it
@@ -113,6 +138,7 @@ export function arrive(render: () => void): void {
     root.style.setProperty("--vt-y", `${f.y}px`);
     root.style.setProperty("--vt-w", `${f.w}px`);
     root.style.setProperty("--vt-h", `${f.h}px`);
+    root.removeAttribute("data-vt-ready");
     root.setAttribute("data-vt-fly", "");
     // lib/motion.ts waits for this before it plays the header copy; lib/fly.ts resolves it
     w.__vtDone = new Promise<void>((resolve) => { w.__vtResolve = resolve; setTimeout(resolve, 5000); });
@@ -137,6 +163,5 @@ export function arrive(render: () => void): void {
       { duration: flying ? FLY_IN_MS : IN_MS, easing: flying ? "ease" : IN_EASE, fill: "backwards" },
     );
   }
-  if (flying) setTimeout(dropGhost, FLY_IN_MS - 40); // the parked clip is almost fully in; it starts to move right after
   flying = false;
 }

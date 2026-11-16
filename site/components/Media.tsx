@@ -23,13 +23,23 @@ export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls
       if (loaded) return;
       loaded = true;
       el.poster = urls.poster;
-      for (const [type, src] of [["video/webm", urls.webm], ["video/mp4", urls.mp4]] as const) {
+      // Safari: the AV1 webm first is slow to be given up on (or unplayable); it plays the mp4 anyway
+      const safari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+      const sources = safari ? ([["video/mp4", urls.mp4]] as const) : ([["video/webm", urls.webm], ["video/mp4", urls.mp4]] as const);
+      for (const [type, src] of sources) {
         const s = document.createElement("source");
         s.type = type;
         s.src = src;
         el.appendChild(s);
       }
       el.load();
+      // WebKit can end up with "no source" when the clip's file is still being fetched or was cancelled
+      // elsewhere (e.g. the tile clip that has just been lifted out of the page): ask again
+      let tries = 0;
+      const retry = window.setInterval(() => {
+        if (el.readyState > 0 || !el.isConnected || ++tries > 6) return window.clearInterval(retry);
+        if (el.networkState === HTMLMediaElement.NETWORK_NO_SOURCE || el.error) el.load();
+      }, 250);
       if (opts.autoplay) el.play().catch(() => {});
       else if (el.readyState < 1) el.addEventListener("loadedmetadata", () => { if (el.currentTime === 0) el.currentTime = 0.1; }, { once: true });
     };

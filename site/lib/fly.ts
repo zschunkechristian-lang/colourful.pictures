@@ -14,14 +14,50 @@ export function flyResumeTime(duration: number): number | null {
   return duration > 0 ? t % duration : t;
 }
 
+/** Resolves once the hero clip is actually showing moving pictures (not just its poster), or after `max` ms. */
+function clipReady(slot: HTMLElement, max = 2500): Promise<void> {
+  const v = slot.querySelector<HTMLVideoElement>("video");
+  if (!v) return Promise.resolve();
+  const f = (window as FlyWindow).__vtFly;
+  return new Promise((resolve) => {
+    const events = ["loadedmetadata", "loadeddata", "canplay", "seeked", "playing", "timeupdate"];
+    let seeked = false;
+    const check = () => {
+      // Start the clip where the tile clip is: the lifted copy (when it is still playing), else where it was lifted.
+      // Browsers differ in whether a seek made before the video has loaded survives, so it is done here.
+      if (!seeked && v.readyState >= 1 && f && v.duration > 0) {
+        seeked = true;
+        const g = document.body.querySelector<HTMLVideoElement>(":scope > .media video");
+        const alive = g && g.readyState >= 2 && !g.paused;
+        const want = (alive ? g.currentTime : f.t) % v.duration;
+        if (Math.abs(v.currentTime - want) > 0.15) { v.currentTime = want; return; }
+      }
+      if (seeked && v.readyState >= 3 && !v.seeking && !v.paused && v.currentTime > 0) finish();
+    };
+    const finish = () => { events.forEach((e) => v.removeEventListener(e, check)); clearTimeout(timer); resolve(); };
+    const timer = setTimeout(finish, max);
+    events.forEach((e) => v.addEventListener(e, check));
+    check();
+  });
+}
+
 export function runFly(root: HTMLElement): void {
   const w = window as FlyWindow;
   const f = w.__vtFly;
-  const done = () => { document.documentElement.removeAttribute("data-vt-fly"); w.__vtResolve?.(); };
+  const done = () => { document.documentElement.removeAttribute("data-vt-fly"); document.documentElement.removeAttribute("data-vt-ready"); w.__vtResolve?.(); };
   const slot = root.querySelector<HTMLElement>(".hero__media");
   const media = slot?.querySelector<HTMLElement>(":scope > .media");
   if (!f || !slot || !media) return done();
 
+  clipReady(slot).then(() => {
+    // the clip shows the same moving picture as the tile clip under it: let that one go, then fly
+    document.documentElement.setAttribute("data-vt-ready", "");
+    window.dispatchEvent(new Event("vt-clip-ready"));
+    fly(media, slot, f, done);
+  });
+}
+
+function fly(media: HTMLElement, slot: HTMLElement, f: Fly, done: () => void) {
   const to = slot.getBoundingClientRect();
   gsap.fromTo(
     media,
