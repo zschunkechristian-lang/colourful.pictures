@@ -21,7 +21,7 @@ type Props = {
   mode: Mode;
   setMode: (m: Mode) => void;
   /** where the editable page parts are drawn (exist in edit mode only) */
-  slots: { sections: HTMLElement | null; tiles: HTMLElement | null; footer: HTMLElement | null } | null;
+  slots: { sections: HTMLElement | null; closing: HTMLElement | null; tiles: HTMLElement | null; footer: HTMLElement | null } | null;
 };
 
 const isTyping = (t: EventTarget | null) => {
@@ -46,6 +46,18 @@ export default function Editor({ project, site: initialSite, onChange, onSiteCha
       if (slug) { sessionStorage.removeItem("cms-open"); window.location.replace(`/projects/${slug}?edit`); }
     } catch { /* ignore */ }
   }, []);
+
+  // A side panel (media picker, page settings, new project) takes room from the page instead of covering it:
+  // editor.css pads the body by --cms-pw, so what is being picked for stays visible and judgeable.
+  const panelWidth = editing && target ? 420 : panel ? 340 : 0;
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("cms-inset", panelWidth > 0);
+    root.style.setProperty("--cms-pw", `${panelWidth}px`);
+    // layout-dependent scripts (scroll triggers, fitted text) re-measure on resize
+    window.dispatchEvent(new Event("resize"));
+    return () => { root.classList.remove("cms-inset"); root.style.removeProperty("--cms-pw"); };
+  }, [panelWidth]);
 
   // body class lets editor.css switch off link navigation etc.
   useEffect(() => {

@@ -4,7 +4,7 @@ import { initMotion } from "../lib/motion";
 import { rowWidth, watchFit } from "../lib/fit";
 import { runFly } from "../lib/fly";
 import { Cursor, Nav, useSmoothScroll } from "./Shell";
-import { FooterView, SectionView, TileRow } from "./Sections";
+import { ClosingView, FooterView, SectionView, TileRow } from "./Sections";
 import type { Mode } from "../editor/Editor";
 import "../styles/fonts.css";
 import "../styles/site.css";
@@ -18,6 +18,7 @@ export function ProjectPage({ project: loaded, site: loadedSite, current }: { pr
   const [project, setProject] = useState(loaded);
   const [mode, setMode] = useState<Mode>("off");
   const [slot, setSlot] = useState<HTMLElement | null>(null);
+  const [closingSlot, setClosingSlot] = useState<HTMLElement | null>(null);
   const [tilesSlot, setTilesSlot] = useState<HTMLElement | null>(null);
   const [footerSlot, setFooterSlot] = useState<HTMLElement | null>(null);
   const [site, setSite] = useState(loadedSite);
@@ -62,6 +63,7 @@ export function ProjectPage({ project: loaded, site: loadedSite, current }: { pr
         <main className="content" key={project.slug}>
           {/* edit mode: the editor draws the sections itself (same SectionView, plus controls) into this slot */}
           {editing ? <div ref={setSlot} style={{ display: "contents" }} /> : project.sections.map((s) => <SectionView key={s.id} section={s} slug={project.slug} />)}
+          {editing ? <div ref={setClosingSlot} style={{ display: "contents" }} /> : <ClosingView closing={site.closing} />}
           {editing ? <div ref={setTilesSlot} style={{ display: "contents" }} /> : site.projectGrid.map((row, i) => <TileRow key={i} row={row} />)}
         </main>
       </div>
@@ -76,7 +78,7 @@ export function ProjectPage({ project: loaded, site: loadedSite, current }: { pr
       )}
       {Editor && mode !== "off" && (
         <Suspense fallback={null}>
-          <Editor project={project} site={site} onChange={setProject} onSiteChange={setSite} mode={mode} setMode={setMode} slots={editing ? { sections: slot, tiles: tilesSlot, footer: footerSlot } : null} />
+          <Editor project={project} site={site} onChange={setProject} onSiteChange={setSite} mode={mode} setMode={setMode} slots={editing ? { sections: slot, closing: closingSlot, tiles: tilesSlot, footer: footerSlot } : null} />
         </Suspense>
       )}
       </div>

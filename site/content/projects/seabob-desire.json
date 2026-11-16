@@ -1,0 +1,69 @@
+{
+  "slug": "seabob-desire",
+  "title": "seabob - desire",
+  "description": "",
+  "sections": [
+    {
+      "id": "cccaccb5",
+      "type": "hero",
+      "media": {
+        "kind": "video",
+        "project": "seabob",
+        "type": "clip",
+        "n": "17"
+      },
+      "title": "How do you make an object desireable?",
+      "intro": [
+        "A question often asked lightly."
+      ],
+      "credit": ""
+    },
+    {
+      "id": "8e37eacf",
+      "type": "film",
+      "project": ""
+    },
+    {
+      "id": "842bff1d",
+      "type": "credits",
+      "items": [
+        {
+          "label": "Client",
+          "value": []
+        },
+        {
+          "label": "Year",
+          "value": []
+        },
+        {
+          "label": "Creative Direction",
+          "value": []
+        }
+      ]
+    },
+    {
+      "id": "d29a1408",
+      "type": "row",
+      "cells": [
+        {
+          "span": 8,
+          "media": {
+            "kind": "video",
+            "project": "seabob",
+            "type": "clip",
+            "n": "22"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "seabob",
+            "type": "clip",
+            "n": "26"
+          }
+        }
+      ]
+    }
+  ]
+}

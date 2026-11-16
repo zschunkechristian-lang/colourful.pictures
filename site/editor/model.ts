@@ -31,8 +31,6 @@ export const CATALOG: CatalogEntry[] = [
   { key: "reel", label: "Reel (full-screen clip)", group: "Section", make: () => ({ id: newId(), type: "reel", media: null }) },
   { key: "carousel", label: "Carousel", group: "Section", make: (slug) => ({ id: newId(), type: "carousel", project: slug, frames: [] }) },
   { key: "film", label: "Film player", group: "Section", make: () => ({ id: newId(), type: "film", project: "" }) },
-  { key: "closing", label: "Closing line", group: "Section", make: () => ({ id: newId(), type: "closing", text: "" }) },
-  { key: "aside", label: "Aside", group: "Section", make: () => ({ id: newId(), type: "aside", text: "" }) },
 ];
 
 /** One hero and one credits table per page: those cannot be inserted or duplicated. */

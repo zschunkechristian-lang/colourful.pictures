@@ -1,4 +1,12 @@
 {
+  "closing": {
+    "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+    "link": {
+      "href": "mailto:hello@colourful.pictures",
+      "label": "@colourful.pictures"
+    },
+    "aside": "* or check out more"
+  },
   "projectGrid": [
     {
       "tiles": [
@@ -107,6 +115,7 @@
           }
         },
         {
+          "href": "/projects/seabob-desire",
           "title": [
             "SEABOB",
             "DESIRE"
@@ -115,7 +124,8 @@
           "media": {
             "kind": "video",
             "project": "seabob",
-            "type": "header"
+            "type": "clip",
+            "n": "17"
           }
         }
       ]

@@ -279,20 +279,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "86078740",
-      "type": "closing",
-      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
-      "link": {
-        "href": "mailto:hello@colourful.pictures",
-        "label": "@colourful.pictures"
-      }
-    },
-    {
-      "id": "1a91a2ca",
-      "type": "aside",
-      "text": "* or check out more"
     }
   ]
 }
