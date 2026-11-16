@@ -64,8 +64,10 @@ export async function buildManifest() {
     const [, project, dir, file] = m;
     const p = (projects[project] ??= { stills: [], videos: [] });
     if (dir === "stills") {
-      const s = new RegExp(`^${project}_frame_(.+)\\.jpg$`).exec(file);
-      if (s) p.stills.push(s[1]);
+      // jpg stills are listed by number ("07"), webp ones keep their extension ("07.webp"),
+      // matching how site/lib/assets.ts builds the URL
+      const s = new RegExp(`^${project}_frame_(.+?)(\\.jpg|\\.webp)$`).exec(file);
+      if (s) p.stills.push(s[2] === ".webp" ? s[1] + ".webp" : s[1]);
     } else {
       const v = new RegExp(`^${project}_(header|master_\\d+|clip_(.+))_poster\\.jpg$`).exec(file);
       if (!v) continue;

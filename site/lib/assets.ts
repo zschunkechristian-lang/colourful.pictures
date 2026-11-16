@@ -1,7 +1,7 @@
 // Where media lives and how filenames are built. This is the single place that
 // knows the bucket layout (it replaces the old window.MIM.buildAssetUrl script).
 //
-//   stills:  <CDN>/<project>/stills/<project>_frame_<n>.jpg
+//   stills:  <CDN>/<project>/stills/<project>_frame_<n>.jpg   (or _frame_<n>.webp when n ends in ".webp")
 //   video:   <CDN>/<project>/video/<project>_{header|master|clip_<n>}_{h264.mp4|av1.webm|poster.jpg}
 
 export const CDN = "https://assets.colourful.pictures/website/projects";
@@ -9,7 +9,8 @@ export const CDN = "https://assets.colourful.pictures/website/projects";
 import type { Media, Still, Video } from "./schema";
 export type { Media, Still, Video };
 
-export const stillUrl = (m: Still) => `${CDN}/${m.project}/stills/${m.project}_frame_${m.n}.jpg`;
+/** `n` is the part after `_frame_`; ".jpg" is implied, a webp still carries its extension ("07.webp"). */
+export const stillUrl = (m: Pick<Still, "project" | "n"> & Partial<Still>) => `${CDN}/${m.project}/stills/${m.project}_frame_${m.n}${/\.webp$/.test(m.n) ? "" : ".jpg"}`;
 
 export function videoUrls(m: Video) {
   const base = `${CDN}/${m.project}/video`;
