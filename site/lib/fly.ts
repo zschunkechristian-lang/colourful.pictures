@@ -1,5 +1,5 @@
 // Moves the hero clip from where it was parked (on top of the clicked tile, see
-// page-transition.ts) to its place in the header. It is the real video element changing box size,
+// page-motion.ts) to its place in the header. It is the real video element changing box size,
 // so the picture keeps playing and its crop morphs from the tile's crop to the header's crop.
 import { gsap } from "gsap";
 

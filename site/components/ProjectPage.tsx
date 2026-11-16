@@ -13,7 +13,7 @@ import "../styles/site.css";
 // this whole branch (and the editor module) is removed from the bundle.
 const Editor = import.meta.env.DEV ? lazy(() => import("../editor/Editor")) : null;
 
-export function ProjectPage({ project: loaded, site: loadedSite }: { project: Project; site: SiteData }) {
+export function ProjectPage({ project: loaded, site: loadedSite, current }: { project: Project; site: SiteData; current?: string }) {
   const root = useRef<HTMLDivElement>(null);
   const [project, setProject] = useState(loaded);
   const [mode, setMode] = useState<Mode>("off");
@@ -27,12 +27,17 @@ export function ProjectPage({ project: loaded, site: loadedSite }: { project: Pr
   useEffect(() => {
     if (import.meta.env.DEV && new URLSearchParams(location.search).has("edit")) setMode("edit");
   }, []);
-  // a fresh load of the file from disk (e.g. after a save, or an edit made outside the editor)
-  useEffect(() => setProject(loaded), [loaded]);
-  useEffect(() => setSite(loadedSite), [loadedSite]);
+  // new data from outside: navigating to another page, a save, or an edit made outside the editor.
+  // Adopted while rendering (not in an effect) so the new page never shows one frame of the old one.
+  const [seen, setSeen] = useState({ loaded, loadedSite });
+  if (seen.loaded !== loaded || seen.loadedSite !== loadedSite) {
+    setSeen({ loaded, loadedSite });
+    setProject(loaded);
+    setSite(loadedSite);
+  }
 
   // arriving from a project tile: the hero clip flies from the tile into the header (lib/fly.ts)
-  useEffect(() => { if (root.current && !editing) runFly(root.current); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (root.current && !editing) runFly(root.current); }, [project.slug]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useSmoothScroll(!editing);
   useEffect(() => (root.current && !editing ? initMotion(root.current) : undefined), [project.slug, editing]);
@@ -53,14 +58,14 @@ export function ProjectPage({ project: loaded, site: loadedSite }: { project: Pr
       <div ref={root}>
       {!editing && <Cursor />}
       <div className="frame">
-        <Nav />
-        <main className="content">
+        <Nav current={current} />
+        <main className="content" key={project.slug}>
           {/* edit mode: the editor draws the sections itself (same SectionView, plus controls) into this slot */}
-          {editing ? <div ref={setSlot} style={{ display: "contents" }} /> : project.sections.map((s) => <SectionView key={s.id} section={s} />)}
+          {editing ? <div ref={setSlot} style={{ display: "contents" }} /> : project.sections.map((s) => <SectionView key={s.id} section={s} slug={project.slug} />)}
           {editing ? <div ref={setTilesSlot} style={{ display: "contents" }} /> : site.projectGrid.map((row, i) => <TileRow key={i} row={row} />)}
         </main>
       </div>
-      {editing ? <div ref={setFooterSlot} style={{ display: "contents" }} /> : <FooterView footer={footer} />}
+      {editing ? <div ref={setFooterSlot} style={{ display: "contents" }} /> : <FooterView key={project.slug} footer={footer} />}
       {import.meta.env.DEV && mode === "off" && (
         <button
           onClick={() => setMode("edit")}

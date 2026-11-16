@@ -61,7 +61,7 @@ export function initMotion(root: HTMLElement): () => void {
   const splits: SplitText[] = [];
   let alive = true;
   // Header copy plays once on page load, not on scroll. After a page transition (see
-  // lib/page-transition.ts) it waits until the clip has landed.
+  // lib/page-motion.ts) it waits until the clip has landed.
   const ready = Promise.all([document.fonts?.ready, (window as unknown as { __vtDone?: Promise<unknown> }).__vtDone]);
   const ctx = gsap.context(() => {
     root.querySelectorAll<HTMLElement>('[data-reveal="load"]').forEach((el) => {

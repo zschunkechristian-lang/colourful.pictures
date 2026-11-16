@@ -1,6 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { stillUrl } from "../lib/assets";
 import { frameAlt, frameN, type Frame } from "../lib/schema";
+
+/** Time each image is shown before the carousel moves on by itself. */
+const AUTOPLAY_MS = 6000;
 
 /**
  * Infinite carousel: click the left half of the image to go back, the right half to go
@@ -25,11 +28,42 @@ export function Carousel({ project, frames }: { project: string; frames: Frame[]
     cursor()?.classList.toggle("is-right", !left);
   };
   const onLeave = () => cursor()?.classList.remove("is-left", "is-right");
+  const movingRef = useRef(false);
+  movingRef.current = moving;
+  const [resetKey, setResetKey] = useState(0); // bumps on every advance so the auto-advance timer restarts
+  const [visible, setVisible] = useState(false);
   const go = (dir: -1 | 1) => {
-    if (moving) return;
+    if (movingRef.current) return;
+    movingRef.current = true;
     setMoving(true);
     setIndex((i) => i + dir);
+    setResetKey((k) => k + 1);
   };
+
+  // only auto-advance while the carousel is on screen
+  useEffect(() => {
+    const el = stage.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // advance every AUTOPLAY_MS. Any advance (automatic or a click/swipe/key) restarts the
+  // timer, so a manual move is never followed immediately by an automatic one. Skipped for
+  // reduced-motion visitors, in a background tab, and while editing.
+  useEffect(() => {
+    if (!visible || n < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let timer = 0;
+    const arm = () => {
+      timer = window.setTimeout(() => {
+        if (document.hidden || document.body.classList.contains("is-editing")) arm();
+        else go(1);
+      }, AUTOPLAY_MS);
+    };
+    arm();
+    return () => window.clearTimeout(timer);
+  }, [visible, resetKey, n]); // eslint-disable-line react-hooks/exhaustive-deps
   const onClick = (e: React.MouseEvent) => {
     if (swiped.current) { swiped.current = false; return; } // the click that ends a swipe
     const r = stage.current!.getBoundingClientRect();

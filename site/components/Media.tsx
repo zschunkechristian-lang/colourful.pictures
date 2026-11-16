@@ -2,6 +2,17 @@ import { useEffect, useRef } from "react";
 import { flyResumeTime } from "../lib/fly";
 import { stillUrl, videoUrls, masterUrls, type Media as MediaT, type Video } from "../lib/assets";
 
+/** Free a video's decoder and buffers. Safari keeps removed video elements alive for a long while and
+ *  only allows a few at once, so after some page changes new videos would stay blank. */
+export function releaseVideo(el: HTMLVideoElement) {
+  try {
+    el.pause();
+    el.querySelectorAll("source").forEach((s) => s.remove());
+    el.removeAttribute("src");
+    el.load();
+  } catch { /* nothing to free */ }
+}
+
 /** Lazy-load a video's sources when it gets within ~1600px of the viewport. */
 export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls: { poster: string; mp4: string; webm: string }, opts: { autoplay: boolean }) {
   useEffect(() => {
@@ -24,7 +35,7 @@ export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls
     };
     const io = new IntersectionObserver((entries) => entries.some((e) => e.isIntersecting) && (load(), io.disconnect()), { rootMargin: "1600px" });
     io.observe(el);
-    return () => io.disconnect();
+    return () => { io.disconnect(); releaseVideo(el); };
   }, [urls.mp4]); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
@@ -36,12 +47,12 @@ export function AutoVideo({ media, className, resume }: { media: Video; classNam
   useEffect(() => {
     const el = ref.current;
     if (!resume || !el) return;
-    // arriving from a project tile (lib/page-transition.ts): start where the tile clip would be by now
+    // arriving from a project tile (lib/page-motion.ts): start where the tile clip would be by now
     const seek = () => { const t = flyResumeTime(el.duration); if (t != null) el.currentTime = t; };
     el.addEventListener("loadedmetadata", seek, { once: true });
     if (el.readyState >= 1) seek();
     return () => el.removeEventListener("loadedmetadata", seek);
-  }, [resume]);
+  }, [resume, urls.mp4]);
   return (
     <div className={`media ${className ?? ""}`}>
       <video key={urls.mp4} ref={ref} poster={urls.poster} muted loop playsInline autoPlay aria-label={media.alt || undefined} />

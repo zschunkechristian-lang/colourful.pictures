@@ -1,9 +1,10 @@
 import { type Root, hydrateRoot } from "react-dom/client";
-import type { OnRenderClientSync } from "vike/types";
+import type { OnRenderClientAsync } from "vike/types";
+import { arrive, whenLeft } from "../site/lib/page-motion";
 
 let root: Root;
 
-export const onRenderClient: OnRenderClientSync = (pageContext) => {
+export const onRenderClient: OnRenderClientAsync = async (pageContext) => {
   const lang = pageContext.data?.pageMeta?.language || "en";
   const Head = pageContext.config.Head ?? (() => <></>);
   const Page = pageContext.Page ?? (() => <></>);
@@ -22,6 +23,7 @@ export const onRenderClient: OnRenderClientSync = (pageContext) => {
     root = hydrateRoot(document.documentElement, htmlContent);
     return;
   }
+  await whenLeft(); // the old page has finished fading out
   document.documentElement.lang = lang;
-  root.render(htmlContent);
+  arrive(() => root.render(htmlContent));
 };

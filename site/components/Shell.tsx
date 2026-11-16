@@ -85,7 +85,8 @@ export function useSmoothScroll(enabled = true) {
       if (cancelled) return;
       const lenis = new Lenis({ autoRaf: true, anchors: true, allowNestedScroll: true, naiveDimensions: true, stopInertiaOnNavigate: true });
       lenis.on("scroll", ScrollTrigger.update);
-      destroy = () => lenis.destroy();
+      (window as unknown as { __lenis?: unknown }).__lenis = lenis; // lib/page-motion.ts resets it on navigation
+      destroy = () => { (window as unknown as { __lenis?: unknown }).__lenis = undefined; lenis.destroy(); };
     })();
     return () => {
       cancelled = true;
