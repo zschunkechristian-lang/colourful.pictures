@@ -7,7 +7,9 @@
     "dev": "vite dev",
     "start": "vite preview",
     "typecheck": "tsc --noEmit",
-    "manifest": "node scripts/build-media-manifest.mjs"
+    "manifest": "node scripts/build-media-manifest.mjs",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "check:content": "node --experimental-strip-types scripts/check-content.mjs"
   },
   "dependencies": {
     "@shikijs/langs": "4.4.1",
