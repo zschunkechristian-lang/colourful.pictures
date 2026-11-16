@@ -26,6 +26,8 @@ export const cellSchema = z.strictObject({
   span: spanSchema,
   media: mediaSchema.nullable(),
   position: z.string().optional(), // CSS object-position, e.g. "50% 20%"
+  /** A text cell (statement-style italic text blended over the page) instead of media. `**bold**` and line breaks work. */
+  text: z.string().optional(),
 });
 
 /** A carousel frame: just its still number, or `{ n, alt }` once it has a description. */
@@ -47,7 +49,9 @@ export const sectionSchema = z.discriminatedUnion("type", [
     text: z.string(),
   }).refine((s) => s.to >= s.from, "to must not be before from"),
   z.strictObject({ id, type: z.literal("carousel"), frames: z.array(frameSchema), project: z.string().optional() }),
-  z.strictObject({ id, type: z.literal("row"), window: z.number().int().optional(), cells: z.array(cellSchema).min(1) }),
+  z.strictObject({ id, type: z.literal("row"), window: z.number().int().optional(), /** short rows (a contact-sheet look, e.g. Play) */ compact: z.literal(true).optional(), cells: z.array(cellSchema).min(1) }),
+  // full-viewport clip without text (home page reel)
+  z.strictObject({ id, type: z.literal("reel"), media: mediaSchema.nullable() }),
   z.strictObject({ id, type: z.literal("feature"), title: z.string(), media: mediaSchema.nullable() }),
   z.strictObject({
     id,
@@ -62,6 +66,8 @@ export const projectSchema = z.strictObject({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   title: z.string().optional(),
   description: z.string().optional(),
+  /** Keeps the page out of search engines and the sitemap (drafts). */
+  noindex: z.literal(true).optional(),
   /** Image for link previews (Open Graph). Falls back to the hero media's poster. */
   image: mediaSchema.optional(),
   sections: z.array(sectionSchema),

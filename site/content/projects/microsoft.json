@@ -1,0 +1,251 @@
+{
+  "slug": "microsoft",
+  "title": "Microsoft - Change",
+  "description": "How Microsoft said goodbye to Wunderlist and welcomed its users to Microsoft To Do, making the farewell feel human.",
+  "sections": [
+    {
+      "id": "615a439d",
+      "type": "hero",
+      "media": {
+        "kind": "video",
+        "project": "microsoft",
+        "type": "header",
+        "alt": "Animated geometric shapes saying goodbye to Wunderlist for Microsoft To Do"
+      },
+      "title": "Saying goodbye is never easy. I helped Microsoft make that conversation feel **a little more human**",
+      "intro": [
+        "When Microsoft decided to discontinue Wunderlist and move its focus to Microsoft To Do, it wasn't simply the end of another app. Over the years, Wunderlist had become part of people's everyday lives. They planned their days with it, shared lists with their families and, in some cases, used it to achieve things they had wanted to do for years.",
+        "That attachment was something I wanted to take seriously. Instead of simply explaining what was changing, I wanted to acknowledge what people were leaving behind while showing that change can also create new possibilities.",
+        "Together we told that story through a family facing changes of their own. Rather than making it literal, I chose to reduce the world and its characters to simple geometric shapes, building on a visual language we had developed with the team in an earlier collaboration. The abstraction gave us room to approach a personal subject without becoming sentimental. The characters could be anyone, and their story could belong to anyone.",
+        "What started as a difficult product announcement became a story about something much more human: letting go of what we know and finding something new on the other side."
+      ],
+      "credit": "Comissioned Work | Microsoft | 2019 | **Creative Direction & Artist**"
+    },
+    {
+      "id": "81a335c8",
+      "type": "film",
+      "project": "microsoft",
+      "file": "master"
+    },
+    {
+      "id": "d12dded0",
+      "type": "credits",
+      "items": [
+        {
+          "label": "Client",
+          "value": [
+            "Microsoft"
+          ]
+        },
+        {
+          "label": "Year",
+          "value": [
+            "2019"
+          ]
+        },
+        {
+          "label": "Creative Direction",
+          "value": [
+            "Christian Zschunke"
+          ]
+        },
+        {
+          "label": "Producer",
+          "value": [
+            "Timo Seegräber"
+          ]
+        },
+        {
+          "label": "Artists",
+          "value": [
+            "Ignas Blažys",
+            "Philipp Brates",
+            "Matteo Forghieri",
+            "Saskia Kretzschmann",
+            "David Weidemann",
+            "Christian Zschunke"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6c0ce94b",
+      "type": "row",
+      "cells": [
+        {
+          "span": 5,
+          "media": null,
+          "text": "The visual constrain, of using only geometric shapes, had us develop beautiful visual metaphors for the characters emotions."
+        },
+        {
+          "span": 7,
+          "media": {
+            "kind": "video",
+            "project": "microsoft",
+            "type": "clip",
+            "n": "01"
+          }
+        }
+      ]
+    },
+    {
+      "id": "91fb1f51",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "microsoft",
+            "type": "clip",
+            "n": "13"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "microsoft",
+            "type": "clip",
+            "n": "11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "5d8dfe6a",
+      "type": "statement",
+      "from": 4,
+      "to": 12,
+      "align": "end",
+      "text": "We build this animation on an earlier collaboration where we told charming stories from the users perspective."
+    },
+    {
+      "id": "4c179521",
+      "type": "film",
+      "project": "microsoft",
+      "file": "clip_10"
+    },
+    {
+      "id": "070f536d",
+      "type": "feature",
+      "title": "PROCESS",
+      "media": {
+        "kind": "video",
+        "project": "microsoft",
+        "type": "clip",
+        "n": "09"
+      }
+    },
+    {
+      "id": "21844e79",
+      "type": "row",
+      "cells": [
+        {
+          "span": 5,
+          "media": null,
+          "text": "The visual language for both animations was derived from the simple shapes that make up every modern UI.\n\nWe added depth and tangible materials to create visual interest and extend our options for storytelling."
+        },
+        {
+          "span": 7,
+          "media": {
+            "kind": "still",
+            "project": "microsoft",
+            "n": "04"
+          }
+        }
+      ]
+    },
+    {
+      "id": "6004afa2",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "microsoft",
+            "n": "22"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "microsoft",
+            "n": "03"
+          }
+        }
+      ]
+    },
+    {
+      "id": "a28e7010",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "microsoft",
+            "n": "10"
+          }
+        }
+      ]
+    },
+    {
+      "id": "75ebce42",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "microsoft",
+            "n": "01"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "microsoft",
+            "n": "08"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dcfe9ab8",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "microsoft",
+            "n": "02"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bcfe98a5",
+      "type": "closing",
+      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+      "link": {
+        "href": "mailto:hello@colourful.pictures",
+        "label": "@colourful.pictures"
+      }
+    },
+    {
+      "id": "ac068737",
+      "type": "aside",
+      "text": "* or check out more"
+    }
+  ]
+}

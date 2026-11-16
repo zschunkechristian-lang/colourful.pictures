@@ -1,0 +1,334 @@
+{
+  "slug": "play",
+  "title": "playground",
+  "description": "Experiments, sketches and personal work by Christian Zschunke: slit-scan, felt, portraits and more.",
+  "sections": [
+    {
+      "id": "cfce977c",
+      "type": "row",
+      "window": 2,
+      "compact": true,
+      "cells": [
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "01",
+            "alt": "Playground experiment: complexity"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "02",
+            "alt": "Playground experiment: slices"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "03",
+            "alt": "Playground experiment: slices"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "type": "clip",
+            "n": "01",
+            "alt": "Playground experiment: gradient animation"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "type": "clip",
+            "n": "02",
+            "alt": "Playground experiment: gradient animation"
+          }
+        }
+      ]
+    },
+    {
+      "id": "20a92d5d",
+      "type": "row",
+      "window": 2,
+      "compact": true,
+      "cells": [
+        {
+          "span": 2,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "type": "clip",
+            "n": "03",
+            "alt": "Playground experiment: slit-scan animation"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "04",
+            "alt": "Slit-scan experiment"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "05",
+            "alt": "Slit-scan experiment"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "06",
+            "alt": "Slit-scan experiment"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "07",
+            "alt": "Slit-scan experiment"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "08",
+            "alt": "Slit-scan experiment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "847bf270",
+      "type": "row",
+      "window": 2,
+      "compact": true,
+      "cells": [
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "09",
+            "alt": "Portrait study"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "10",
+            "alt": "Portrait study"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "11",
+            "alt": "Portrait study"
+          }
+        },
+        {
+          "span": 3,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "type": "clip",
+            "n": "04",
+            "alt": "Felt texture animation"
+          }
+        },
+        {
+          "span": 3,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "12",
+            "alt": "Playground experiment: xotq"
+          }
+        }
+      ]
+    },
+    {
+      "id": "1d38b195",
+      "type": "row",
+      "window": 2,
+      "compact": true,
+      "cells": [
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "13",
+            "alt": "Playground experiment: xotq"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "14",
+            "alt": "Barclays visual"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "15",
+            "alt": "Lise character render"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "16",
+            "alt": "Lise character render"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b6782d36",
+      "type": "row",
+      "window": 2,
+      "compact": true,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "17",
+            "alt": "Lise character render"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "18",
+            "alt": "Lise character render"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "19",
+            "alt": "Lise character render"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "20",
+            "alt": "Lise character render"
+          }
+        },
+        {
+          "span": 2,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "21",
+            "alt": "Lise character render"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2289dd15",
+      "type": "row",
+      "window": 2,
+      "compact": true,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "22",
+            "alt": "Trident render"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "n": "23",
+            "alt": "Trident render"
+          }
+        }
+      ]
+    },
+    {
+      "id": "5ebb6229",
+      "type": "row",
+      "window": 2,
+      "compact": true,
+      "cells": [
+        {
+          "span": 3,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "type": "clip",
+            "n": "05",
+            "alt": "Animated avatar portrait"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f66fcdcf",
+      "type": "closing",
+      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+      "link": {
+        "href": "mailto:hello@colourful.pictures",
+        "label": "@colourful.pictures"
+      }
+    },
+    {
+      "id": "ac820f05",
+      "type": "aside",
+      "text": "* or check out more"
+    }
+  ]
+}

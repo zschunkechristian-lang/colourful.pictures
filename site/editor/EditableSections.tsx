@@ -8,7 +8,7 @@ import type { PickTarget } from "./model";
 import { SectionView, type SectionEdit } from "../components/Sections";
 import { Text } from "./Text";
 import {
-  CATALOG, ROW_PRESETS, clampSpan, duplicateSection, insertSection, isSingleton, moveSection,
+  CATALOG, ROW_PRESETS, hasMediaSlot, clampSpan, duplicateSection, insertSection, isSingleton, moveSection,
   removeSection, replaceSection, rowSum,
 } from "./model";
 
@@ -19,7 +19,7 @@ const swap = <T,>(a: T[], i: number, j: number) => { const n = [...a]; [n[i], n[
 
 const TYPE_LABEL: Record<Section["type"], string> = {
   hero: "Hero", film: "Film", credits: "Credits", statement: "Statement", carousel: "Carousel",
-  row: "Row", feature: "Feature", closing: "Closing", aside: "Aside",
+  row: "Row", feature: "Feature", reel: "Reel", closing: "Closing", aside: "Aside",
 };
 
 export type MenuGroup = { head: string; items: { key: string; label: string }[] };
@@ -94,11 +94,12 @@ function Bar({ section, i, count, project, commit, select, pick }: { section: Se
               set({ ...section, cells: [...section.cells, { span: sum < 12 ? 12 - sum : 4, media: null }] });
             }}
           >+ Cell</button>
+          <button aria-pressed={!!section.compact} title="Short row (about 40% of the usual height)" onClick={() => { const { compact, ...rest } = section; void compact; set((section.compact ? rest : { ...rest, compact: true }) as Section); }}>Short</button>
           <span className={`cms-sum ${rowSum(section.cells) > 12 ? "is-wrap" : ""}`} title="Sum of spans. Above 12 the row wraps to a second line.">Σ {rowSum(section.cells)}</span>
         </>
       )}
 
-      {(section.type === "hero" || section.type === "feature") && <button onClick={() => pick({ sectionId: section.id, kind: "media" })}>Media…</button>}
+      {hasMediaSlot(section) && <button onClick={() => pick({ sectionId: section.id, kind: "media" })}>Media…</button>}
       {section.type === "film" && <button onClick={() => pick({ sectionId: section.id, kind: "film" })}>Film…</button>}
       {section.type === "carousel" && <button onClick={() => pick({ sectionId: section.id, kind: "frames" })}>Frames ({section.frames.length})…</button>}
 
@@ -154,8 +155,12 @@ export function EditableSections({ project, commit, slot, selected, select, pick
         const patch = (c: Partial<Cell>, key?: string) => set({ ...section, cells: section.cells.map((x, j) => (j === index ? { ...x, ...c } : x)) }, key);
         return (
           <>
-          <button className="cms cms-slot" aria-label="Choose media" onClick={() => pick({ sectionId: section.id, kind: "cell", index })}><span>{cell.media ? "Change media" : "Choose media"}</span></button>
+          {cell.text === undefined && <button className="cms cms-slot" aria-label="Choose media" onClick={() => pick({ sectionId: section.id, kind: "cell", index })}><span>{cell.media ? "Change media" : "Choose media"}</span></button>}
           <div className="cms cms-chip" onMouseDown={(e) => e.stopPropagation()}>
+            <button
+              title={cell.text === undefined ? "Make this a text cell" : "Back to a media cell"} aria-pressed={cell.text !== undefined}
+              onClick={() => { const { text, ...rest } = cell; void text; patch(cell.text === undefined ? { text: "" } : ({ ...rest, text: undefined } as Partial<Cell>)); }}
+            >T</button>
             <NumberField label="Span (1–12)" value={cell.span} onChange={(n) => patch({ span: n }, `${section.id}:span${index}`)} />
             <button
               title="Remove cell" disabled={section.cells.length < 2}
@@ -166,7 +171,7 @@ export function EditableSections({ project, commit, slot, selected, select, pick
         );
       },
       mediaSlot: (section) =>
-        section.type === "hero" || section.type === "feature" ? (
+        hasMediaSlot(section) ? (
           <button className="cms cms-slot" aria-label="Choose media" onClick={() => pick({ sectionId: section.id, kind: "media" })}><span>{section.media ? "Change media" : "Choose media"}</span></button>
         ) : null,
       empty: (section, label) => (
@@ -208,7 +213,7 @@ export function EditableSections({ project, commit, slot, selected, select, pick
             data-section={s.type}
             onClickCapture={() => selected !== s.id && select(s.id)}
           >
-            <SectionView section={s} edit={edit} />
+            <SectionView section={s} edit={edit} slug={project.slug} />
             <Bar section={s} i={i} count={project.sections.length} project={project} commit={commit} select={select} pick={pick} />
           </div>
           <Inserter index={i + 1} groups={SECTION_MENU} onPick={onInsert} />

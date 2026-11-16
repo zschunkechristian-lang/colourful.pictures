@@ -3,7 +3,8 @@
 //
 //   GET  /__cms/ping                 -> { ok: true }   (the editor uses this to know saving is available)
 //   POST /__cms/project/<slug>       -> validates the body against projectSchema and writes
-//                                       site/content/projects/<slug>.json (existing projects only)
+//                                       site/content/projects/<slug>.json (existing projects only);
+//                                       the pages home / info / play live in site/content/pages/
 //   POST /__cms/site                 -> validates against siteSchema and writes site/content/site.json
 //   POST /__cms/new-project          -> { slug, title } creates a starter site/content/projects/<slug>.json
 //
@@ -15,6 +16,8 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Plugin } from "vite";
 import { newId, projectSchema, serializeProject, serializeSite, siteSchema, type Project } from "../../lib/schema";
 
+/** Page slugs that are not projects (their files are in site/content/pages, their URLs are /, /info, /play). */
+const RESERVED = ["home", "info", "play"];
 const MAX_BODY = 2 * 1024 * 1024;
 
 function send(res: ServerResponse, status: number, body: unknown) {
@@ -49,6 +52,7 @@ function readBody(req: IncomingMessage): Promise<string> {
 
 export function cmsPlugin(): Plugin {
   const projectsDir = path.resolve(process.cwd(), "site/content/projects");
+  const pagesDir = path.resolve(process.cwd(), "site/content/pages");
   const siteFile = path.resolve(process.cwd(), "site/content/site.json");
   // Files the editor just wrote. Vite would hot-reload the page for them, which would throw
   // away the editor's undo history and open panels, so those updates are swallowed. Edits made
@@ -73,8 +77,9 @@ export function cmsPlugin(): Plugin {
           if (req.method === "POST" && m) {
             if (req.headers["x-cms"] !== "1") return send(res, 403, { ok: false, error: "missing x-cms header" });
             const slug = m[1];
-            const file = path.join(projectsDir, `${slug}.json`);
-            if (path.dirname(file) !== projectsDir || !fs.existsSync(file)) return send(res, 404, { ok: false, error: `no project "${slug}"` });
+            const dir = RESERVED.includes(slug) ? pagesDir : projectsDir;
+            const file = path.join(dir, `${slug}.json`);
+            if (path.dirname(file) !== dir || !fs.existsSync(file)) return send(res, 404, { ok: false, error: `no project "${slug}"` });
 
             let json: unknown;
             try {
@@ -120,6 +125,7 @@ export function cmsPlugin(): Plugin {
             }
             const slug = typeof body.slug === "string" ? body.slug : "";
             if (!/^[a-z0-9-]+$/.test(slug)) return send(res, 400, { ok: false, error: "slug may only contain a-z, 0-9 and -" });
+            if (RESERVED.includes(slug)) return send(res, 400, { ok: false, error: `"${slug}" is reserved for a page` });
             const file = path.join(projectsDir, `${slug}.json`);
             if (path.dirname(file) !== projectsDir) return send(res, 400, { ok: false, error: "bad slug" });
             if (fs.existsSync(file)) return send(res, 409, { ok: false, error: `project "${slug}" already exists` });

@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import manifest from "../content/media-manifest.json";
 import { masterUrls, stillUrl, videoUrls } from "../lib/assets";
 import { frameAlt, frameN, withFrameAlt, type Project, type Section, type SiteData } from "../lib/schema";
-import { itemKey, itemToMedia, mediaToItem, patchTileRow, replaceSection, usedKeys, type Item, type PickTarget } from "./model";
+import { hasMediaSlot, itemKey, itemToMedia, mediaToItem, patchTileRow, replaceSection, usedKeys, type Item, type PickTarget } from "./model";
 
 type M = { base: string; projects: Record<string, { stills: string[]; videos: ({ type: "header" } | { type: "master"; file: string } | { type: "clip"; n: string })[] }> };
 const MANIFEST = manifest as M;
@@ -26,7 +26,7 @@ function sectionOf(p: Project, t: PickTarget) {
 /** The slot's current media as an item (film/carousel handled separately). */
 function currentItem(s: Section, t: PickTarget): Item | null {
   if (t.kind === "cell" && s.type === "row") return mediaToItem(s.cells[t.index]?.media ?? null);
-  if (t.kind === "media" && (s.type === "hero" || s.type === "feature")) return mediaToItem(s.media);
+  if (t.kind === "media" && hasMediaSlot(s)) return mediaToItem(s.media);
   if (t.kind === "film" && s.type === "film" && s.project) return { kind: "master", project: s.project, file: s.file ?? "master_01" };
   return null;
 }
@@ -93,7 +93,7 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
     else if (tileT) setTileMedia(itemToMedia(i));
     else if (target.kind === "cell" && section?.type === "row")
       set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return { ...rest, media: itemToMedia(i) }; }) });
-    else if (target.kind === "media" && (section?.type === "hero" || section?.type === "feature")) set({ ...section, media: itemToMedia(i) });
+    else if (target.kind === "media" && (section && hasMediaSlot(section))) set({ ...section, media: itemToMedia(i) });
     else if (target.kind === "film" && section?.type === "film" && i.kind === "master") set({ ...section, project: i.project, file: i.file });
     else if (isFrames && section?.type === "carousel" && i.kind === "still") {
       const has = section.frames.some((f) => frameN(f) === i.n);
@@ -104,14 +104,14 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
     if (shareT) { const { image, ...rest } = project; void image; commit(rest); }
     else if (tileT) setTileMedia(null);
     else if (target.kind === "cell" && section?.type === "row") set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return { ...rest, media: null }; }) });
-    else if (target.kind === "media" && (section?.type === "hero" || section?.type === "feature")) set({ ...section, media: null });
+    else if (target.kind === "media" && (section && hasMediaSlot(section))) set({ ...section, media: null });
     else if (target.kind === "film" && section?.type === "film") set({ ...section, project: "", file: undefined });
     else if (isFrames && section?.type === "carousel") set({ ...section, frames: [] });
   };
   /** Media object of the slot being edited (for its alt text). */
   const curMedia = tileT ? tile?.media ?? null : shareT ? project.image ?? null
     : section?.type === "row" && target.kind === "cell" ? section.cells[target.index]?.media ?? null
-    : section?.type === "hero" || section?.type === "feature" ? section.media : null;
+    : section && hasMediaSlot(section) ? section.media : null;
   const setAlt = (alt: string) => {
     if (!curMedia) return;
     const next = (({ alt: _a, ...rest }) => (alt ? { ...rest, alt } : rest))(curMedia) as NonNullable<typeof curMedia>;
@@ -119,7 +119,7 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
     if (shareT) commit({ ...project, image: next }, key);
     else if (tileT && target.kind === "tile") commitSite(patchTileRow(site, target.row, (ts) => ts.map((t, j) => (j === target.index ? { ...t, media: next } : t))), key);
     else if (section?.type === "row" && target.kind === "cell") set({ ...section, cells: section.cells.map((c, j) => (j === target.index ? { ...c, media: next } : c)) }, key);
-    else if (section?.type === "hero" || section?.type === "feature") set({ ...section, media: next }, key);
+    else if (section && hasMediaSlot(section)) set({ ...section, media: next }, key);
   };
   const moveFrame = (i: number, d: -1 | 1) => {
     if (section?.type !== "carousel") return;

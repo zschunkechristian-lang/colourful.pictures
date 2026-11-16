@@ -1,0 +1,402 @@
+{
+  "slug": "mbos",
+  "title": "MERCEDES - MBOS",
+  "description": "Translating Mercedes-Benz luxury into the digital space with MB.OS: visual metaphors in metal and glass instead of feature lists.",
+  "sections": [
+    {
+      "id": "d5a816f7",
+      "type": "hero",
+      "media": {
+        "kind": "video",
+        "project": "mercedes02",
+        "type": "header",
+        "alt": "Animation of reflective metal and glass surfaces for Mercedes-Benz MB.OS"
+      },
+      "title": "Mercedes asked how to translate luxury into the digital space?",
+      "intro": [
+        "My answer was a simple visual framework. Instead of showcasing features we would create visual metaphors that encapsulate the sensorial experience of using them.",
+        "Aesthetically I tied the two worlds together by reducing the visual palette of our artists to metal and glass. Metal carried the physicality the brand is known for — weight, precision, the tactile world of the cars themselves while glass stood in for the digital space — transparent, layered, a little more abstract. Together they form a synthesis of Mercedes new approach to Software.",
+        "The result was a visual poem that underlined the brands commitment to . It was a toolkit that represented the brand in a new light."
+      ],
+      "credit": "Commissioned Work | Mercedes Benz | 2024 | **Creative Direction & Artist**"
+    },
+    {
+      "id": "4aebc774",
+      "type": "film",
+      "project": "mercedes02",
+      "file": "master_01"
+    },
+    {
+      "id": "8837b327",
+      "type": "credits",
+      "items": [
+        {
+          "label": "Client",
+          "value": [
+            "Mercedes"
+          ]
+        },
+        {
+          "label": "Year",
+          "value": [
+            "2024"
+          ]
+        },
+        {
+          "label": "Creative & Art Direction",
+          "value": [
+            "Christian Zschunke",
+            "Gui Todorov"
+          ]
+        },
+        {
+          "label": "Producer",
+          "value": [
+            "David Adam",
+            "Jan Birkenbach",
+            "Markus Trautmann"
+          ]
+        },
+        {
+          "label": "Artists",
+          "value": [
+            "Philipp Brates",
+            "Axel Ebert",
+            "Quinten Delahaye",
+            "Saskia Kretzschmann",
+            "Robert Langnickel",
+            "Norman Struwe",
+            "Gui Todorov",
+            "Alexander Vieten",
+            "Christian Zschunke"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3b253ae8",
+      "type": "statement",
+      "from": 3,
+      "to": 10,
+      "align": "center",
+      "text": "I wanted to create an animation that constantly draws in the viewer with a hypntoic flow."
+    },
+    {
+      "id": "24bb7e89",
+      "type": "carousel",
+      "frames": [
+        "256",
+        "255",
+        "258",
+        "260",
+        "262",
+        "355",
+        "359",
+        "364",
+        "368",
+        "370",
+        "371",
+        "374",
+        "377",
+        "383",
+        "387",
+        "391",
+        "395",
+        "398",
+        "408"
+      ],
+      "project": "mercedes02"
+    },
+    {
+      "id": "4dc9029c",
+      "type": "statement",
+      "from": 1,
+      "to": 8,
+      "align": "start",
+      "text": "The reduced visual palette and material dichotomy created a subtle and calm undertone throughout the whole animation."
+    },
+    {
+      "id": "83dfe0a4",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "18"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "17"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cbc35dde",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "146"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "147"
+          }
+        }
+      ]
+    },
+    {
+      "id": "0bc504c9",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "53"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "34"
+          }
+        }
+      ]
+    },
+    {
+      "id": "81c1b79e",
+      "type": "feature",
+      "title": "PROCESS",
+      "media": {
+        "kind": "video",
+        "project": "mercedes02",
+        "type": "clip",
+        "n": "01"
+      }
+    },
+    {
+      "id": "7ae8c84c",
+      "type": "statement",
+      "from": 4,
+      "to": 12,
+      "align": "end",
+      "text": "The process of creative exploration and collaboration was as rewarding for us as for the client. Many of the visual experiments ended up being usefull for their visual framework."
+    },
+    {
+      "id": "abae1dee",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "02"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "video",
+            "project": "mercedes02",
+            "type": "clip",
+            "n": "09"
+          }
+        }
+      ]
+    },
+    {
+      "id": "53970fdd",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "07"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "276"
+          }
+        }
+      ]
+    },
+    {
+      "id": "5f8cee16",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "340",
+            "optimize": false
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "281"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ea2cd12c",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "418"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "417",
+            "optimize": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "e90115a9",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "341"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4258a4a1",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "mercedes02",
+            "type": "clip",
+            "n": "06"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "14"
+          }
+        }
+      ]
+    },
+    {
+      "id": "5dd8856f",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "97"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "106"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "mercedes02",
+            "type": "clip",
+            "n": "01"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c9c36aed",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "mercedes02",
+            "n": "16"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f117e1da",
+      "type": "closing",
+      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+      "link": {
+        "href": "mailto:hello@colourful.pictures",
+        "label": "@colourful.pictures"
+      }
+    },
+    {
+      "id": "3f7ba594",
+      "type": "aside",
+      "text": "* or check out more"
+    }
+  ]
+}

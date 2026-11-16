@@ -1,0 +1,40 @@
+{
+  "slug": "info",
+  "title": "About – Christian Zschunke",
+  "description": "Berlin-based designer turned Creative Director with over 15 years of experience in brand, motion design and 3D, working for Mercedes-Benz, Zeiss, Microsoft and ZDF.",
+  "sections": [
+    {
+      "id": "37096323",
+      "type": "hero",
+      "media": {
+        "kind": "video",
+        "project": "portraits",
+        "type": "clip",
+        "n": "01",
+        "alt": "Animated avatar portrait of Christian Zschunke"
+      },
+      "title": "Hi, I'm Chris. I was born, stuff happend, now I design things.",
+      "intro": [
+        "I'm a Berlin-based Designer turned Creative Director who has spent over 15 years using a variety of technologies to create images that capture attention and tell engaging stories.",
+        "Working across brand, motion design and 3D, I translate insights into colourful worlds, building creative visions from first pitch through to final pixel for the likes of Mercedes-Benz, Zeiss, Microsoft and ZDF.",
+        "Beyond the visuals, I care about building strong creative teams: giving artists room to experiment while keeping every project anchored to a clear, shared vision.",
+        "If you have have a story that needs to be told or an image you can't quite put into words, we should talk."
+      ],
+      "credit": ""
+    },
+    {
+      "id": "dbd72104",
+      "type": "closing",
+      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+      "link": {
+        "href": "mailto:hello@colourful.pictures",
+        "label": "@colourful.pictures"
+      }
+    },
+    {
+      "id": "dff4030e",
+      "type": "aside",
+      "text": "* or check out more"
+    }
+  ]
+}

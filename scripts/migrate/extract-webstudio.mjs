@@ -83,10 +83,50 @@ function heightToken(st) {
   return HEIGHTS[key] || `?${key}`;
 }
 
+// Old-style pages point at assets.mim.studio files by their original names. R2 holds the same
+// files under the numbered layout (matched by file size / poster); this table records which is which.
+const LEGACY_VIDEO = {
+  "zdf:MIM.zdf.website.makingof.16by9": { film: "master_03" },
+  "lavita:MIM.lavita.website.header": { type: "header" },
+  "lavita:LaVita_30s_HD_16x9_v037_h264": { film: "clip_01" },
+  "lavita:LaVita_MakingOf_30sec_16x9_v04_15Mbps": { film: "clip_03" },
+  "lavita:MIM.lavita.clip04": { type: "clip", n: "08" },
+  "lavita:MIM.lavita.clip06": { type: "clip", n: "10" },
+  "lavita:MIM.lavita.clip08": { type: "clip", n: "11" },
+  "lavita:MIM.lavita.clip10": { type: "clip", n: "12" },
+  "lavita:MIM.lavita.clip11": { type: "clip", n: "13" },
+  "lavita:LaVita_Snippet_InnerWorld": { type: "clip", n: "04" },
+  "rowa:GGH_ROWA_MASTER_1by1_Snippet_002": { type: "clip", n: "05" },
+  "rowa:220224_ROWA_turntable_v002": { type: "clip", n: "02" },
+  "rowa:220224_ROWA_turntable_v003": { type: "clip", n: "03" },
+  "rowa:GGH_ROWA_SH011_v023__cz": { type: "clip", n: "09" },
+  "rowa:ROWA_CHARANIM_SH040_v28_floP__cleanRender": { type: "clip", n: "08" },
+  "rowa:GGH_ROWA_MASTER_v014_16by9_10Mbit_DELIVERY": { film: "master_01" }, // not in R2 yet
+};
+const legacyVideo = (c) => {
+  const m = /src="https:\/\/assets\.mim\.studio\/website\/(?:projects\/(\w+)\/video|headers)\/([^"]+?)_(?:h264|h265)\.mp4"/.exec(c);
+  if (!m) return null;
+  const project = m[1] || /MIM\.(\w+)\./.exec(m[2])[1].toLowerCase();
+  const hit = LEGACY_VIDEO[`${project}:${m[2]}`];
+  return hit ? { project, ...hit } : (console.warn("UNMAPPED legacy video", m[2]), null);
+};
+const legacyStill = (src) => {
+  const m = /\/projects\/(\w+)\/(?:stills\/)?MIM\.\w+\.Frame\.(?:X\.)?(\d+)\.jpg/i.exec(src || "");
+  return m ? { project: m[1].toLowerCase(), n: m[2].length > 2 && m[1].toLowerCase() === "rowa" ? m[2].slice(-2) : m[2] } : null;
+};
+
 function media(n) {
   const c = code(n);
   const d = (k) => (new RegExp(`data-${k}\\s*=\\s*"([^"]*)"`).exec(c) || [])[1];
-  if (n.tag === "Image") return { kind: "still", project: n.props["data-project"], n: String(n.props["data-number"]), ...(n.props.optimize === false ? { optimize: false } : {}) };
+  if (n.tag === "Image" && !n.props["data-project"]) {
+    const l = legacyStill(n.props.src);
+    if (l) return { kind: "still", ...l, ...(n.props.optimize === false ? { optimize: false } : {}) };
+  }
+  if (n.tag === "Image") return { kind: "still", project: n.props["data-project"], n: String(n.props["data-number"]).trim(), ...(n.props.optimize === false ? { optimize: false } : {}) };
+  if (/<video/.test(c) && !d("project")) {
+    const l = legacyVideo(c);
+    return l && !l.film ? { kind: "video", project: l.project, type: l.type, ...(l.n ? { n: l.n } : {}) } : null;
+  }
   if (/<video/.test(c)) return { kind: "video", project: d("project"), type: d("type") || "clip", ...(d("number") ? { n: d("number") } : {}) };
   return null;
 }
@@ -104,17 +144,31 @@ function sectionOf(div) {
     // hero: header video left, text column right
   }
   if (/video-player-container/.test(html)) {
-    const m = /(\w+)_master_01_h264/.exec(html);
-    return { type: "film", project: m?.[1], file: "master_01" };
+    const m = /\/(\w+)\/video\/\1_((?:master|clip)(?:_\d+)?)_h264\.mp4/.exec(html);
+    if (m) return { type: "film", project: m[1], file: m[2] };
+    const l = legacyVideo(html);
+    return { type: "film", project: l?.project ?? slug, file: l?.film ?? "master_01" };
   }
   if (/ws-external-container/.test(html)) {
     const live = html.replace(/<!--[\s\S]*?-->/g, "");
-    const slides = [...live.matchAll(/class="ws-slide"><img[^>]*data-number="(\d+)"/g)].map((x) => x[1]);
+    const slides = [...live.matchAll(/class="ws-slide"><img([^>]*)>/g)].map((x) => /data-number="(\d+)"/.exec(x[1])?.[1] ?? legacyStill(/src="([^"]+)"/.exec(x[1])[1]).n);
     // the old script padded the track with a clone of the last slide in front
     // and a clone of the first slide at the end; the real frames are in between
-    return { type: "carousel", frames: slides.slice(1, -1) };
+    // frames normally belong to this project, but a page may borrow another project's stills
+    const owner = /data-project="(\w+)"/.exec(live)?.[1] ?? legacyStill(/src="([^"]+)"/.exec(live)?.[1])?.project ?? slug;
+    return { type: "carousel", frames: slides.slice(1, -1), project: owner };
   }
   const stagger = find(div, (x) => x.tag === "StaggerAnimation");
+  // text beside media in a plain grid (no stagger): a row with a text cell and a media cell
+  const plainGrid = !stagger && find(div, (x) => x.tag === "div" && /^(1fr ){11}1fr$/.test(style(x)["grid-template-columns"] || ""));
+  if (plainGrid) {
+    const [a, b] = kids(plainGrid);
+    const texts = findAll(a, (x) => x.tag === "Text").map((t) => text(t).trim());
+    const n = span(style(a));
+    if (b && texts.length && n && n < 12) {
+      return { type: "row", cells: [{ span: n, media: null, text: texts.join("\n\n") }, { span: 12 - n, media: mediaOf(b) }] };
+    }
+  }
   if (stagger) {
     const cells = kids(stagger);
     // PROCESS-style full-bleed clip with overlay title
@@ -122,14 +176,14 @@ function sectionOf(div) {
     if (h1 && cells.length === 1 && find(cells[0], (x) => /<video/.test(code(x)))) {
       return { type: "feature", title: text(h1), media: mediaOf(cells[0]) };
     }
-    if (find(stagger, (x) => x.tag === "Link_1")) return null; // project tiles → handled elsewhere
     const rowSt = style(stagger);
     return {
       type: "row",
       ...(stagger.props.slidingWindow ? { window: stagger.props.slidingWindow } : {}),
       cells: cells.map((c) => {
         const st = style(c);
-        return { span: span(st), media: mediaOf(c) };
+        const t = find(c, (x) => x.tag === "Text");
+        return t ? { span: span(st), media: null, text: text(t).trim() } : { span: span(st), media: mediaOf(c) };
       }),
     };
   }
@@ -146,7 +200,6 @@ function sectionOf(div) {
       from: stt["grid-column-start"] * 1 || 1,
       to: (stt["grid-column-end"] * 1 || 13) - 1,
       align: ats["text-align"] === "end" ? "end" : ats["text-align"] === "start" ? "start" : "center",
-      ...(fs_ && !/3lvw/.test(fs_) ? { size: fs_ } : {}),
       text: text(t).trim(),
     };
   }
@@ -172,12 +225,14 @@ for (const div of kids(contentBox)) {
     continue;
   }
   // hero (header video + title + intro)
-  if (/data-type="header"/.test(html) && find(div, (x) => x.tag === "Text")) {
+  const heroMedia = /data-type="header"/.test(html) ? { kind: "video", project: /data-project="(\w+)"/.exec(html)[1], type: "header" } : !sections.length && !/video-player-container/.test(html) && /<video/.test(html) ? media(findAll(div, (x) => x.tag === "HtmlEmbed")[0]) : null;
+  if (heroMedia && find(div, (x) => x.tag === "Text")) {
     const texts = findAll(div, (x) => x.tag === "Text").map(text);
+    if (texts.length < 3) { sections.push({ type: "unknown", dump: "hero with <3 texts" }); continue; }
     const intro = texts[1];
     sections.push({
       type: "hero",
-      media: { kind: "video", project: /data-project="(\w+)"/.exec(html)[1], type: "header" },
+      media: heroMedia,
       title: texts[0].trim(),
       intro: intro.split("#").map((s) => s.replace(/\n+/g, " ").trim()).filter(Boolean),
       credit: texts[2].trim(),
@@ -186,7 +241,7 @@ for (const div of kids(contentBox)) {
   }
   // project tiles
   const stagger = find(div, (x) => x.tag === "StaggerAnimation");
-  if (stagger && find(stagger, (x) => x.tag === "Link_1")) {
+  if (stagger && find(stagger, (x) => x.tag === "Link_1") && sections.some((x) => x.type === "aside")) {
     tileRows.push({
       ...(stagger.props.slidingWindow ? { window: stagger.props.slidingWindow } : {}),
       tiles: kids(stagger).map((a) => {
@@ -230,7 +285,9 @@ for (const div of kids(contentBox)) {
 }
 
 // closing boxes live as <Box> siblings after the divs — handled above via Text.
-const project = { slug, sections: sections.map((s) => ({ id: crypto.randomUUID().replace(/-/g, "").slice(0, 8), ...s })) };
+const meta = fs.readFileSync(path.join(gen, `[projects].[${slug}]._index.server.tsx`), "utf8");
+const metaOf = (k) => { const m = new RegExp(`${k}: ("(?:[^"\\\\]|\\\\.)*")`).exec(meta); return m ? JSON.parse(m[1]) : undefined; };
+const project = { slug, title: metaOf("title"), description: metaOf("description"), sections: sections.map((s) => ({ id: crypto.randomUUID().replace(/-/g, "").slice(0, 8), ...s })) };
 fs.mkdirSync(path.join(repo, "site/content/projects"), { recursive: true });
 fs.writeFileSync(path.join(repo, `site/content/projects/${slug}.json`), JSON.stringify(project, null, 2) + "\n");
 console.log(`wrote ${slug}.json with ${sections.length} sections (${sections.filter((s) => s.type === "unknown").length} unknown)`);

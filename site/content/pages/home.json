@@ -1,0 +1,26 @@
+{
+  "slug": "home",
+  "title": "ColourfulPictures // Creative Direction & Design Portfolio Christian Zschunke",
+  "description": "Hi, I'm Chris. I was born, stuff happend now I create digital art, nurture talent and fight bullshit → Get in touch",
+  "sections": [
+    {
+      "id": "ba1113b6",
+      "type": "reel",
+      "media": {
+        "kind": "video",
+        "project": "reel",
+        "type": "clip",
+        "n": "01",
+        "alt": "Showreel of Christian Zschunke: 3D animation, brand and motion design work"
+      }
+    },
+    {
+      "id": "0d4fab30",
+      "type": "statement",
+      "from": 2,
+      "to": 11,
+      "align": "center",
+      "text": "Hi, I'm **Chris**. I was born, stuff happend now I create digital art, nurture talent and fight bullshit. → Get in touch."
+    }
+  ]
+}

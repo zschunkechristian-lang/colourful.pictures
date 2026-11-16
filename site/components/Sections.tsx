@@ -58,16 +58,27 @@ export type SiteEdit = {
   addLink: () => ReactNode;
 };
 
-function CellView({ cell, hover, children }: { cell: Cell; hover?: boolean; children?: ReactNode }) {
+function CellView({ cell, hover, children, onText, Text: T }: { cell: Cell; hover?: boolean; children?: ReactNode; onText?: (v: string) => void; Text?: ComponentType<TextProps> }) {
+  const style = vars({ "--span": cell.span, ...(cell.position ? { "--pos": cell.position } : {}) });
+  if (cell.text !== undefined)
+    return (
+      <div className="cell cell--text" style={style}>
+        <div className="cell__text" data-reveal={T ? undefined : "text"}>
+          {T && onText ? <T as="p" value={cell.text} format="rich" multiline placeholder="Text" onChange={onText} /> : <p>{inline(cell.text)}</p>}
+        </div>
+        {children}
+      </div>
+    );
   return (
-    <div className="cell" style={vars({ "--span": cell.span, ...(cell.position ? { "--pos": cell.position } : {}) })}>
+    <div className="cell" style={style}>
       <MediaView media={cell.media} hover={hover} />
       {children}
     </div>
   );
 }
 
-export function SectionView({ section, edit }: { section: Section; edit?: SectionEdit }) {
+/** `slug` is the page's own project: the fallback for carousels that name no project. */
+export function SectionView({ section, edit, slug }: { section: Section; edit?: SectionEdit; slug: string }) {
   const T = edit?.Text;
   const key = (f: string) => `${section.id}:${f}`;
   const set = (patch: Record<string, unknown>, f: string) => edit!.update({ ...section, ...patch } as Section, key(f));
@@ -100,9 +111,9 @@ export function SectionView({ section, edit }: { section: Section; edit?: Sectio
               </div>
               {T ? (
                 <T as="div" className="hero__credit" value={section.credit} format="rich" placeholder="Credit line" onChange={(v) => set({ credit: v }, "credit")} />
-              ) : (
+              ) : section.credit ? (
                 <div className="hero__credit" data-reveal="load-fade">{inline(section.credit)}</div>
-              )}
+              ) : null}
             </div>
           </div>
         </section>
@@ -161,14 +172,28 @@ export function SectionView({ section, edit }: { section: Section; edit?: Sectio
       );
     case "carousel":
       if (!section.frames.length) return edit ? edit.empty(section, "Carousel — no frames yet") : null;
-      return <Carousel project={section.project ?? "galvany"} frames={section.frames} />;
+      return <Carousel project={section.project ?? slug} frames={section.frames} />;
     case "row":
       return (
-        <div className="row" data-reveal="cells">
+        <div className={`row ${section.compact ? "row--compact" : ""}`} data-reveal="cells">
           <div className="row__grid">
-            {section.cells.map((c, i) => <CellView key={i} cell={c}>{edit?.cell(section, i)}</CellView>)}
+            {section.cells.map((c, i) => (
+              <CellView
+                key={i} cell={c} Text={T}
+                onText={(v) => edit!.update({ ...section, cells: section.cells.map((x, j) => (j === i ? { ...x, text: v } : x)) }, key(`cell${i}`))}
+              >
+                {edit?.cell(section, i)}
+              </CellView>
+            ))}
           </div>
         </div>
+      );
+    case "reel":
+      return (
+        <section className="reel" data-reveal="fade">
+          <MediaView media={section.media} />
+          {edit?.mediaSlot(section)}
+        </section>
       );
     case "feature":
       return (

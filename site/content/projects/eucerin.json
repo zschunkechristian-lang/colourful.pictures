@@ -1,0 +1,401 @@
+{
+  "slug": "eucerin",
+  "title": "EUCERIN – MOA",
+  "description": "Digital sculptures that visualize Eucerin's key ingredients and move the brand closer to beauty while honoring its scientific roots.",
+  "sections": [
+    {
+      "id": "2a8ae128",
+      "type": "hero",
+      "media": {
+        "kind": "video",
+        "project": "eucerin",
+        "type": "header",
+        "alt": "Animated digital sculpture visualizing a Eucerin skincare ingredient"
+      },
+      "title": "I explored the space between **chemistry and art** for Eucerin to elevate their brand imagery.",
+      "intro": [
+        "EUCERIN was looking to elevate the visual language of their mode-of-action for the newest product lineup. Their brand was struggling with being perceived as firmly in the medical niche, so we decided to use digital art to situate them closer to a beauty product while still honoring their scientific background.",
+        "To achieve that goal, I led a team of digital artists to create digital sculptures that visualize the main chemical ingredients in a new, aesthetic way. Together we iterated over different ideas and picked the ones that resonated the most with our goal.",
+        "The end result was not just a set of assets for their campaign but rather a new approach to positioning their brand."
+      ],
+      "credit": "Comissioned Work | EUCERIN | 2024/25 | **Creative Direction & Artist**"
+    },
+    {
+      "id": "a1006924",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "70"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "107"
+          }
+        }
+      ]
+    },
+    {
+      "id": "1550b948",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "127"
+          },
+          "position": "80% 42%"
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "clip",
+            "n": "08"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c35b37f8",
+      "type": "statement",
+      "from": 3,
+      "to": 10,
+      "align": "center",
+      "text": "I established a discovery-led process that allowed us to experiment and come up with unique visual approaches to push the brand."
+    },
+    {
+      "id": "4a65631a",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "11"
+          }
+        },
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "50"
+          }
+        }
+      ]
+    },
+    {
+      "id": "db1440f5",
+      "type": "carousel",
+      "frames": [
+        "25",
+        "18",
+        "09",
+        "22",
+        "47",
+        "65"
+      ],
+      "project": "eucerin"
+    },
+    {
+      "id": "f0d3aca2",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "99"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "97"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "102"
+          }
+        }
+      ]
+    },
+    {
+      "id": "5be49cf5",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 7,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "52"
+          }
+        },
+        {
+          "span": 5,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "clip",
+            "n": "04"
+          }
+        }
+      ]
+    },
+    {
+      "id": "d701a7de",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 5,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "clip",
+            "n": "06"
+          }
+        },
+        {
+          "span": 7,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "clip",
+            "n": "07"
+          }
+        }
+      ]
+    },
+    {
+      "id": "97b2329c",
+      "type": "statement",
+      "from": 1,
+      "to": 8,
+      "align": "start",
+      "text": "My goal was to move away from a medical appearance while still keeping the scientific foundation."
+    },
+    {
+      "id": "e56bb0bd",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 3,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "85"
+          }
+        },
+        {
+          "span": 3,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "66"
+          }
+        },
+        {
+          "span": 3,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "100"
+          }
+        },
+        {
+          "span": 3,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "164"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c42dccd5",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 5,
+          "media": {
+            "kind": "still",
+            "project": "eucerin",
+            "n": "78"
+          }
+        },
+        {
+          "span": 7,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "clip",
+            "n": "11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "64c26314",
+      "type": "statement",
+      "from": 4,
+      "to": 12,
+      "align": "end",
+      "text": "The results proved valuable to them, so we decided to extend our collaboration to include more of their product lineup."
+    },
+    {
+      "id": "aa40f905",
+      "type": "carousel",
+      "frames": [
+        "141",
+        "124",
+        "125",
+        "159",
+        "44",
+        "36"
+      ],
+      "project": "eucerin"
+    },
+    {
+      "id": "6545aac9",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "clip",
+            "n": "15"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "clip",
+            "n": "16"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "clip",
+            "n": "18"
+          }
+        }
+      ]
+    },
+    {
+      "id": "22680ee0",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "video",
+            "project": "eucerin",
+            "type": "clip",
+            "n": "20"
+          }
+        }
+      ]
+    },
+    {
+      "id": "740c9b55",
+      "type": "credits",
+      "items": [
+        {
+          "label": "Client",
+          "value": [
+            "EUCERIN"
+          ]
+        },
+        {
+          "label": "Year",
+          "value": [
+            "2024"
+          ]
+        },
+        {
+          "label": "Creative Direction",
+          "value": [
+            "Christian Zschunke",
+            "Guilherme Todorov"
+          ]
+        },
+        {
+          "label": "Producer",
+          "value": [
+            "Markus Trautmann"
+          ]
+        },
+        {
+          "label": "Artists",
+          "value": [
+            "Philipp Brates",
+            "Anne Dolkemeyer",
+            "Guilherme Todorov",
+            "Leon Novak",
+            "Christian Zschunke"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3a075ab9",
+      "type": "statement",
+      "from": 3,
+      "to": 10,
+      "align": "center",
+      "text": "In the end we provided Eucerin with a new perspective on how a scientificaly rooted mode-of-action can still communicate beatuy."
+    },
+    {
+      "id": "325f1ae5",
+      "type": "closing",
+      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+      "link": {
+        "href": "mailto:hello@colourful.pictures",
+        "label": "@colourful.pictures"
+      }
+    },
+    {
+      "id": "aeeaa68c",
+      "type": "aside",
+      "text": "* or check out more"
+    }
+  ]
+}

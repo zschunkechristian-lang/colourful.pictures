@@ -5,3 +5,4 @@ dist/
 .webstudio/auth.json
 .env
 .env.local
+playground-upload/

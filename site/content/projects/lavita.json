@@ -1,0 +1,298 @@
+{
+  "slug": "lavita",
+  "title": "lavita - companion",
+  "description": "A LaVita animation that skips the typical explainer and follows the brand as a companion for the immune system and wellbeing through life.",
+  "sections": [
+    {
+      "id": "5d8b2656",
+      "type": "hero",
+      "media": {
+        "kind": "video",
+        "project": "lavita",
+        "type": "header",
+        "alt": "Animated LaVita character moving through a handcrafted world of cells"
+      },
+      "title": "LaVita **dared to stand** out in the german media landscape by commiting to the craft of animation.",
+      "intro": [
+        "\"Health is something you only notice when it's missing.\" But how do you communicate something so fundamental yet invisible?",
+        "LaVita was looking for something different than the tenth explainer. I knew immediately I wanted to move beyond the typical problem/solution framework and instead explore how LaVita serves as a companion throughout life's journey, supporting the immune system and overall wellbeing.",
+        "After weeks of collaborative ideation with the team, we developed a narrative following our protagonist Eva and her family through different life stages, enriched by an organic visual metaphor illustrating how LaVita nourishes the billions of cells in our bodies.",
+        "During the concept phase, we crafted Eva's world and established a visual style designed to stand out in LaVita's competitive media landscape. What made this project exceptional was our client's commitment to craft and their deep understanding that details matter. This partnership allowed us to build every aspect of this world with care and intention."
+      ],
+      "credit": "Comissioned Work | LAVITA | 2025/26 | **Creative Direction & Artist**"
+    },
+    {
+      "id": "c827aa55",
+      "type": "film",
+      "project": "lavita",
+      "file": "clip_01"
+    },
+    {
+      "id": "b505da92",
+      "type": "credits",
+      "items": [
+        {
+          "label": "Client",
+          "value": [
+            "LaVita"
+          ]
+        },
+        {
+          "label": "Year",
+          "value": [
+            "2025/26"
+          ]
+        },
+        {
+          "label": "Creative Direction",
+          "value": [
+            "Saskia Kretzschmann",
+            "Christian Zschunke"
+          ]
+        },
+        {
+          "label": "Producer",
+          "value": [
+            "Stephanie Baumgarte"
+          ]
+        },
+        {
+          "label": "Artists",
+          "value": [
+            "Ignas Blazys",
+            "Müge Bulazar",
+            "Philipp Brates",
+            "Axel Brötje",
+            "Florian Dehmel",
+            "Maryse Heilig",
+            "Adrian Huener",
+            "Ben Karrasch",
+            "Saskia Kretzschmann",
+            "Sebastian Rätsch",
+            "Leo Romanski",
+            "Tobias Sprengart",
+            "Christian Zschunke"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eb2f2f64",
+      "type": "statement",
+      "from": 2,
+      "to": 11,
+      "align": "center",
+      "text": "The team I curated and directed brought live to our concept and filled the world with lovingly handcrafted details."
+    },
+    {
+      "id": "3f0757e0",
+      "type": "carousel",
+      "frames": [
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "101",
+        "102",
+        "103",
+        "104"
+      ],
+      "project": "lavita"
+    },
+    {
+      "id": "2467b458",
+      "type": "feature",
+      "title": "PROCESS",
+      "media": {
+        "kind": "video",
+        "project": "lavita",
+        "type": "clip",
+        "n": "12"
+      }
+    },
+    {
+      "id": "8ebac489",
+      "type": "film",
+      "project": "lavita",
+      "file": "clip_03"
+    },
+    {
+      "id": "913ce636",
+      "type": "statement",
+      "from": 4,
+      "to": 12,
+      "align": "end",
+      "text": "Bringin these characters to life was a labour of love from the whole team involved. Careful planning and pre-production allowed us to punch above our weight."
+    },
+    {
+      "id": "91d0d9a3",
+      "type": "carousel",
+      "frames": [
+        "012",
+        "042",
+        "043",
+        "044",
+        "036",
+        "051",
+        "048",
+        "068",
+        "070",
+        "084",
+        "087",
+        "093",
+        "098",
+        "099"
+      ],
+      "project": "lavita"
+    },
+    {
+      "id": "deef0921",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "lavita",
+            "type": "clip",
+            "n": "08"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "lavita",
+            "n": "060"
+          }
+        }
+      ]
+    },
+    {
+      "id": "8473d01c",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "lavita",
+            "n": "015"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dd4bba04",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "lavita",
+            "n": "045"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "lavita",
+            "type": "clip",
+            "n": "10"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f1a736db",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": null,
+          "text": "We applied the same care to the inner world that acted as a metaphor for the billions of cells inside us."
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "video",
+            "project": "lavita",
+            "type": "clip",
+            "n": "11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "7ec506dd",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 9,
+          "media": {
+            "kind": "still",
+            "project": "lavita",
+            "n": "041"
+          }
+        },
+        {
+          "span": 3,
+          "media": {
+            "kind": "video",
+            "project": "lavita",
+            "type": "clip",
+            "n": "04"
+          }
+        }
+      ]
+    },
+    {
+      "id": "1cde0fd7",
+      "type": "statement",
+      "from": 2,
+      "to": 11,
+      "align": "center",
+      "text": "In the end, the passion from client and artists alike paid of and resulted in a loveletter to animation that stood out in a sea of sameness."
+    },
+    {
+      "id": "227baecd",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "video",
+            "project": "lavita",
+            "type": "clip",
+            "n": "13"
+          }
+        }
+      ]
+    },
+    {
+      "id": "86078740",
+      "type": "closing",
+      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+      "link": {
+        "href": "mailto:hello@colourful.pictures",
+        "label": "@colourful.pictures"
+      }
+    },
+    {
+      "id": "1a91a2ca",
+      "type": "aside",
+      "text": "* or check out more"
+    }
+  ]
+}

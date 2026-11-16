@@ -1,0 +1,318 @@
+{
+  "slug": "zdf",
+  "title": "ZDF - Spring",
+  "description": "Seasonal branding animations for ZDF: embroidered grass, linen-textured figures and crafted flowers replace the knitted blanket of snow.",
+  "sections": [
+    {
+      "id": "8c1a4bfe",
+      "type": "hero",
+      "media": {
+        "kind": "video",
+        "project": "zdf",
+        "type": "header",
+        "alt": "Embroidered grass and crafted flowers in the ZDF spring animation"
+      },
+      "title": "We pull away the knitted blanket of snow to reveal a **handcrafted** spring landscape",
+      "intro": [
+        "I've been working with ZDF for a while on their seasonal branding, creating bespoke animations for their spring and summer slots.",
+        "For this project we pulled apart the knitted blanket of snow and revealed different, lighter materials — embroidered grass instead of snow, linen-textured figures and intricate crafted flowers.",
+        "I curated a team of artists to bring this vision to life and together we created something with enough going on that a viewer catching it for the twentieth time between programs might still notice something they hadn't before. That kind of density takes a while to build, and it only works when the client is willing to be in the weeds with you. The ZDF team was.",
+        "The spring campaign ended up feeling like a breath of fresh air with it's handmade quality. ZDF's visual identity got a little more layered, and viewers who'd grown up with the channel had something that acknowledged that history without being sentimental about it."
+      ],
+      "credit": "Comissioned Work | ZDF | 2025/26 | **Creative Direction & Artist**"
+    },
+    {
+      "id": "7b712cf2",
+      "type": "film",
+      "project": "zdf",
+      "file": "master_02"
+    },
+    {
+      "id": "f15084a4",
+      "type": "credits",
+      "items": [
+        {
+          "label": "Client",
+          "value": [
+            "ZDF"
+          ]
+        },
+        {
+          "label": "Year",
+          "value": [
+            "2025/26"
+          ]
+        },
+        {
+          "label": "Creative Direction",
+          "value": [
+            "Saskia Kretzschmann",
+            "Christian Zschunke"
+          ]
+        },
+        {
+          "label": "Producer",
+          "value": [
+            "Stephanie Baumgarte"
+          ]
+        },
+        {
+          "label": "Artists",
+          "value": [
+            "Philipp Brates",
+            "Ignas Blažys",
+            "Quinten Delahaye",
+            "Tania Shapovalova",
+            "Anastasiia Vorobeva",
+            "Guilherme Todorov",
+            "Saskia Kretzschmann",
+            "Christian Zschunke"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7166f53a",
+      "type": "statement",
+      "from": 2,
+      "to": 11,
+      "align": "center",
+      "text": "In the middle of winter, right before christmas \nwe sought refuge in creating a digital spring \nthat we did not want to feel digital at all."
+    },
+    {
+      "id": "7032f67c",
+      "type": "carousel",
+      "frames": [
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "09"
+      ],
+      "project": "zdf"
+    },
+    {
+      "id": "96998560",
+      "type": "row",
+      "cells": [
+        {
+          "span": 4,
+          "media": null,
+          "text": "Half the fun was in reintroducing analog  imperfections to the 'perfect' digital images."
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "zdf",
+            "n": "12"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c80f5405",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "zdf",
+            "type": "clip",
+            "n": "03"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "zdf",
+            "n": "10"
+          }
+        }
+      ]
+    },
+    {
+      "id": "730913e5",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "zdf",
+            "n": "13"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "zdf",
+            "type": "clip",
+            "n": "06"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4870e371",
+      "type": "statement",
+      "from": 4,
+      "to": 12,
+      "align": "end",
+      "text": "The first seasonal animation was beloved by the audience, so we extended it for a second."
+    },
+    {
+      "id": "72943b3e",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "zdf",
+            "n": "19"
+          }
+        }
+      ]
+    },
+    {
+      "id": "e54337b8",
+      "type": "statement",
+      "from": 1,
+      "to": 6,
+      "align": "start",
+      "text": "By keeping the structure that the audience loved the first time, we made it easy for them to reconnect."
+    },
+    {
+      "id": "c68a5df9",
+      "type": "film",
+      "project": "zdf",
+      "file": "master"
+    },
+    {
+      "id": "932725f5",
+      "type": "feature",
+      "title": "PROCESS",
+      "media": {
+        "kind": "video",
+        "project": "zdf",
+        "type": "clip",
+        "n": "07"
+      }
+    },
+    {
+      "id": "b315a69b",
+      "type": "film",
+      "project": "zdf",
+      "file": "master_03"
+    },
+    {
+      "id": "edac55bd",
+      "type": "carousel",
+      "frames": [
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29"
+      ],
+      "project": "zdf"
+    },
+    {
+      "id": "b00d1c82",
+      "type": "statement",
+      "from": 1,
+      "to": 6,
+      "align": "start",
+      "text": "There is a certain kind of magic in seeing our vision come to life."
+    },
+    {
+      "id": "f29ddafd",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "zdf",
+            "n": "05"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "zdf",
+            "type": "clip",
+            "n": "04"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dc32ff1a",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "zdf",
+            "n": "15"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "zdf",
+            "type": "clip",
+            "n": "02"
+          }
+        }
+      ]
+    },
+    {
+      "id": "da274001",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "zdf",
+            "n": "17"
+          }
+        }
+      ]
+    },
+    {
+      "id": "1f39eddb",
+      "type": "closing",
+      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+      "link": {
+        "href": "mailto:hello@colourful.pictures",
+        "label": "@colourful.pictures"
+      }
+    },
+    {
+      "id": "4770244c",
+      "type": "aside",
+      "text": "* or check out more"
+    }
+  ]
+}

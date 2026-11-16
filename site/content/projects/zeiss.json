@@ -1,0 +1,293 @@
+{
+  "slug": "zeiss",
+  "title": "ZEISS – Smile",
+  "description": "A new ZEISS brand concept: a genome of layered glass sheets applied across global markets. A project about focus, literally and creatively.",
+  "sections": [
+    {
+      "id": "6b879d5d",
+      "type": "hero",
+      "media": {
+        "kind": "video",
+        "project": "zeiss",
+        "type": "header",
+        "alt": "Layered glass sheets forming a genome-like structure for the ZEISS brand"
+      },
+      "title": "Beauty is deeply personal, yet there’s something about it that brings us together.",
+      "intro": [
+        "This project was about focus, literally and creatively.",
+        "ZEISS was rolling out a new branding concept: a genome formed from layered sheets of glass, applied across its global markets, including medical eye applications in South Korea.",
+        "I assembled a team of creative and technical experts to translate their genome brand shapes into a beautifully layered iris, creating a temporal sculpture that fuses precision, focus, and beauty."
+      ],
+      "credit": "Comissioned Work | ZEISS | 2023 | **Creative Direction & Artist**"
+    },
+    {
+      "id": "179298ac",
+      "type": "film",
+      "project": "zeiss",
+      "file": "master"
+    },
+    {
+      "id": "a97664a3",
+      "type": "credits",
+      "items": [
+        {
+          "label": "Client",
+          "value": [
+            "ZEISS"
+          ]
+        },
+        {
+          "label": "Year",
+          "value": [
+            "2023"
+          ]
+        },
+        {
+          "label": "Creative Direction",
+          "value": [
+            "Christian Zschunke"
+          ]
+        },
+        {
+          "label": "Producer",
+          "value": [
+            "Jan Birkenbach",
+            "Markus Trautmann",
+            "David Adam"
+          ]
+        },
+        {
+          "label": "Artists",
+          "value": [
+            "Christian Zschunke",
+            "Gui Todorov",
+            "Norman Struwe",
+            "Philipp Brates",
+            "Roman Hinkel",
+            "Simon Fiedler"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5f882d1d",
+      "type": "carousel",
+      "frames": [
+        "16",
+        "13",
+        "15",
+        "28"
+      ],
+      "project": "zeiss"
+    },
+    {
+      "id": "e62078f2",
+      "type": "statement",
+      "from": 3,
+      "to": 10,
+      "align": "center",
+      "text": "We tested dozens of versions before landing on the final look. Some were too busy. Some felt cold. Finding the balance took instinct, feedback, and a lot of deleting."
+    },
+    {
+      "id": "a467c4af",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "zeiss",
+            "n": "17"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "zeiss",
+            "n": "14"
+          }
+        }
+      ]
+    },
+    {
+      "id": "3a8681ee",
+      "type": "statement",
+      "from": 1,
+      "to": 8,
+      "align": "start",
+      "text": "We played with shapes, motion, and light, testing how far we could push the look without breaking it."
+    },
+    {
+      "id": "7dbe30ca",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "zeiss",
+            "type": "clip",
+            "n": "03"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "zeiss",
+            "type": "clip",
+            "n": "02"
+          }
+        }
+      ]
+    },
+    {
+      "id": "1b80485e",
+      "type": "statement",
+      "from": 4,
+      "to": 12,
+      "align": "end",
+      "text": "The iris came from that process, a clean, striking way to tie ZEISS’s technology to the human experience."
+    },
+    {
+      "id": "2599e72c",
+      "type": "feature",
+      "title": "PROCESS",
+      "media": {
+        "kind": "video",
+        "project": "zeiss",
+        "type": "clip",
+        "n": "09"
+      }
+    },
+    {
+      "id": "83e39a63",
+      "type": "statement",
+      "from": 3,
+      "to": 10,
+      "align": "center",
+      "text": "We decided to shoot the eye for the zoom-out with a real human to give the spot some needed human warmth."
+    },
+    {
+      "id": "aa796463",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "zeiss",
+            "n": "28"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "video",
+            "project": "zeiss",
+            "type": "clip",
+            "n": "08"
+          }
+        }
+      ]
+    },
+    {
+      "id": "005e5af9",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "zeiss",
+            "n": "27"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "zeiss",
+            "type": "clip",
+            "n": "06"
+          }
+        }
+      ]
+    },
+    {
+      "id": "36075db3",
+      "type": "statement",
+      "from": 4,
+      "to": 12,
+      "align": "end",
+      "text": "We resorted to a procedural setup for the layered iris to avoid lengthy simulations and allow for faster iterations."
+    },
+    {
+      "id": "9f50a33e",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "video",
+            "project": "zeiss",
+            "type": "clip",
+            "n": "05"
+          }
+        },
+        {
+          "span": 8,
+          "media": {
+            "kind": "still",
+            "project": "zeiss",
+            "n": "26"
+          }
+        }
+      ]
+    },
+    {
+      "id": "01f86801",
+      "type": "row",
+      "window": 2,
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "video",
+            "project": "zeiss",
+            "type": "clip",
+            "n": "07"
+          }
+        }
+      ]
+    },
+    {
+      "id": "7c61da92",
+      "type": "statement",
+      "from": 3,
+      "to": 10,
+      "align": "center",
+      "text": "In the end we created a sharp, focused design that expands the brand’s vision while staying true to its core."
+    },
+    {
+      "id": "0733a313",
+      "type": "closing",
+      "text": "We are all in this together.\nLet's connect & collaborate || vibe",
+      "link": {
+        "href": "mailto:hello@colourful.pictures",
+        "label": "@colourful.pictures"
+      }
+    },
+    {
+      "id": "bc02a09e",
+      "type": "aside",
+      "text": "* or check out more"
+    }
+  ]
+}

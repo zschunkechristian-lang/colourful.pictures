@@ -28,6 +28,7 @@ export const CATALOG: CatalogEntry[] = [
   })),
   { key: "statement", label: "Statement", group: "Section", make: () => ({ id: newId(), type: "statement", from: 3, to: 10, align: "center", text: "" }) },
   { key: "feature", label: "Feature (full-bleed clip + title)", group: "Section", make: () => ({ id: newId(), type: "feature", title: "", media: null }) },
+  { key: "reel", label: "Reel (full-screen clip)", group: "Section", make: () => ({ id: newId(), type: "reel", media: null }) },
   { key: "carousel", label: "Carousel", group: "Section", make: (slug) => ({ id: newId(), type: "carousel", project: slug, frames: [] }) },
   { key: "film", label: "Film player", group: "Section", make: () => ({ id: newId(), type: "film", project: "" }) },
   { key: "closing", label: "Closing line", group: "Section", make: () => ({ id: newId(), type: "closing", text: "" }) },
@@ -35,6 +36,9 @@ export const CATALOG: CatalogEntry[] = [
 ];
 
 /** One hero and one credits table per page: those cannot be inserted or duplicated. */
+/** Sections with one media slot (hero, feature, reel). */
+export const hasMediaSlot = (s: Section): s is Extract<Section, { type: "hero" | "feature" | "reel" }> => s.type === "hero" || s.type === "feature" || s.type === "reel";
+
 export const isSingleton = (s: Section) => s.type === "hero" || s.type === "credits";
 
 const withSections = (p: Project, sections: Section[]): Project => ({ ...p, sections });
@@ -69,7 +73,7 @@ export function countEmpty(p: Project): number {
   let n = 0;
   for (const s of p.sections) {
     if (s.type === "row") n += s.cells.filter((c) => !c.media).length;
-    else if (s.type === "hero" || s.type === "feature") n += s.media ? 0 : 1;
+    else if (hasMediaSlot(s)) n += s.media ? 0 : 1;
     else if (s.type === "film") n += s.project ? 0 : 1;
     else if (s.type === "carousel") n += s.frames.length ? 0 : 1;
   }
@@ -82,7 +86,7 @@ export const clampSpan = (n: number) => Math.min(12, Math.max(1, Math.round(Numb
 
 export type PickTarget =
   | { sectionId: string; kind: "cell"; index: number }
-  | { sectionId: string; kind: "media" } // hero, feature
+  | { sectionId: string; kind: "media" } // hero, feature, reel
   | { sectionId: string; kind: "film" }
   | { sectionId: string; kind: "frames" } // carousel
   | { sectionId: string; kind: "tile"; row: number; index: number } // project-grid tile (sectionId unused)
@@ -121,7 +125,7 @@ export function usedKeys(p: Project): Set<string> {
   const add = (m: Media | null) => { const i = mediaToItem(m); if (i) used.add(itemKey(i)); };
   for (const s of p.sections) {
     if (s.type === "row") s.cells.forEach((c) => add(c.media));
-    else if (s.type === "hero" || s.type === "feature") add(s.media);
+    else if (hasMediaSlot(s)) add(s.media);
     else if (s.type === "film" && s.project) used.add(itemKey({ kind: "master", project: s.project, file: s.file ?? "master_01" }));
     else if (s.type === "carousel") s.frames.forEach((f) => used.add(itemKey({ kind: "still", project: s.project ?? p.slug, n: frameN(f) })));
   }
