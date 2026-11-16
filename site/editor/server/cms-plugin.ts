@@ -7,6 +7,8 @@
 //                                       the pages home / info / play live in site/content/pages/
 //   POST /__cms/site                 -> validates against siteSchema and writes site/content/site.json
 //   POST /__cms/new-project          -> { slug, title } creates a starter site/content/projects/<slug>.json
+//   POST /__cms/refresh-media        -> lists the R2 bucket, rewrites site/content/media-manifest.json
+//                                       and returns it (the picker's "Refresh media" button)
 //
 // Guards: localhost host only, same-origin only, a custom header (blocks simple cross-site
 // form posts), size limit, slug allow-list, schema validation, atomic write.
@@ -14,6 +16,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Plugin } from "vite";
+import { buildManifest, MANIFEST_FILE, writeManifest } from "../../../scripts/lib/r2-manifest.mjs";
 import { newId, projectSchema, serializeProject, serializeSite, siteSchema, type Project } from "../../lib/schema";
 
 /** Page slugs that are not projects (their files are in site/content/pages, their URLs are /, /info, /play). */
@@ -54,6 +57,7 @@ export function cmsPlugin(): Plugin {
   const projectsDir = path.resolve(process.cwd(), "site/content/projects");
   const pagesDir = path.resolve(process.cwd(), "site/content/pages");
   const siteFile = path.resolve(process.cwd(), "site/content/site.json");
+  const mediaFile = path.resolve(process.cwd(), MANIFEST_FILE);
   // Files the editor just wrote. Vite would hot-reload the page for them, which would throw
   // away the editor's undo history and open panels, so those updates are swallowed. Edits made
   // from anywhere else (an IDE, Claude, git) are not in this map and reload as usual.
@@ -143,6 +147,14 @@ export function cmsPlugin(): Plugin {
             ownWrites.set(file, Date.now()); // the editor navigates there itself: no page reload for the open page
             fs.writeFileSync(file, serializeProject(projectSchema.parse(project)));
             return send(res, 200, { ok: true, slug });
+          }
+
+          if (req.method === "POST" && url.pathname === "/refresh-media") {
+            if (req.headers["x-cms"] !== "1") return send(res, 403, { ok: false, error: "missing x-cms header" });
+            const manifest = await buildManifest(); // lists the R2 bucket: a few Class A operations
+            ownWrites.set(mediaFile, Date.now()); // the picker swaps the new data in itself: no page reload
+            writeManifest(manifest, mediaFile);
+            return send(res, 200, { ok: true, manifest });
           }
 
           send(res, 404, { ok: false, error: "not found" });
