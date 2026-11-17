@@ -53,6 +53,8 @@ export type SiteEdit = {
   update: (next: SiteData, key?: string) => void;
   /** controls drawn inside a tile */
   tile: (row: number, index: number) => ReactNode;
+  /** controls for the closing line's link */
+  closingLink: () => ReactNode;
   /** controls for one footer link / adding a link */
   link: (index: number) => ReactNode;
   addLink: () => ReactNode;
@@ -209,24 +211,33 @@ export function SectionView({ section, edit, slug }: { section: Section; edit?: 
           {edit?.mediaSlot(section)}
         </section>
       );
-    case "closing":
-      return (
-        <div className="closing" data-reveal="text">
-          <p style={{ margin: "0 0 2rem" }}>
-            {T ? <T as="span" value={section.text} format="rich" multiline placeholder="Closing line" onChange={(v) => set({ text: v }, "text")} /> : inline(section.text)}
-            {section.link && <><br /><a href={section.link.href}>{section.link.label}</a></>}
-          </p>
-        </div>
-      );
-    case "aside":
-      return (
-        <div className="aside" data-reveal="text">
-          <p style={{ margin: 0 }}>
-            {T ? <T as="em" value={section.text} format="plain" placeholder="Aside" onChange={(v) => set({ text: v }, "text")} /> : <em>{section.text}</em>}
-          </p>
-        </div>
-      );
   }
+}
+
+/** The contact blurb every page closes with (site.json `closing`), drawn above the project grid. */
+export function ClosingView({ closing, site, edit }: { closing: SiteData["closing"]; site?: SiteData; edit?: SiteEdit }) {
+  const T = edit?.Text;
+  const set = (next: SiteData["closing"], key: string) => edit!.update({ ...site!, closing: next }, `closing:${key}`);
+  return (
+    <>
+      <div className="closing" data-reveal={edit ? undefined : "text"}>
+        <p style={{ margin: "0 0 2rem" }}>
+          {T ? <T as="span" value={closing.text} format="rich" multiline placeholder="Closing line" onChange={(v) => set({ ...closing, text: v }, "text")} /> : inline(closing.text)}
+          {closing.link && (
+            <>
+              <br />
+              {T ? <T as="span" value={closing.link.label} format="plain" placeholder="Link text" onChange={(v) => set({ ...closing, link: { ...closing.link!, label: v } }, "ll")} /> : <a href={closing.link.href}>{closing.link.label}</a>}
+            </>
+          )}
+        </p>
+      </div>
+      <div className="aside" data-reveal={edit ? undefined : "text"}>
+        <p style={{ margin: 0 }}>
+          {T ? <T as="em" value={closing.aside} format="plain" placeholder="Aside" onChange={(v) => set({ ...closing, aside: v }, "aside")} /> : <em>{closing.aside}</em>}
+        </p>
+      </div>
+    </>
+  );
 }
 
 export function TileRow({ row, rowIndex = 0, site, edit }: { row: { window?: number; tiles: Tile[] }; rowIndex?: number; site?: SiteData; edit?: SiteEdit }) {

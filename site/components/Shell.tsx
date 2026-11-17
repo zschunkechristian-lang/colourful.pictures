@@ -78,6 +78,7 @@ export function useSmoothScroll(enabled = true) {
   useEffect(() => {
     if (!enabled) return;
     if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; // native scrolling for reduced-motion visitors
     let destroy = () => {};
     let cancelled = false;
     (async () => {

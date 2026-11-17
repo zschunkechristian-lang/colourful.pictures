@@ -7,7 +7,7 @@
   color: var(--cms-fg);
 }
 .cms-toolbar {
-  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 100000;
+  position: fixed; left: calc(50% - var(--cms-pw, 0px) / 2); bottom: 16px; transform: translateX(-50%); z-index: 100000;
   display: flex; align-items: center; gap: 6px; padding: 6px;
   background: var(--cms-bg); border: 1px solid var(--cms-line); border-radius: 12px;
   box-shadow: 0 6px 24px rgb(0 0 0 / 0.35);
@@ -163,6 +163,8 @@ body.is-editing .feature__overlay [data-cms-text] { pointer-events: auto; }
 
 /* site data: tiles + footer */
 .cell:hover > .cms-chip, .tile:hover > .cms-chip, .cms-sec.is-selected .tile > .cms-chip { display: flex; }
+/* a chip stays while its link field has focus, even when the mouse has left the tile */
+.cms-chip:focus-within { display: flex; }
 .cms-chip--tile { z-index: 6; flex-wrap: wrap; max-width: calc(100% - 16px); }
 .cms-sec .tile > .cms-slot { z-index: 1; }
 body.is-editing .tile__overlay [data-cms-text] { pointer-events: auto; }
@@ -180,3 +182,17 @@ body.is-editing .footer a [data-cms-text], body.is-editing .footer .cms-chip, bo
 .cms-share > div { display: flex; gap: 6px; }
 .cms-share button { border-color: var(--cms-line); }
 .cms-alt small { display: block; }
+
+/* ── Side panel takes room from the page ──────────────────────────────── */
+/* With a panel open the page is narrower by the panel's width (body padding) instead of sitting underneath it.
+   The master film is sized in viewport units, so it gets the same inset. */
+:root.cms-inset body { padding-right: var(--cms-pw); }
+:root.cms-inset { --film-w: min(calc(var(--film-h) * 16 / 9), calc(100lvw - var(--cms-pw) - 120px)); }
+
+/* link suggestions (fixed, so a tile's overflow never clips them) */
+.cms-links {
+  position: fixed; z-index: 100001; margin: 0; padding: 4px; list-style: none; min-width: 240px; max-height: 260px; overflow: auto;
+  background: var(--cms-bg); border: 1px solid var(--cms-line); border-radius: 10px; box-shadow: 0 6px 24px rgb(0 0 0 / 0.4);
+}
+.cms .cms-links button { display: flex; width: 100%; justify-content: space-between; gap: 16px; text-align: left; }
+.cms-links small { color: var(--cms-muted); }

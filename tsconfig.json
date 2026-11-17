@@ -13,7 +13,6 @@
     "types": [
       "node",
       "vite/client",
-      "@webstudio-is/react-sdk/placeholder",
       "./vike.d.ts"
     ],
     "isolatedModules": true,
@@ -26,6 +25,7 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true
   }
 }

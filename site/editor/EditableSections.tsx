@@ -19,7 +19,7 @@ const swap = <T,>(a: T[], i: number, j: number) => { const n = [...a]; [n[i], n[
 
 const TYPE_LABEL: Record<Section["type"], string> = {
   hero: "Hero", film: "Film", credits: "Credits", statement: "Statement", carousel: "Carousel",
-  row: "Row", feature: "Feature", reel: "Reel", closing: "Closing", aside: "Aside",
+  row: "Row", feature: "Feature", reel: "Reel",
 };
 
 export type MenuGroup = { head: string; items: { key: string; label: string }[] };
@@ -102,18 +102,6 @@ function Bar({ section, i, count, project, commit, select, pick }: { section: Se
       {hasMediaSlot(section) && <button onClick={() => pick({ sectionId: section.id, kind: "media" })}>Media…</button>}
       {section.type === "film" && <button onClick={() => pick({ sectionId: section.id, kind: "film" })}>Film…</button>}
       {section.type === "carousel" && <button onClick={() => pick({ sectionId: section.id, kind: "frames" })}>Frames ({section.frames.length})…</button>}
-
-      {section.type === "closing" && (
-        section.link ? (
-          <>
-            <input className="cms-in" value={section.link.label} placeholder="Link text" aria-label="Link text" onChange={(e) => set({ ...section, link: { ...section.link!, label: e.target.value } }, `${section.id}:ll`)} />
-            <input className="cms-in cms-in--wide" value={section.link.href} placeholder="https:// or mailto:" aria-label="Link address" onChange={(e) => set({ ...section, link: { ...section.link!, href: e.target.value } }, `${section.id}:lh`)} />
-            <button title="Remove link" onClick={() => { const { link, ...rest } = section; void link; set(rest as Section); }}>No link</button>
-          </>
-        ) : (
-          <button onClick={() => set({ ...section, link: { href: "", label: "" } })}>+ Link</button>
-        )
-      )}
 
       {section.type === "statement" && (
         <>

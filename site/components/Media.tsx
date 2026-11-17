@@ -19,13 +19,18 @@ export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls
     const el = ref.current;
     if (!el) return;
     let loaded = false;
+    // reduced motion: clips stay on their poster frame until the visitor starts them (hover tiles still play on hover)
+    const autoplay = opts.autoplay && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.autoplay = autoplay;
     const load = () => {
       if (loaded) return;
       loaded = true;
       el.poster = urls.poster;
-      // Safari: the AV1 webm first is slow to be given up on (or unplayable); it plays the mp4 anyway
+      // AV1 webm only where the browser can play it. Safari is skipped even if it claims support:
+      // giving up on its AV1 webm is slow, and it plays the mp4 anyway.
       const safari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
-      const sources = safari ? ([["video/mp4", urls.mp4]] as const) : ([["video/webm", urls.webm], ["video/mp4", urls.mp4]] as const);
+      const av1 = !safari && el.canPlayType('video/webm; codecs="av01.0.05M.08"') !== "";
+      const sources = av1 ? ([["video/webm", urls.webm], ["video/mp4", urls.mp4]] as const) : ([["video/mp4", urls.mp4]] as const);
       for (const [type, src] of sources) {
         const s = document.createElement("source");
         s.type = type;
@@ -40,10 +45,13 @@ export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls
         if (el.readyState > 0 || !el.isConnected || ++tries > 6) return window.clearInterval(retry);
         if (el.networkState === HTMLMediaElement.NETWORK_NO_SOURCE || el.error) el.load();
       }, 250);
-      if (opts.autoplay) el.play().catch(() => {});
+      if (autoplay) el.play().catch(() => {});
       else if (el.readyState < 1) el.addEventListener("loadedmetadata", () => { if (el.currentTime === 0) el.currentTime = 0.1; }, { once: true });
     };
-    const io = new IntersectionObserver((entries) => entries.some((e) => e.isIntersecting) && (load(), io.disconnect()), { rootMargin: "1600px" });
+    // on small screens and with data saver on, start fetching later so off-screen clips cost less data
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    const lean = !!conn?.saveData || window.matchMedia("(max-width: 767px)").matches;
+    const io = new IntersectionObserver((entries) => entries.some((e) => e.isIntersecting) && (load(), io.disconnect()), { rootMargin: lean ? "500px" : "1600px" });
     io.observe(el);
     return () => { io.disconnect(); releaseVideo(el); };
   }, [urls.mp4]); // eslint-disable-line react-hooks/exhaustive-deps

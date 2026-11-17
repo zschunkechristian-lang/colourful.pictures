@@ -7,7 +7,9 @@ import { frameAlt, frameN, withFrameAlt, type Project, type Section, type SiteDa
 import { hasMediaSlot, itemKey, itemToMedia, mediaToItem, patchTileRow, replaceSection, usedKeys, type Item, type PickTarget } from "./model";
 
 type M = { base: string; projects: Record<string, { stills: string[]; videos: ({ type: "header" } | { type: "master"; file: string } | { type: "clip"; n: string })[] }> };
-const MANIFEST = manifest as M;
+// Refreshing swaps this in place of the file that was bundled at page load, so a picker opened
+// later in the same session sees the new media too (the file itself is rewritten on disk by the server).
+let latest = manifest as M;
 let lastProject = "";
 
 const thumb = (i: Item) =>
@@ -65,6 +67,25 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
   const cur = tileT ? mediaToItem(tile?.media ?? null) : shareT ? mediaToItem(project.image ?? null) : section ? currentItem(section, target) : null;
   const carouselProject = section?.type === "carousel" && section.frames.length ? section.project ?? project.slug : null;
 
+  const [MANIFEST, setManifest] = useState<M>(latest);
+  const [refresh, setRefresh] = useState<{ busy: boolean; msg?: string; err?: boolean }>({ busy: false });
+  const refreshMedia = async () => {
+    setRefresh({ busy: true });
+    try {
+      const res = await fetch("/__cms/refresh-media", { method: "POST", headers: { "x-cms": "1" } });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok || !body.manifest) throw new Error(body.error ?? `HTTP ${res.status}`);
+      const next = body.manifest as M;
+      const count = (m: M) => Object.values(m.projects).reduce((n, p) => n + p.stills.length + p.videos.length, 0);
+      const diff = count(next) - count(MANIFEST);
+      latest = next;
+      setManifest(next);
+      setRefresh({ busy: false, msg: diff ? `${diff > 0 ? "+" : ""}${diff} item${Math.abs(diff) === 1 ? "" : "s"}` : "Up to date" });
+    } catch (e) {
+      setRefresh({ busy: false, err: true, msg: e instanceof Error ? e.message : "Refresh failed" });
+    }
+  };
+
   const names = Object.keys(MANIFEST.projects);
   const [proj, setProj] = useState(() => carouselProject ?? cur?.project ?? (names.includes(lastProject) ? lastProject : names.includes(project.slug) ? project.slug : names[0]));
   const allowed: Tab[] = target.kind === "film" ? ["videos"] : isFrames ? ["stills"] : ["stills", "videos"];
@@ -73,7 +94,7 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
   const used = useMemo(() => usedKeys(project), [project]);
   if (!section && !tile && !shareT) return null;
 
-  const entry = MANIFEST.projects[proj];
+  const entry = MANIFEST.projects[proj] ?? { stills: [], videos: [] };
   let items: Item[] = [];
   if (tab === "stills") items = entry.stills.map((n) => ({ kind: "still", project: proj, n }));
   else
@@ -147,6 +168,8 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
           {allowed.map((t) => <button key={t} aria-pressed={tab === t} onClick={() => setTab(t)}>{t === "stills" ? "Stills" : "Videos"}</button>)}
         </span>
         <label className="cms-check"><input type="checkbox" checked={only === "unused"} onChange={(e) => setOnly(e.target.checked ? "unused" : "all")} /> Unused only</label>
+        <button onClick={refreshMedia} disabled={refresh.busy} title="List the bucket again to find newly uploaded media">{refresh.busy ? "Refreshing…" : "Refresh media"}</button>
+        {refresh.msg && <small role="status" style={refresh.err ? { color: "#c0392b" } : undefined}>{refresh.msg}</small>}
       </div>
 
       {isFrames && (

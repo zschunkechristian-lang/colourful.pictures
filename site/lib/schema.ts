@@ -53,13 +53,6 @@ export const sectionSchema = z.discriminatedUnion("type", [
   // full-viewport clip without text (home page reel)
   z.strictObject({ id, type: z.literal("reel"), media: mediaSchema.nullable() }),
   z.strictObject({ id, type: z.literal("feature"), title: z.string(), media: mediaSchema.nullable() }),
-  z.strictObject({
-    id,
-    type: z.literal("closing"),
-    text: z.string(),
-    link: z.strictObject({ href: z.string(), label: z.string() }).optional(),
-  }),
-  z.strictObject({ id, type: z.literal("aside"), text: z.string() }),
 ]);
 
 export const projectSchema = z.strictObject({
@@ -81,6 +74,12 @@ export const tileSchema = z.strictObject({
   media: mediaSchema.nullable(), // null = empty tile (editor placeholder)
 });
 export const siteSchema = z.strictObject({
+  /** The contact blurb every page closes with (above the project grid): closing line, optional mail link, small aside. */
+  closing: z.strictObject({
+    text: z.string(),
+    link: z.strictObject({ href: z.string(), label: z.string() }).optional(),
+    aside: z.string(),
+  }),
   projectGrid: z.array(z.strictObject({ window: z.number().int().optional(), tiles: z.array(tileSchema).min(1) })),
   footer: z.strictObject({
     contact: z.strictObject({ heading: z.string(), links: z.array(z.strictObject({ href: z.string(), label: z.string() })) }),
