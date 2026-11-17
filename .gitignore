@@ -2,7 +2,7 @@ node_modules/
 dist/
 .DS_Store
 *.log
-.webstudio/auth.json
 .env
 .env.local
 playground-upload/
+.webstudio/

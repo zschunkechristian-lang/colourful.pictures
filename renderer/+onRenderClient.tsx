@@ -5,7 +5,6 @@ import { arrive, whenLeft } from "../site/lib/page-motion";
 let root: Root;
 
 export const onRenderClient: OnRenderClientAsync = async (pageContext) => {
-  const lang = pageContext.data?.pageMeta?.language || "en";
   const Head = pageContext.config.Head ?? (() => <></>);
   const Page = pageContext.Page ?? (() => <></>);
   const htmlContent = (
@@ -24,6 +23,5 @@ export const onRenderClient: OnRenderClientAsync = async (pageContext) => {
     return;
   }
   await whenLeft(); // the old page has finished fading out
-  document.documentElement.lang = lang;
   arrive(() => root.render(htmlContent));
 };
