@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import homeSvg from "../assets/nav-home.svg?raw";
 import playSvg from "../assets/nav-play.svg?raw";
 import infoSvg from "../assets/nav-info.svg?raw";
@@ -10,18 +10,27 @@ const Svg = ({ src }: { src: string }) => <span style={{ display: "contents" }} 
 type Theme = "light" | "dark";
 /** Light/dark toggle. Follows the system theme until the visitor picks one. */
 function ThemeToggle() {
+  const [theme, setTheme] = useState<Theme>("light");
+  useEffect(() => {
+    const read = () => setTheme((document.documentElement.dataset.theme as Theme | undefined) ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+    read();
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener("change", read);
+    return () => mq.removeEventListener("change", read);
+  }, []);
   const toggle = () => {
     const root = document.documentElement;
     const system = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     const current = (root.dataset.theme as Theme | undefined) ?? system;
     const next: Theme = current === "dark" ? "light" : "dark";
     root.dataset.theme = next;
+    setTheme(next);
     try { localStorage.setItem("theme", next); } catch {}
   };
 
   return (
     <div className="nav__theme">
-      <button onClick={toggle} aria-label="Toggle background color">
+      <button onClick={toggle} aria-label="Dark mode" aria-pressed={theme === "dark"}>
         <svg viewBox="0 0 16 16">
           <path fillRule="evenodd" clipRule="evenodd" d="M0 8L3.07945 4.30466C4.29638 2.84434 6.09909 2 8 2C9.90091 2 11.7036 2.84434 12.9206 4.30466L16 8L12.9206 11.6953C11.7036 13.1557 9.90091 14 8 14C6.09909 14 4.29638 13.1557 3.07945 11.6953L0 8ZM8 11C9.65685 11 11 9.65685 11 8C11 6.34315 9.65685 5 8 5C6.34315 5 5 6.34315 5 8C5 9.65685 6.34315 11 8 11Z" />
         </svg>

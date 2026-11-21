@@ -16,7 +16,7 @@ const vars = (o: Record<string, string | number>) => o as CSSProperties;
 
 /** Props of the editor's text field (implemented in editor/, passed in through `SectionEdit`). */
 export type TextProps = {
-  as?: "h1" | "p" | "div" | "span" | "dt" | "dd" | "em";
+  as?: "h1" | "h2" | "p" | "div" | "span" | "dt" | "dd" | "em";
   className?: string;
   value: string;
   onChange: (v: string) => void;
@@ -202,9 +202,9 @@ export function SectionView({ section, edit, slug }: { section: Section; edit?: 
         <section className="feature" data-reveal="fade">
           <div className="feature__overlay">
             {T ? (
-              <T as="h1" className="feature__title" value={section.title} format="plain" placeholder="Title" onChange={(v) => set({ title: v }, "title")} />
+              <T as="h2" className="feature__title" value={section.title} format="plain" placeholder="Title" onChange={(v) => set({ title: v }, "title")} />
             ) : (
-              <h1 className="feature__title">{section.title}</h1>
+              <h2 className="feature__title">{section.title}</h2>
             )}
           </div>
           <MediaView media={section.media} />
@@ -256,13 +256,13 @@ export function TileRow({ row, rowIndex = 0, site, edit }: { row: { window?: num
               <div className="tile__overlay">
                 {T ? (
                   <T
-                    as="h1" className={`tile__title ${t.titleAlign === "start" ? "tile__title--start" : ""}`} value={t.title.join("\n")} format="plain" multiline placeholder="TITLE"
+                    as="h2" className={`tile__title ${t.titleAlign === "start" ? "tile__title--start" : ""}`} value={t.title.join("\n")} format="plain" multiline placeholder="TITLE"
                     onChange={(v) => setTile({ title: v.split("\n") }, "title")}
                   />
                 ) : (
-                  <h1 className={`tile__title ${t.titleAlign === "start" ? "tile__title--start" : ""}`}>
+                  <h2 className={`tile__title ${t.titleAlign === "start" ? "tile__title--start" : ""}`}>
                     {t.title.map((l, j) => <span key={j}>{j ? <br /> : null}{l}</span>)}
-                  </h1>
+                  </h2>
                 )}
               </div>
               <MediaView media={t.media} hover />
@@ -270,7 +270,7 @@ export function TileRow({ row, rowIndex = 0, site, edit }: { row: { window?: num
             </>
           );
           const props = { className: "tile", style: vars({ "--span": t.span }) };
-          return t.href && !edit ? <a key={i} href={t.href} {...props}>{body}</a> : <div key={i} {...props}>{body}</div>;
+          return t.href && !edit ? <a key={i} href={t.href} aria-label={t.title.join(" ")} {...props}>{body}</a> : <div key={i} {...props}>{body}</div>;
         })}
       </div>
     </div>
