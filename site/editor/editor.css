@@ -49,6 +49,16 @@ body.is-editing .content a, body.is-editing .footer a, body.is-editing nav a { p
 .cms-sec:hover::after { border-color: rgb(122 162 255 / 0.45); }
 .cms-sec.is-selected::after { border: 1px solid #7aa2ff; }
 
+/* drag to reorder */
+.cms-bar__grip { cursor: grab; padding: 0 6px; color: var(--cms-muted); user-select: none; font-size: 15px; line-height: 1; }
+.cms-bar__grip:active { cursor: grabbing; }
+.cms-sec.is-dragging { opacity: 0.35; }
+.cms-sec.drop-before::before, .cms-sec.drop-after::before {
+  content: ""; position: absolute; left: 0; right: 0; height: 4px; background: #7aa2ff; border-radius: 2px; z-index: 80; pointer-events: none;
+}
+.cms-sec.drop-before::before { top: -2px; }
+.cms-sec.drop-after::before { bottom: -2px; }
+
 /* section toolbar */
 .cms-bar {
   position: absolute; top: 8px; right: 8px; z-index: 60; display: none; align-items: center; gap: 4px; padding: 4px;
