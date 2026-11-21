@@ -80,6 +80,18 @@ body {
   overflow-x: clip;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -174,6 +186,10 @@ button {
   all: unset;
   display: block;
   cursor: none;
+}
+.nav__theme button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
 .nav__theme svg {
   width: 100%;
@@ -345,7 +361,20 @@ button {
   cursor: none;
   mix-blend-mode: difference;
   z-index: 2;
-  outline: none;
+}
+.player__toggle:focus-visible,
+.player__fullscreen:focus-visible,
+.player__bar:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+/* while playing the button is invisible (the clip itself is the click target) but stays in the tab order */
+.player__toggle.is-playing {
+  opacity: 0;
+  pointer-events: none;
+}
+.player__toggle.is-playing:focus-visible {
+  opacity: 1;
 }
 .player__toggle svg {
   width: 1em;
@@ -360,10 +389,11 @@ button {
   border: none;
   color: #fff;
   font-size: 2em;
+  min-width: 44px;
+  min-height: 44px;
   cursor: pointer;
   mix-blend-mode: difference;
   z-index: 3;
-  outline: none;
   -webkit-tap-highlight-color: transparent;
 }
 .player__bar {
@@ -374,6 +404,15 @@ button {
   height: 0.6em;
   z-index: 4;
   mix-blend-mode: difference;
+  touch-action: none; /* a horizontal drag scrubs instead of scrolling */
+  cursor: pointer;
+}
+/* the bar is thin; this makes the touchable area 44px tall */
+.player__bar::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 44px;
 }
 .player__fill {
   height: 100%;
@@ -888,13 +927,15 @@ body.has-fine-pointer [role="button"] {
   .nav__link[aria-current="page"] {
     transform: skewY(-25deg);
   }
+  .nav {
+    column-gap: 12px;
+  }
   .nav__theme {
-    display: none;
+    width: 60px;
+    align-self: center;
   }
   .nav__contact {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
+    display: none; /* not just invisible: it must not stay reachable by keyboard */
   }
 
   .hero {
@@ -924,8 +965,15 @@ body.has-fine-pointer [role="button"] {
     max-width: 100lvw;
     font-size: clamp(1rem, 1.4lvw, 2rem);
   }
-  /* on small screens the headline and the credit line are not shown */
-  .hero__title,
+  /* on small screens the credit line is not shown, and the headline is hidden visually but stays the page's h1 */
+  .hero__title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
   .hero__credit {
     display: none;
   }

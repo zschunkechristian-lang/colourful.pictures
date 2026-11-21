@@ -3,7 +3,7 @@ import { stillUrl } from "../lib/assets";
 import { frameAlt, frameN, type Frame } from "../lib/schema";
 
 /** Time each image is shown before the carousel moves on by itself. */
-const AUTOPLAY_MS = 6000;
+const AUTOPLAY_MS = 4500;
 
 /**
  * Infinite carousel: click the left half of the image to go back, the right half to go
@@ -111,12 +111,13 @@ export function Carousel({ project, frames }: { project: string; frames: Frame[]
             );
           })}
         </div>
-        <div className="carousel__counter" aria-live="polite" aria-atomic="true">
+        <div className="carousel__counter" aria-hidden="true">
           <span>{current}</span>
-          <span style={{ margin: "0 4px" }} aria-hidden="true">/</span>
+          <span style={{ margin: "0 4px" }}>/</span>
           <span>{n}</span>
         </div>
       </div>
+      <p className="carousel__sr" aria-live="polite">{`Image ${current} of ${n}`}</p>
       <button className="carousel__sr" onClick={() => go(-1)}>Previous image</button>
       <button className="carousel__sr" onClick={() => go(1)}>Next image</button>
     </section>

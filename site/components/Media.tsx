@@ -73,7 +73,7 @@ export function AutoVideo({ media, className, resume }: { media: Video; classNam
   }, [resume, urls.mp4]);
   return (
     <div className={`media ${className ?? ""}`}>
-      <video key={urls.mp4} ref={ref} poster={urls.poster} muted loop playsInline autoPlay aria-label={media.alt || undefined} />
+      <video key={urls.mp4} ref={ref} poster={urls.poster} muted loop playsInline autoPlay aria-label={media.alt || undefined} aria-hidden={media.alt ? undefined : true} />
     </div>
   );
 }
@@ -91,7 +91,7 @@ export function HoverVideo({ media }: { media: Video }) {
       onMouseLeave={() => !small && ref.current?.pause()}
       onTouchStart={() => { const v = ref.current; if (v && !small) (v.paused ? v.play().catch(() => {}) : v.pause()); }}
     >
-      <video key={urls.mp4} ref={ref} poster={urls.poster} muted loop playsInline aria-label={media.alt || undefined} />
+      <video key={urls.mp4} ref={ref} poster={urls.poster} muted loop playsInline aria-label={media.alt || undefined} aria-hidden={media.alt ? undefined : true} />
     </div>
   );
 }

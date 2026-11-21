@@ -1,27 +1,15 @@
-/* Copied verbatim from the Webstudio export. Weights are as exported; prune later. */
+/* Only the families the site uses: PP Hatton, PP Neue Montreal, Work Sans, DOT Norekk. */
 @font-face {
   font-family: "PP Neue Montreal"; font-style: normal; font-weight: 900; font-display: swap; src: url("/assets/PPNeueMontreal-Book__PDzFnbWlAmLylwBHx2T3.otf") format("truetype");
-}
-@font-face {
-  font-family: "PP Neue Corp"; font-style: normal; font-weight: 200; font-display: swap; src: url("/assets/PPNeueCorp-NormalUltralight_TEapDkJCLDoLIpO0MyyvA.otf") format("truetype");
 }
 @font-face {
   font-family: "Work Sans"; font-style: italic; font-weight: 300; font-display: swap; src: url("/assets/WorkSans-LightItalic_UNFclH4UHEpE5Df5NeX9M.ttf") format("truetype");
 }
 @font-face {
-  font-family: "Host Grotesk"; font-style: italic; font-weight: 700; font-display: swap; src: url("/assets/HostGrotesk-BoldItalic_1EKUlSMCrffLs66vdLXa5.ttf") format("truetype");
-}
-@font-face {
   font-family: "Work Sans"; font-style: italic; font-weight: 100; font-display: swap; src: url("/assets/WorkSans-ThinItalic_FM1NGk7MA546arhgaD9tT.ttf") format("truetype");
 }
 @font-face {
-  font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("/assets/InstrumentSans-VariableFont_wdth_wght_o3etf9mcJeUAJ0jUkHwMF.ttf") format("truetype");
-}
-@font-face {
   font-family: "Work Sans"; font-style: normal; font-weight: 900; font-display: swap; src: url("/assets/WorkSans-Black_gOP2VbGuiSzEdbnK2Du3N.ttf") format("truetype");
-}
-@font-face {
-  font-family: "PP Valve"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/PPValve-PlainExtrabold_0TFcik0N_jiZyAmBY-yYE.otf") format("truetype");
 }
 @font-face {
   font-family: "PP Neue Montreal"; font-style: italic; font-weight: 900; font-display: swap; src: url("/assets/PPNeueMontreal-Italic_MtsbAVQpyftbOZGl_ds60.otf") format("truetype");
@@ -30,22 +18,7 @@
   font-family: "Work Sans"; font-style: italic; font-weight: 600; font-display: swap; src: url("/assets/WorkSans-SemiBoldItalic_CCPJvXLFr_zkAeQ8tfChm.ttf") format("truetype");
 }
 @font-face {
-  font-family: "PP Neue Machina"; font-style: normal; font-weight: 300; font-display: swap; src: url("/assets/PPNeueMachina-Light_VSGipzbRO1hZdwGsn1Dmx.otf") format("truetype");
-}
-@font-face {
-  font-family: "PP Neue Corp"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/PPNeueCorp-ExtendedUltrabold_hwawk_BG-iisiYpHcBvBh.otf") format("truetype");
-}
-@font-face {
-  font-family: "PP Valve"; font-style: italic; font-weight: 700; font-display: swap; src: url("/assets/PPValve-PlainExtraboldItalic_jaxya5aPi6-0_qHiZ9seC.otf") format("truetype");
-}
-@font-face {
   font-family: "PP Neue Montreal"; font-style: normal; font-weight: 100; font-display: swap; src: url("/assets/PPNeueMontreal-Thin_ZHzgMp4WX8QPkv30sfBuH.otf") format("truetype");
-}
-@font-face {
-  font-family: "Space Grotesk"; font-style: normal; font-weight: 300 700; font-display: swap; src: url("/assets/SpaceGrotesk_wght__2FXqrSM6Qb5IUNmO8wuzl.woff2") format("woff2"), url("/assets/SpaceGrotesk-VariableFont_wght_j9Kc6tuiqQSj49Y_b1GuR.ttf") format("truetype");
-}
-@font-face {
-  font-family: "PP Neue Machina"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/PPNeueMachina-Regular_NzdoEJ-rfQMJjLRv_JYU2.otf") format("truetype");
 }
 @font-face {
   font-family: "PP Neue Montreal"; font-style: normal; font-weight: 500; font-display: swap; src: url("/assets/PPNeueMontreal-Medium_vGjnFQVgKuxYtBpfGWkrs.otf") format("truetype");
@@ -63,22 +36,7 @@
   font-family: "Work Sans"; font-style: normal; font-weight: 200; font-display: swap; src: url("/assets/WorkSans-ExtraLight_tAtbiIas13kzRSNNW_yup.ttf") format("truetype");
 }
 @font-face {
-  font-family: "PP Rader"; font-style: normal; font-weight: 100; font-display: swap; src: url("/assets/PPRader-Thin_PojzpLVpXPz-1y9pbLAY0.otf") format("truetype");
-}
-@font-face {
-  font-family: "PP Valve"; font-style: italic; font-weight: 200; font-display: swap; src: url("/assets/PPValve-PlainExtralightItalic_QNmZ20HZAK_lc77Dzp0aQ.otf") format("truetype");
-}
-@font-face {
-  font-family: Epilogue; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/assets/Epilogue-VariableFont_wght_UMmD5uKuAMfCr3au74g5m.ttf") format("truetype");
-}
-@font-face {
-  font-family: "PP Valve"; font-style: normal; font-weight: 500; font-display: swap; src: url("/assets/PPValve-PlainMedium_95jEHajXot7fijlZSiRl2.otf") format("truetype");
-}
-@font-face {
   font-family: "PP Hatton"; font-style: italic; font-weight: 200; font-display: swap; src: url("/assets/PPHatton-UltralightItalic_KSG1sYBiim0wgdBuemj9V.otf") format("truetype");
-}
-@font-face {
-  font-family: "Host Grotesk"; font-style: normal; font-weight: 300; font-display: swap; src: url("/assets/HostGrotesk-Light_Mk7jI_9Aa0AkQ5yCIoFlR.ttf") format("truetype");
 }
 @font-face {
   font-family: "Work Sans"; font-style: italic; font-weight: 200; font-display: swap; src: url("/assets/WorkSans-ExtraLightItalic_QSRiolZYLE1d8MdF2KwT5.ttf") format("truetype");
@@ -87,16 +45,10 @@
   font-family: "PP Neue Montreal"; font-style: italic; font-weight: 700; font-display: swap; src: url("/assets/PPNeueMontreal-BoldItalic_OkEVqKDI3MD3HXuIzr1SO.otf") format("truetype");
 }
 @font-face {
-  font-family: "PP Neue Corp"; font-style: normal; font-weight: 500; font-display: swap; src: url("/assets/PPNeueCorp-ExtendedMedium_UA5lsnxJ1ZDs5XLSIjhrI.otf") format("truetype");
-}
-@font-face {
   font-family: "PP Neue Montreal"; font-style: italic; font-weight: 100; font-display: swap; src: url("/assets/PPNeueMontreal-ThinItalic_Rek-4ffDPgNmY0KLzFl_D.otf") format("truetype");
 }
 @font-face {
   font-family: "PP Neue Montreal"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/PPNeueMontreal-Regular_LZ4o_aSNNJWqKklwaLZdm.otf") format("truetype");
-}
-@font-face {
-  font-family: "PP Valve"; font-style: normal; font-weight: 200; font-display: swap; src: url("/assets/PPValve-PlainExtralight_eGr7TdmWVsjS913w8attl.otf") format("truetype");
 }
 @font-face {
   font-family: "PP Neue Montreal"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/PPNeueMontreal-Bold_iAX2QKzE6eR1JPkiev-st.otf") format("truetype");
@@ -108,9 +60,6 @@
   font-family: "PP Hatton"; font-style: normal; font-weight: 500; font-display: swap; src: url("/assets/PPHatton-Medium_bxokt81N8xPRtELI3ZEPw.otf") format("truetype");
 }
 @font-face {
-  font-family: "PP Valve"; font-style: italic; font-weight: 500; font-display: swap; src: url("/assets/PPValve-PlainMediumItalic_noAHw4O_y0ovzbzRwSZXF.otf") format("truetype");
-}
-@font-face {
   font-family: "PP Hatton"; font-style: italic; font-weight: 500; font-display: swap; src: url("/assets/PPHatton-MediumItalic_621_qcoW4qLa_oiCGxBf1.otf") format("truetype");
 }
 @font-face {
@@ -120,13 +69,7 @@
   font-family: "Work Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/WorkSans-Bold_IYpjXxHy3ZBJSkTAsjoHZ.ttf") format("truetype");
 }
 @font-face {
-  font-family: "Host Grotesk"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/HostGrotesk-Bold_u3-Ak5QFacCMCfVyJCw7j.ttf") format("truetype");
-}
-@font-face {
   font-family: .; font-style: normal; font-weight: 900; font-display: swap; src: url("/assets/PPNeueMontreal-ThinItalic_xgo4IwUSVOTD7NxfFXkF0.woff") format("woff");
-}
-@font-face {
-  font-family: "Host Grotesk"; font-style: italic; font-weight: 500; font-display: swap; src: url("/assets/HostGrotesk-MediumItalic_tuGFcH9O-mBgHPwWW_2Xx.ttf") format("truetype");
 }
 @font-face {
   font-family: "DOT Norekk"; font-style: normal; font-weight: 900; font-display: swap; src: url("/assets/DOTNorekk-Mono-titrkd_h-VlxCZmu1Haa6nQurqvJ.ttf") format("truetype");
@@ -141,34 +84,7 @@
   font-family: "Work Sans"; font-style: normal; font-weight: 300; font-display: swap; src: url("/assets/WorkSans-Light_Gly5URkuegk6H4yl8e4Eo.ttf") format("truetype");
 }
 @font-face {
-  font-family: "Host Grotesk"; font-style: normal; font-weight: 500; font-display: swap; src: url("/assets/HostGrotesk-Medium_WzDuLieMYML_TyAn6siQL.ttf") format("truetype");
-}
-@font-face {
-  font-family: "PP Neue Corp"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/PPNeueCorp-NormalMedium_9S6LtHmC6GPWVz1MJuJkD.otf") format("truetype");
-}
-@font-face {
-  font-family: "PP Rader"; font-style: italic; font-weight: 700; font-display: swap; src: url("/assets/PPRader-BoldItalic_-v8GEP14cXBkfMOkvJYDl.otf") format("truetype");
-}
-@font-face {
-  font-family: "Host Grotesk"; font-style: italic; font-weight: 300; font-display: swap; src: url("/assets/HostGrotesk-LightItalic_-0GgtTE0r2DZwuT1xGG9E.ttf") format("truetype");
-}
-@font-face {
-  font-family: "PP Neue Machina"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/PPNeueMachina-Ultrabold_c-CZaKe4lfYYJ5RtJN4MB.otf") format("truetype");
-}
-@font-face {
-  font-family: "Host Grotesk"; font-style: italic; font-weight: 900; font-display: swap; src: url("/assets/HostGrotesk-Italic_dutWxbXD5hfRTSvO8vyut.ttf") format("truetype");
-}
-@font-face {
-  font-family: "PP Neue Corp Ullight"; font-style: normal; font-weight: 200; font-display: swap; src: url("/assets/PPNeueCorp-ExtendedUltralight_iLPF5iH1voOcQNm9kfEh_.otf") format("truetype");
-}
-@font-face {
-  font-family: "PP Rader"; font-style: italic; font-weight: 100; font-display: swap; src: url("/assets/PPRader-ThinItalic_XOO5Kd0-Sl36SyDgwzEVU.otf") format("truetype");
-}
-@font-face {
   font-family: "Work Sans"; font-style: italic; font-weight: 500; font-display: swap; src: url("/assets/WorkSans-MediumItalic_784lvwqlNHE_mi_BX3apH.ttf") format("truetype");
-}
-@font-face {
-  font-family: "PP Rader"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/PPRader-Regular_gaRwRrAtJgvtPL6LHNfc2.otf") format("truetype");
 }
 @font-face {
   font-family: "PP Neue Montreal"; font-style: normal; font-weight: 300; font-display: swap; src: url("/assets/PPNeueMontreal-Light_0vXmEDWPNcH2BmCa_JHDN.otf") format("truetype");
@@ -181,7 +97,4 @@
 }
 @font-face {
   font-family: "Work Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("/assets/WorkSans-SemiBold_TEG99C8iDX6gfyzMThBqn.ttf") format("truetype");
-}
-@font-face {
-  font-family: "PP Rader"; font-style: italic; font-weight: 900; font-display: swap; src: url("/assets/PPRader-Italic_s_Rtz2IF37KBUtukuDjtn.otf") format("truetype");
 }

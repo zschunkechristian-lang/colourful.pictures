@@ -61,6 +61,8 @@ export function ProjectPage({ project: loaded, site: loadedSite, current }: { pr
       <div className="frame">
         <Nav current={current} />
         <main className="content" key={project.slug}>
+          {/* pages without a hero (Home, Play) still need one h1 */}
+          {!project.sections.some((s) => s.type === "hero") && <h1 className="sr-only">{project.title ?? project.slug}</h1>}
           {/* edit mode: the editor draws the sections itself (same SectionView, plus controls) into this slot */}
           {editing ? <div ref={setSlot} style={{ display: "contents" }} /> : project.sections.map((s) => <SectionView key={s.id} section={s} slug={project.slug} />)}
           {editing ? <div ref={setClosingSlot} style={{ display: "contents" }} /> : <ClosingView closing={site.closing} />}
