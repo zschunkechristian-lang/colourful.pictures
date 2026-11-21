@@ -23,13 +23,6 @@ function fitOne(el: HTMLElement, { min = 11, needed = (e) => e.scrollWidth }: Op
   if (needed(el) > el.clientWidth + 0.5) el.setAttribute("data-wrap", "");
 }
 
-/** Width a flex row of entries wants on a single line (entries are nowrap, so their own width is intrinsic). */
-export const rowWidth = (el: HTMLElement) => {
-  const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
-  const kids = [...el.children] as HTMLElement[];
-  return kids.reduce((n, k) => n + k.offsetWidth, 0) + gap * Math.max(0, kids.length - 1);
-};
-
 /** Fit every element matching `selector` under `root`, and again whenever it resizes, its content changes or fonts load. */
 export function watchFit(root: HTMLElement, selector: string, opts: Options = {}): () => void {
   const els = [...root.querySelectorAll<HTMLElement>(selector)];

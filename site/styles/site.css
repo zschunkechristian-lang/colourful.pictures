@@ -432,55 +432,43 @@ button {
   margin-bottom: 10lvh;
 }
 .credits {
-  /* one row across the full width of the film; if it ever runs out of room, whole entries
-     move to a second row, but an entry itself never breaks */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 6px var(--gutter);
+  /* a 12 x 1 grid as wide as the film: every entry takes 2 columns, the last one (the
+     artists, whose list is the longest) takes 4. Role above name. */
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  gap: 0 var(--gutter);
   margin: 0;
   width: 100%;
   max-width: var(--film-w);
   color: var(--fg);
   font-family: "Work Sans", sans-serif;
-  font-size: 11px;
-  line-height: 1.2;
+  font-size: 13px;
+  line-height: 1.35;
 }
 .credit {
+  grid-column: span 2;
   display: flex;
-  column-gap: var(--gutter);
-  white-space: nowrap;
+  flex-direction: column;
+  row-gap: 6px;
+}
+.credit--end {
+  grid-column: span 4;
 }
 .credit dt,
 .credit dd {
   margin: 0;
-  align-self: start;
 }
 .credit dt {
-  text-align: end;
+  font-size: 11px;
   font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
 }
 .credit dd {
-  font-weight: 200;
+  font-weight: 300;
   text-wrap: pretty;
-}
-.credit--end {
-  justify-content: end;
-}
-/* set by lib/fit.ts when the row still doesn't fit at the smallest allowed size: the names may
-   wrap onto a second line inside their entry, the role labels never do */
-.credits[data-wrap] {
-  flex-wrap: nowrap;
-}
-.credits[data-wrap] .credit {
-  min-width: 0;
-}
-.credits[data-wrap] .credit dt {
-  flex: none;
-}
-.credits[data-wrap] .credit dd {
-  min-width: 0;
-  white-space: normal;
 }
 
 /* ── Statement (text between media) ───────────────────────────────────── */
@@ -998,7 +986,7 @@ body.has-fine-pointer [role="button"] {
     max-width: none;
   }
   .credit {
-    white-space: normal;
+    flex-direction: row;
     grid-column: span 1;
     row-gap: 5px;
     column-gap: 5px;

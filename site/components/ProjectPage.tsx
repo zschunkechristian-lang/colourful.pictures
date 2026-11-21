@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { Project, SiteData } from "../lib/types";
 import { initMotion } from "../lib/motion";
-import { rowWidth, watchFit } from "../lib/fit";
+import { watchFit } from "../lib/fit";
 import { runFly } from "../lib/fly";
 import { Cursor, Nav, useSmoothScroll } from "./Shell";
 import { ClosingView, FooterView, SectionView, TileRow } from "./Sections";
@@ -43,13 +43,11 @@ export function ProjectPage({ project: loaded, site: loadedSite, current }: { pr
   useSmoothScroll(!editing);
   useEffect(() => (root.current && !editing ? initMotion(root.current) : undefined), [project.slug, editing]);
   const { footer } = site;
-  // the hero credit line and the credits row shrink to fit, but never below 11px
+  // the hero credit line shrinks to fit, but never below 11px
   useEffect(() => {
     if (!root.current) return;
     const stops = [
       watchFit(root.current, ".hero__credit", { min: 11 }),
-      // the credits row shrinks a little to stay on one row, but never below 11px; after that names wrap, roles never do
-      watchFit(root.current, ".credits", { min: 11, needed: rowWidth }),
     ];
     return () => stops.forEach((stop) => stop());
   }, [project, mode, slot]);
