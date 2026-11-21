@@ -55,6 +55,17 @@ export function moveSection(p: Project, id: string, dir: -1 | 1): Project {
   return withSections(p, next);
 }
 
+/** Move a section so it sits before (`after: false`) or after the target section. */
+export function moveSectionTo(p: Project, id: string, targetId: string, after: boolean): Project {
+  if (id === targetId) return p;
+  const from = p.sections.findIndex((s) => s.id === id);
+  if (from < 0 || !p.sections.some((s) => s.id === targetId)) return p;
+  const rest = p.sections.filter((s) => s.id !== id);
+  const at = rest.findIndex((s) => s.id === targetId) + (after ? 1 : 0);
+  if (at === from) return p;
+  return withSections(p, [...rest.slice(0, at), p.sections[from], ...rest.slice(at)]);
+}
+
 export function duplicateSection(p: Project, id: string): { project: Project; copyId: string } | null {
   const i = p.sections.findIndex((s) => s.id === id);
   if (i < 0 || isSingleton(p.sections[i])) return null;

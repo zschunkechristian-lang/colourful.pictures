@@ -8,7 +8,7 @@ import type { PickTarget } from "./model";
 import { SectionView, type SectionEdit } from "../components/Sections";
 import { Text } from "./Text";
 import {
-  CATALOG, ROW_PRESETS, hasMediaSlot, clampSpan, duplicateSection, insertSection, isSingleton, moveSection,
+  CATALOG, ROW_PRESETS, hasMediaSlot, clampSpan, duplicateSection, insertSection, isSingleton, moveSection, moveSectionTo,
   removeSection, replaceSection, rowSum,
 } from "./model";
 
@@ -67,10 +67,21 @@ export const NumberField = ({ value, onChange, label, min = 1, max = 12 }: { val
   />
 );
 
-function Bar({ section, i, count, project, commit, select, pick }: { section: Section; i: number; count: number; project: Project; commit: Commit; select: Props["select"]; pick: Props["pick"] }) {
+function Bar({ section, i, count, project, commit, select, pick, onDrag }: { section: Section; i: number; count: number; project: Project; commit: Commit; select: Props["select"]; pick: Props["pick"]; onDrag: (id: string | null) => void }) {
   const set = (next: Section, key?: string) => commit(replaceSection(project, next), key);
   return (
     <div className="cms cms-bar" onMouseDown={(e) => e.stopPropagation()}>
+      <span
+        className="cms-bar__grip" draggable title="Drag to reorder" aria-label="Drag to reorder"
+        onDragStart={(e) => {
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/plain", section.id);
+          const sec = (e.currentTarget as HTMLElement).closest(".cms-sec");
+          if (sec) e.dataTransfer.setDragImage(sec, 24, 16);
+          onDrag(section.id);
+        }}
+        onDragEnd={() => onDrag(null)}
+      >⠿</span>
       <span className="cms-bar__type">{TYPE_LABEL[section.type]}</span>
 
       {section.type === "row" && (
@@ -191,18 +202,37 @@ export function EditableSections({ project, commit, slot, selected, select, pick
     select(s.id);
   };
 
+  const [dragId, setDragId] = useState<string | null>(null);
+  const [drop, setDrop] = useState<{ id: string; after: boolean } | null>(null);
+  const endDrag = () => { setDragId(null); setDrop(null); };
+
   return createPortal(
     <>
       <Inserter index={0} groups={SECTION_MENU} onPick={onInsert} />
       {project.sections.map((s, i) => (
         <Fragment key={s.id}>
           <div
-            className={`cms-sec ${selected === s.id ? "is-selected" : ""}`}
+            className={`cms-sec ${selected === s.id ? "is-selected" : ""} ${dragId === s.id ? "is-dragging" : ""} ${drop?.id === s.id ? (drop.after ? "drop-after" : "drop-before") : ""}`}
             data-section={s.type}
+            onDragOver={(e) => {
+              if (!dragId) return;
+              e.preventDefault();
+              e.dataTransfer.dropEffect = "move";
+              const r = e.currentTarget.getBoundingClientRect();
+              const after = e.clientY > r.top + r.height / 2;
+              if (dragId === s.id) return setDrop(null);
+              setDrop((d) => (d?.id === s.id && d.after === after ? d : { id: s.id, after }));
+            }}
+            onDrop={(e) => {
+              if (!dragId) return;
+              e.preventDefault();
+              if (drop) commit(moveSectionTo(project, dragId, drop.id, drop.after));
+              endDrag();
+            }}
             onClickCapture={() => selected !== s.id && select(s.id)}
           >
             <SectionView section={s} edit={edit} slug={project.slug} />
-            <Bar section={s} i={i} count={project.sections.length} project={project} commit={commit} select={select} pick={pick} />
+            <Bar section={s} i={i} count={project.sections.length} project={project} commit={commit} select={select} pick={pick} onDrag={(id) => (id ? setDragId(id) : endDrag())} />
           </div>
           <Inserter index={i + 1} groups={SECTION_MENU} onPick={onInsert} />
         </Fragment>
