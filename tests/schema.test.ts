@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { projectSchema, mediaSchema, serializeProject, frameN, frameAlt, withFrameAlt } from "../site/lib/schema.ts";
+import { projectSchema, mediaSchema, serializeProject, frameFile, frameAlt, withFrameAlt } from "../site/lib/schema.ts";
 
 const project = { slug: "demo", sections: [{ id: "abc12345", type: "reel", media: null }] };
 
@@ -26,15 +26,15 @@ test("statement requires to >= from", () => {
 });
 
 test("media is a discriminated union", () => {
-  assert.equal(mediaSchema.safeParse({ kind: "still", project: "a", n: "01" }).success, true);
-  assert.equal(mediaSchema.safeParse({ kind: "video", project: "a", type: "clip", n: "01" }).success, true);
+  assert.equal(mediaSchema.safeParse({ kind: "still", project: "a", file: "a_01.jpg" }).success, true);
+  assert.equal(mediaSchema.safeParse({ kind: "video", project: "a", file: "a_clip_01" }).success, true);
   assert.equal(mediaSchema.safeParse({ kind: "video", project: "a", type: "nope" }).success, false);
 });
 
 test("frame helpers", () => {
-  assert.equal(frameN("03"), "03");
-  assert.equal(frameN({ n: "03", alt: "x" }), "03");
+  assert.equal(frameFile("03"), "03");
+  assert.equal(frameFile({ file: "03", alt: "x" }), "03");
   assert.equal(frameAlt("03"), undefined);
   assert.equal(withFrameAlt("03", ""), "03");
-  assert.deepEqual(withFrameAlt("03", "x"), { n: "03", alt: "x" });
+  assert.deepEqual(withFrameAlt("03", "x"), { file: "03", alt: "x" });
 });

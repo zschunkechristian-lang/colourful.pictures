@@ -9,7 +9,7 @@
       "media": {
         "kind": "video",
         "project": "zoozoos",
-        "type": "header"
+        "file": "zoozoos_header_h264.mp4"
       },
       "title": "I explored the space between **chemistry and art** for Eucerin to elevate their brand imagery.",
       "intro": [
@@ -29,7 +29,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "70"
+            "file": "eucerin_frame_70.jpg"
           }
         },
         {
@@ -37,7 +37,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "107"
+            "file": "eucerin_frame_107.jpg"
           }
         }
       ]
@@ -52,7 +52,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "127"
+            "file": "eucerin_frame_127.jpg"
           }
         },
         {
@@ -60,8 +60,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "clip",
-            "n": "08"
+            "file": "eucerin_clip_08_h264.mp4",
+            "webm": "eucerin_clip_08_av1.webm",
+            "poster": "eucerin_clip_08_poster.jpg"
           }
         }
       ]
@@ -84,7 +85,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "11"
+            "file": "eucerin_frame_11.jpg"
           }
         },
         {
@@ -92,7 +93,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "50"
+            "file": "eucerin_frame_50.jpg"
           }
         }
       ]
@@ -101,12 +102,12 @@
       "id": "8dbda0c5",
       "type": "carousel",
       "frames": [
-        "25",
-        "18",
-        "09",
-        "22",
-        "47",
-        "65"
+        "eucerin_frame_25.jpg",
+        "eucerin_frame_18.jpg",
+        "eucerin_frame_09.jpg",
+        "eucerin_frame_22.jpg",
+        "eucerin_frame_47.jpg",
+        "eucerin_frame_65.jpg"
       ],
       "project": "eucerin"
     },
@@ -120,7 +121,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "99"
+            "file": "eucerin_frame_99.jpg"
           }
         },
         {
@@ -128,7 +129,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "97"
+            "file": "eucerin_frame_97.jpg"
           }
         },
         {
@@ -136,7 +137,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "102"
+            "file": "eucerin_frame_102.jpg"
           }
         }
       ]
@@ -151,7 +152,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "52"
+            "file": "eucerin_frame_52.jpg"
           }
         },
         {
@@ -159,8 +160,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "clip",
-            "n": "04"
+            "file": "eucerin_clip_04_h264.mp4",
+            "webm": "eucerin_clip_04_av1.webm",
+            "poster": "eucerin_clip_04_poster.jpg"
           }
         }
       ]
@@ -175,8 +177,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "clip",
-            "n": "06"
+            "file": "eucerin_clip_06_h264.mp4",
+            "webm": "eucerin_clip_06_av1.webm",
+            "poster": "eucerin_clip_06_poster.jpg"
           }
         },
         {
@@ -184,8 +187,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "clip",
-            "n": "07"
+            "file": "eucerin_clip_07_h264.mp4",
+            "webm": "eucerin_clip_07_av1.webm",
+            "poster": "eucerin_clip_07_poster.jpg"
           }
         }
       ]
@@ -208,7 +212,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "85"
+            "file": "eucerin_frame_85.jpg"
           }
         },
         {
@@ -216,7 +220,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "66"
+            "file": "eucerin_frame_66.jpg"
           }
         },
         {
@@ -224,7 +228,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "100"
+            "file": "eucerin_frame_100.jpg"
           }
         },
         {
@@ -232,7 +236,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "164"
+            "file": "eucerin_frame_164.jpg"
           }
         }
       ]
@@ -247,7 +251,7 @@
           "media": {
             "kind": "still",
             "project": "eucerin",
-            "n": "78"
+            "file": "eucerin_frame_78.jpg"
           }
         },
         {
@@ -255,8 +259,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "clip",
-            "n": "11"
+            "file": "eucerin_clip_11_h264.mp4",
+            "webm": "eucerin_clip_11_av1.webm",
+            "poster": "eucerin_clip_11_poster.jpg"
           }
         }
       ]
@@ -273,12 +278,12 @@
       "id": "5a77890b",
       "type": "carousel",
       "frames": [
-        "141",
-        "124",
-        "125",
-        "159",
-        "44",
-        "36"
+        "eucerin_frame_141.jpg",
+        "eucerin_frame_124.jpg",
+        "eucerin_frame_125.jpg",
+        "eucerin_frame_159.jpg",
+        "eucerin_frame_44.jpg",
+        "eucerin_frame_36.jpg"
       ],
       "project": "eucerin"
     },
@@ -292,8 +297,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "clip",
-            "n": "15"
+            "file": "eucerin_clip_15_h264.mp4",
+            "webm": "eucerin_clip_15_av1.webm",
+            "poster": "eucerin_clip_15_poster.jpg"
           }
         },
         {
@@ -301,8 +307,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "clip",
-            "n": "16"
+            "file": "eucerin_clip_16_h264.mp4",
+            "webm": "eucerin_clip_16_av1.webm",
+            "poster": "eucerin_clip_16_poster.jpg"
           }
         },
         {
@@ -310,8 +317,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "clip",
-            "n": "18"
+            "file": "eucerin_clip_18_h264.mp4",
+            "webm": "eucerin_clip_18_av1.webm",
+            "poster": "eucerin_clip_18_poster.jpg"
           }
         }
       ]
@@ -326,8 +334,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "clip",
-            "n": "20"
+            "file": "eucerin_clip_20_h264.mp4",
+            "webm": "eucerin_clip_20_av1.webm",
+            "poster": "eucerin_clip_20_poster.jpg"
           }
         }
       ]

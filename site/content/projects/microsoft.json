@@ -9,7 +9,9 @@
       "media": {
         "kind": "video",
         "project": "microsoft",
-        "type": "header",
+        "file": "microsoft_header_h264.mp4",
+        "webm": "microsoft_header_av1.webm",
+        "poster": "microsoft_header_poster.jpg",
         "alt": "Animated geometric shapes saying goodbye to Wunderlist for Microsoft To Do"
       },
       "title": "Saying goodbye is never easy. I helped Microsoft make that conversation feel **a little more human**",
@@ -25,7 +27,9 @@
       "id": "81a335c8",
       "type": "film",
       "project": "microsoft",
-      "file": "master"
+      "file": "microsoft_master_h264.mp4",
+      "webm": "microsoft_master_av1.webm",
+      "poster": "microsoft_master_poster.jpg"
     },
     {
       "id": "d12dded0",
@@ -82,8 +86,9 @@
           "media": {
             "kind": "video",
             "project": "microsoft",
-            "type": "clip",
-            "n": "01"
+            "file": "microsoft_clip_01_h264.mp4",
+            "webm": "microsoft_clip_01_av1.webm",
+            "poster": "microsoft_clip_01_poster.jpg"
           }
         }
       ]
@@ -98,8 +103,9 @@
           "media": {
             "kind": "video",
             "project": "microsoft",
-            "type": "clip",
-            "n": "13"
+            "file": "microsoft_clip_13_h264.mp4",
+            "webm": "microsoft_clip_13_av1.webm",
+            "poster": "microsoft_clip_13_poster.jpg"
           }
         },
         {
@@ -107,8 +113,9 @@
           "media": {
             "kind": "video",
             "project": "microsoft",
-            "type": "clip",
-            "n": "11"
+            "file": "microsoft_clip_11_h264.mp4",
+            "webm": "microsoft_clip_11_av1.webm",
+            "poster": "microsoft_clip_11_poster.jpg"
           }
         }
       ]
@@ -125,7 +132,9 @@
       "id": "4c179521",
       "type": "film",
       "project": "microsoft",
-      "file": "clip_10"
+      "file": "microsoft_clip_10_h264.mp4",
+      "webm": "microsoft_clip_10_av1.webm",
+      "poster": "microsoft_clip_10_poster.jpg"
     },
     {
       "id": "070f536d",
@@ -134,8 +143,9 @@
       "media": {
         "kind": "video",
         "project": "microsoft",
-        "type": "clip",
-        "n": "09"
+        "file": "microsoft_clip_09_h264.mp4",
+        "webm": "microsoft_clip_09_av1.webm",
+        "poster": "microsoft_clip_09_poster.jpg"
       }
     },
     {
@@ -152,7 +162,7 @@
           "media": {
             "kind": "still",
             "project": "microsoft",
-            "n": "04"
+            "file": "microsoft_frame_04.jpg"
           }
         }
       ]
@@ -167,7 +177,7 @@
           "media": {
             "kind": "still",
             "project": "microsoft",
-            "n": "22"
+            "file": "microsoft_frame_22.jpg"
           }
         },
         {
@@ -175,7 +185,7 @@
           "media": {
             "kind": "still",
             "project": "microsoft",
-            "n": "03"
+            "file": "microsoft_frame_03.jpg"
           }
         }
       ]
@@ -190,7 +200,7 @@
           "media": {
             "kind": "still",
             "project": "microsoft",
-            "n": "10"
+            "file": "microsoft_frame_10.jpg"
           }
         }
       ]
@@ -205,7 +215,7 @@
           "media": {
             "kind": "still",
             "project": "microsoft",
-            "n": "01"
+            "file": "microsoft_frame_01.jpg"
           }
         },
         {
@@ -213,7 +223,7 @@
           "media": {
             "kind": "still",
             "project": "microsoft",
-            "n": "08"
+            "file": "microsoft_frame_08.jpg"
           }
         }
       ]
@@ -228,7 +238,7 @@
           "media": {
             "kind": "still",
             "project": "microsoft",
-            "n": "02"
+            "file": "microsoft_frame_02.jpg"
           }
         }
       ]

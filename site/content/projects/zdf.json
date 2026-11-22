@@ -9,7 +9,9 @@
       "media": {
         "kind": "video",
         "project": "zdf",
-        "type": "header",
+        "file": "zdf_header_h264.mp4",
+        "webm": "zdf_header_av1.webm",
+        "poster": "zdf_header_poster.jpg",
         "alt": "Embroidered grass and crafted flowers in the ZDF spring animation"
       },
       "title": "We pull away the knitted blanket of snow to reveal a **handcrafted** spring landscape",
@@ -25,7 +27,9 @@
       "id": "7b712cf2",
       "type": "film",
       "project": "zdf",
-      "file": "master_02"
+      "file": "zdf_master_02_h264.mp4",
+      "webm": "zdf_master_02_av1.webm",
+      "poster": "zdf_master_02_poster.jpg"
     },
     {
       "id": "f15084a4",
@@ -83,12 +87,12 @@
       "id": "7032f67c",
       "type": "carousel",
       "frames": [
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "09"
+        "zdf_frame_10.jpg",
+        "zdf_frame_11.jpg",
+        "zdf_frame_12.jpg",
+        "zdf_frame_13.jpg",
+        "zdf_frame_14.jpg",
+        "zdf_frame_09.jpg"
       ],
       "project": "zdf"
     },
@@ -106,7 +110,7 @@
           "media": {
             "kind": "still",
             "project": "zdf",
-            "n": "12"
+            "file": "zdf_frame_12.jpg"
           }
         }
       ]
@@ -121,8 +125,9 @@
           "media": {
             "kind": "video",
             "project": "zdf",
-            "type": "clip",
-            "n": "03"
+            "file": "zdf_clip_03_h264.mp4",
+            "webm": "zdf_clip_03_av1.webm",
+            "poster": "zdf_clip_03_poster.jpg"
           }
         },
         {
@@ -130,7 +135,7 @@
           "media": {
             "kind": "still",
             "project": "zdf",
-            "n": "10"
+            "file": "zdf_frame_10.jpg"
           }
         }
       ]
@@ -145,7 +150,7 @@
           "media": {
             "kind": "still",
             "project": "zdf",
-            "n": "13"
+            "file": "zdf_frame_13.jpg"
           }
         },
         {
@@ -153,8 +158,9 @@
           "media": {
             "kind": "video",
             "project": "zdf",
-            "type": "clip",
-            "n": "06"
+            "file": "zdf_clip_06_h264.mp4",
+            "webm": "zdf_clip_06_av1.webm",
+            "poster": "zdf_clip_06_poster.jpg"
           }
         }
       ]
@@ -177,7 +183,7 @@
           "media": {
             "kind": "still",
             "project": "zdf",
-            "n": "19"
+            "file": "zdf_frame_19.jpg"
           }
         }
       ]
@@ -194,7 +200,9 @@
       "id": "c68a5df9",
       "type": "film",
       "project": "zdf",
-      "file": "master"
+      "file": "zdf_master_h264.mp4",
+      "webm": "zdf_master_av1.webm",
+      "poster": "zdf_master_poster.jpg"
     },
     {
       "id": "932725f5",
@@ -203,29 +211,31 @@
       "media": {
         "kind": "video",
         "project": "zdf",
-        "type": "clip",
-        "n": "07"
+        "file": "zdf_clip_07_h264.mp4",
+        "poster": "zdf_clip_07_poster.jpg"
       }
     },
     {
       "id": "b315a69b",
       "type": "film",
       "project": "zdf",
-      "file": "master_03"
+      "file": "zdf_master_03_h264.mp4",
+      "webm": "zdf_master_03_av1.webm",
+      "poster": "zdf_master_03_poster.jpg"
     },
     {
       "id": "edac55bd",
       "type": "carousel",
       "frames": [
-        "21",
-        "22",
-        "23",
-        "24",
-        "25",
-        "26",
-        "27",
-        "28",
-        "29"
+        "zdf_frame_21.jpg",
+        "zdf_frame_22.jpg",
+        "zdf_frame_23.jpg",
+        "zdf_frame_24.jpg",
+        "zdf_frame_25.jpg",
+        "zdf_frame_26.jpg",
+        "zdf_frame_27.jpg",
+        "zdf_frame_28.jpg",
+        "zdf_frame_29.jpg"
       ],
       "project": "zdf"
     },
@@ -247,7 +257,7 @@
           "media": {
             "kind": "still",
             "project": "zdf",
-            "n": "05"
+            "file": "zdf_frame_05.jpg"
           }
         },
         {
@@ -255,8 +265,9 @@
           "media": {
             "kind": "video",
             "project": "zdf",
-            "type": "clip",
-            "n": "04"
+            "file": "zdf_clip_04_h264.mp4",
+            "webm": "zdf_clip_04_av1.webm",
+            "poster": "zdf_clip_04_poster.jpg"
           }
         }
       ]
@@ -271,7 +282,7 @@
           "media": {
             "kind": "still",
             "project": "zdf",
-            "n": "15"
+            "file": "zdf_frame_15.jpg"
           }
         },
         {
@@ -279,8 +290,9 @@
           "media": {
             "kind": "video",
             "project": "zdf",
-            "type": "clip",
-            "n": "02"
+            "file": "zdf_clip_02_h264.mp4",
+            "webm": "zdf_clip_02_av1.webm",
+            "poster": "zdf_clip_02_poster.jpg"
           }
         }
       ]
@@ -295,7 +307,7 @@
           "media": {
             "kind": "still",
             "project": "zdf",
-            "n": "17"
+            "file": "zdf_frame_17.jpg"
           }
         }
       ]

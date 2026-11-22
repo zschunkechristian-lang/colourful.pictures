@@ -121,11 +121,11 @@ export function SectionView({ section, edit, slug }: { section: Section; edit?: 
         </section>
       );
     case "film":
-      if (!section.project) return edit ? edit.empty(section, "Film — empty") : null;
+      if (!section.project || !section.file) return edit ? edit.empty(section, "Film — empty") : null;
       return (
         <section className="film" data-reveal="fade">
           <div className="film__inner">
-            <Player key={`${section.project}/${section.file}`} project={section.project} file={section.file} />
+            <Player key={`${section.project}/${section.file}`} project={section.project} file={section.file} webm={section.webm} poster={section.poster} />
           </div>
         </section>
       );

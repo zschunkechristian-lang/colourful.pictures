@@ -2,22 +2,27 @@
 // set the crop focus of an image, manage carousel frames. Every change goes through commit().
 import { useMemo, useRef, useState } from "react";
 import manifest from "../content/media-manifest.json";
-import { masterUrls, stillUrl, videoUrls } from "../lib/assets";
-import { frameAlt, frameN, withFrameAlt, type Project, type Section, type SiteData } from "../lib/schema";
+import { stillUrl, videoUrls } from "../lib/assets";
+import { frameAlt, frameFile, withFrameAlt, type Project, type Section, type SiteData } from "../lib/schema";
 import { hasMediaSlot, itemKey, itemToMedia, mediaToItem, patchTileRow, replaceSection, usedKeys, type Item, type PickTarget } from "./model";
 
-type M = { base: string; projects: Record<string, { stills: string[]; videos: ({ type: "header" } | { type: "master"; file: string } | { type: "clip"; n: string })[] }> };
+type M = { base: string; projects: Record<string, { stills: string[]; videos: { file: string; webm?: string; poster?: string }[] }> };
 // Refreshing swaps this in place of the file that was bundled at page load, so a picker opened
 // later in the same session sees the new media too (the file itself is rewritten on disk by the server).
 let latest = manifest as M;
 let lastProject = "";
 
 const thumb = (i: Item) =>
-  i.kind === "still" ? stillUrl({ kind: "still", project: i.project, n: i.n })
-  : i.kind === "master" ? masterUrls(i.project, i.file).poster
-  : videoUrls(i.kind === "header" ? { kind: "video", project: i.project, type: "header" } : { kind: "video", project: i.project, type: "clip", n: i.n }).poster;
+  i.kind === "still" ? stillUrl(i)
+  : videoUrls(i).poster;
 
-const label = (i: Item) => (i.kind === "still" ? i.n : i.kind === "clip" ? `clip ${i.n}` : i.kind === "header" ? "header" : i.file);
+/** Poster image, or the first frame of the mp4 for videos without a poster. */
+const Thumb = ({ item }: { item: Item }) => {
+  const url = thumb(item);
+  return url ? <img src={url} alt="" loading="lazy" decoding="async" draggable={false} /> : <video src={`${videoUrls(item as Extract<Item, { kind: "video" }>).mp4}#t=0.1`} preload="metadata" muted playsInline />;
+};
+
+const label = (i: Item) => (i.file);
 
 type Tab = "stills" | "videos";
 
@@ -29,7 +34,7 @@ function sectionOf(p: Project, t: PickTarget) {
 function currentItem(s: Section, t: PickTarget): Item | null {
   if (t.kind === "cell" && s.type === "row") return mediaToItem(s.cells[t.index]?.media ?? null);
   if (t.kind === "media" && hasMediaSlot(s)) return mediaToItem(s.media);
-  if (t.kind === "film" && s.type === "film" && s.project) return { kind: "master", project: s.project, file: s.file ?? "master_01" };
+  if (t.kind === "film" && s.type === "film" && s.project && s.file) return { kind: "video", project: s.project, file: s.file, webm: s.webm, poster: s.poster };
   return null;
 }
 
@@ -50,7 +55,7 @@ function FocusPicker({ item, value, onChange }: { item: Item; value: string; onC
         onPointerDown={(e) => { e.currentTarget.setPointerCapture(e.pointerId); set(e); }}
         onPointerMove={(e) => e.buttons === 1 && set(e)}
       >
-        <img src={thumb(item)} alt="" draggable={false} />
+        <Thumb item={item} />
         <i style={{ left: `${x}%`, top: `${y}%` }} />
       </div>
       <small>Click or drag: the point stays visible when the cell crops the image.</small>
@@ -96,11 +101,8 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
 
   const entry = MANIFEST.projects[proj] ?? { stills: [], videos: [] };
   let items: Item[] = [];
-  if (tab === "stills") items = entry.stills.map((n) => ({ kind: "still", project: proj, n }));
-  else
-    items = entry.videos
-      .filter((v) => (target.kind === "film" ? v.type === "master" : v.type !== "master"))
-      .map((v): Item => (v.type === "header" ? { kind: "header", project: proj } : v.type === "master" ? { kind: "master", project: proj, file: v.file } : { kind: "clip", project: proj, n: v.n }));
+  if (tab === "stills") items = entry.stills.map((file) => ({ kind: "still", project: proj, file }));
+  else items = entry.videos.map((v) => ({ kind: "video", project: proj, ...v }));
   if (only === "unused") items = items.filter((i) => !used.has(itemKey(i)));
 
   const frames = section?.type === "carousel" ? section.frames : [];
@@ -115,10 +117,10 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
     else if (target.kind === "cell" && section?.type === "row")
       set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return { ...rest, media: itemToMedia(i) }; }) });
     else if (target.kind === "media" && (section && hasMediaSlot(section))) set({ ...section, media: itemToMedia(i) });
-    else if (target.kind === "film" && section?.type === "film" && i.kind === "master") set({ ...section, project: i.project, file: i.file });
+    else if (target.kind === "film" && section?.type === "film" && i.kind === "video") set({ ...section, project: i.project, file: i.file, webm: i.webm, poster: i.poster });
     else if (isFrames && section?.type === "carousel" && i.kind === "still") {
-      const has = section.frames.some((f) => frameN(f) === i.n);
-      set({ ...section, project: i.project, frames: has ? section.frames.filter((f) => frameN(f) !== i.n) : [...section.frames, i.n] });
+      const has = section.frames.some((f) => frameFile(f) === i.file);
+      set({ ...section, project: i.project, frames: has ? section.frames.filter((f) => frameFile(f) !== i.file) : [...section.frames, i.file] });
     }
   };
   const clear = () => {
@@ -126,7 +128,7 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
     else if (tileT) setTileMedia(null);
     else if (target.kind === "cell" && section?.type === "row") set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return { ...rest, media: null }; }) });
     else if (target.kind === "media" && (section && hasMediaSlot(section))) set({ ...section, media: null });
-    else if (target.kind === "film" && section?.type === "film") set({ ...section, project: "", file: undefined });
+    else if (target.kind === "film" && section?.type === "film") set({ ...section, project: "", file: undefined, webm: undefined, poster: undefined });
     else if (isFrames && section?.type === "carousel") set({ ...section, frames: [] });
   };
   /** Media object of the slot being edited (for its alt text). */
@@ -150,7 +152,7 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
     set({ ...section, frames: f });
   };
 
-  const isOn = (i: Item) => (isFrames ? i.kind === "still" && frames.some((f) => frameN(f) === i.n) && frameProject === i.project : cur && itemKey(cur) === itemKey(i));
+  const isOn = (i: Item) => (isFrames ? i.kind === "still" && frames.some((f) => frameFile(f) === i.file) && frameProject === i.project : cur && itemKey(cur) === itemKey(i));
   const cell = target.kind === "cell" && section?.type === "row" ? section.cells[target.index] : null;
 
   return (
@@ -176,14 +178,14 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
         <div className="cms-frames">
           <div className="cms-frames__head"><span>{frames.length} frame{frames.length === 1 ? "" : "s"} in order</span><button onClick={clear} disabled={!frames.length}>Clear all</button></div>
           {frames.map((f, i) => (
-            <div key={frameN(f)} className="cms-frames__item">
-              <img src={thumb({ kind: "still", project: frameProject, n: frameN(f) })} alt="" loading="lazy" />
-              <span>{frameN(f)}</span>
+            <div key={frameFile(f)} className="cms-frames__item">
+              <img src={thumb({ kind: "still", project: frameProject, file: frameFile(f) })} alt="" loading="lazy" />
+              <span>{frameFile(f)}</span>
               <button onClick={() => moveFrame(i, -1)} disabled={i === 0} title="Earlier">↑</button>
               <button onClick={() => moveFrame(i, 1)} disabled={i === frames.length - 1} title="Later">↓</button>
               <button onClick={() => set({ ...section, frames: frames.filter((_, j) => j !== i) } as Section)} title="Remove">×</button>
               <input
-                className="cms-frames__alt" value={frameAlt(f) ?? ""} placeholder="Alt text for this frame" aria-label={`Alt text for frame ${frameN(f)}`}
+                className="cms-frames__alt" value={frameAlt(f) ?? ""} placeholder="Alt text for this frame" aria-label={`Alt text for frame ${frameFile(f)}`}
                 onChange={(e) => set({ ...section, frames: frames.map((x, j) => (j === i ? withFrameAlt(x, e.target.value) : x)) } as Section, `${section!.id}:falt${i}`)}
               />
             </div>
@@ -203,7 +205,7 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
           <input value={curMedia.alt ?? ""} placeholder="e.g. Heat pump node on a rooftop at dusk" onChange={(e) => setAlt(e.target.value)} />
         </label>
       )}
-      {cell && cur && (cur.kind === "still" || cur.kind === "clip" || cur.kind === "header") && target.kind === "cell" && section?.type === "row" && (
+      {cell && cur && target.kind === "cell" && section?.type === "row" && (
         <FocusPicker
           item={cur} value={cell.position ?? ""}
           onChange={(v) => set({ ...section, cells: section.cells.map((c, j) => { if (j !== target.index) return c; const { position, ...rest } = c; void position; return v ? { ...rest, position: v } : rest; }) }, `${section.id}:pos${target.index}`)}
@@ -213,7 +215,7 @@ export function Picker({ project, site, target, commit, commitSite, onClose }: {
       <div className="cms-picker__grid">
         {items.map((i) => (
           <button key={itemKey(i)} className={`cms-thumb ${isOn(i) ? "is-on" : ""}`} onClick={() => assign(i)} title={`${i.project} · ${label(i)}`}>
-            <img src={thumb(i)} alt="" loading="lazy" decoding="async" />
+            <Thumb item={i} />
             <span>{label(i)}</span>
             {used.has(itemKey(i)) && <b title="Already used on this page">used</b>}
           </button>

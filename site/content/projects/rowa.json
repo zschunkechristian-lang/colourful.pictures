@@ -9,8 +9,9 @@
       "media": {
         "kind": "video",
         "project": "rowa",
-        "type": "clip",
-        "n": "05",
+        "file": "rowa_clip_05_h264.mp4",
+        "webm": "rowa_clip_05_av1.webm",
+        "poster": "rowa_clip_05_poster.jpg",
         "alt": "Playful animated pharmacy scene from the Rowa campaign"
       },
       "title": "Rowa asked what the **pharmacy of the future** could look like.",
@@ -25,7 +26,7 @@
       "id": "55755f01",
       "type": "film",
       "project": "rowa",
-      "file": "master_01"
+      "file": "rowa_master_01_h264.mp4"
     },
     {
       "id": "38e85cf5",
@@ -81,13 +82,13 @@
       "id": "b0b7801c",
       "type": "carousel",
       "frames": [
-        "07",
-        "08",
-        "09",
-        "10",
-        "12",
-        "13",
-        "11"
+        "rowa_frame_07.jpg",
+        "rowa_frame_08.jpg",
+        "rowa_frame_09.jpg",
+        "rowa_frame_10.jpg",
+        "rowa_frame_12.jpg",
+        "rowa_frame_13.jpg",
+        "rowa_frame_11.jpg"
       ],
       "project": "rowa"
     },
@@ -105,7 +106,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "30"
+            "file": "rowa_frame_30.jpg"
           }
         }
       ]
@@ -117,8 +118,9 @@
       "media": {
         "kind": "video",
         "project": "rowa",
-        "type": "clip",
-        "n": "09"
+        "file": "rowa_clip_09_h264.mp4",
+        "webm": "rowa_clip_09_av1.webm",
+        "poster": "rowa_clip_09_poster.jpg"
       }
     },
     {
@@ -136,8 +138,9 @@
           "media": {
             "kind": "video",
             "project": "rowa",
-            "type": "clip",
-            "n": "03"
+            "file": "rowa_clip_03_h264.mp4",
+            "webm": "rowa_clip_03_av1.webm",
+            "poster": "rowa_clip_03_poster.jpg"
           }
         },
         {
@@ -145,8 +148,9 @@
           "media": {
             "kind": "video",
             "project": "rowa",
-            "type": "clip",
-            "n": "02"
+            "file": "rowa_clip_02_h264.mp4",
+            "webm": "rowa_clip_02_av1.webm",
+            "poster": "rowa_clip_02_poster.jpg"
           }
         }
       ]
@@ -161,7 +165,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "02"
+            "file": "rowa_frame_02.jpg"
           }
         },
         {
@@ -169,8 +173,9 @@
           "media": {
             "kind": "video",
             "project": "rowa",
-            "type": "clip",
-            "n": "08"
+            "file": "rowa_clip_08_h264.mp4",
+            "webm": "rowa_clip_08_av1.webm",
+            "poster": "rowa_clip_08_poster.jpg"
           }
         }
       ]
@@ -185,7 +190,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "14"
+            "file": "rowa_frame_14.jpg"
           }
         }
       ]
@@ -208,7 +213,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "17"
+            "file": "rowa_frame_17.jpg"
           }
         },
         {
@@ -216,7 +221,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "05"
+            "file": "rowa_frame_05.jpg"
           }
         }
       ]
@@ -231,7 +236,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "40"
+            "file": "rowa_frame_40.jpg"
           }
         },
         {
@@ -239,7 +244,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "41"
+            "file": "rowa_frame_41.jpg"
           }
         },
         {
@@ -247,7 +252,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "42"
+            "file": "rowa_frame_42.jpg"
           }
         },
         {
@@ -255,7 +260,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "43"
+            "file": "rowa_frame_43.jpg"
           }
         }
       ]
@@ -270,7 +275,7 @@
           "media": {
             "kind": "still",
             "project": "rowa",
-            "n": "01"
+            "file": "rowa_frame_01.jpg"
           }
         }
       ]
