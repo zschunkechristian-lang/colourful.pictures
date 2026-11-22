@@ -894,11 +894,11 @@ body.has-fine-pointer [role="button"] {
     top: 0;
     z-index: 999;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: start;
     width: 100%;
     height: 120px;
-    padding: var(--gutter);
+    padding: var(--gutter) 0; /* the frame already supplies the 20px side padding */
     overflow: hidden;
     background-color: var(--bg);
     mix-blend-mode: normal;
@@ -907,20 +907,25 @@ body.has-fine-pointer [role="button"] {
     --nav-accent: var(--accent);
   }
   .nav__links {
-    flex-direction: row;
-    column-gap: 2px;
-    row-gap: 2px;
+    /* flatten so the theme toggle can sit between Play and Info via `order` */
+    display: contents;
   }
+  .nav__links > :nth-child(1) { order: 1; } /* Home */
+  .nav__links > :nth-child(2) { order: 2; } /* Play */
+  .nav__theme { order: 3; }
+  .nav__links > :nth-child(3) { order: 4; } /* Info */
+  .nav__links > :nth-child(4) { order: 5; } /* Mail */
   .nav__link:hover,
   .nav__link[aria-current="page"] {
     transform: skewY(-25deg);
   }
   .nav {
-    column-gap: 12px;
+    column-gap: 2px;
   }
   .nav__theme {
     width: 60px;
     align-self: center;
+    margin: 0 auto; /* fills the space: Home/Play left, toggle centred, Info/Mail right */
   }
   .nav__contact {
     display: none; /* not just invisible: it must not stay reachable by keyboard */
