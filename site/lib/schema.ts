@@ -8,15 +8,16 @@ export const spanSchema = z.number().int().min(1).max(12);
 const still = z.strictObject({
   kind: z.literal("still"),
   project: z.string().min(1),
-  n: z.string().min(1),
+  file: z.string().min(1), // the actual filename in <project>/stills/, e.g. "zdf_frame_07.jpg"
   optimize: z.literal(false).optional(),
   alt: z.string().optional(), // describes the image for screen readers and search
 });
 const video = z.strictObject({
   kind: z.literal("video"),
   project: z.string().min(1),
-  type: z.enum(["header", "master", "clip"]),
-  n: z.string().min(1).optional(),
+  file: z.string().min(1), // the mp4 in <project>/video/, e.g. "zdf_clip_03_h264.mp4": plays everywhere, so it is the only required one
+  webm: z.string().min(1).optional(), // AV1 webm: smaller, served first to browsers that can play it
+  poster: z.string().min(1).optional(), // still frame shown before the video plays
   alt: z.string().optional(),
 });
 export const mediaSchema = z.discriminatedUnion("kind", [still, video]);
@@ -30,15 +31,15 @@ export const cellSchema = z.strictObject({
   text: z.string().optional(),
 });
 
-/** A carousel frame: just its still number, or `{ n, alt }` once it has a description. */
-export const frameSchema = z.union([z.string().min(1), z.strictObject({ n: z.string().min(1), alt: z.string().optional() })]);
+/** A carousel frame: just its still filename, or `{ file, alt }` once it has a description. */
+export const frameSchema = z.union([z.string().min(1), z.strictObject({ file: z.string().min(1), alt: z.string().optional() })]);
 
 const id = z.string().regex(/^[a-z0-9]{6,12}$/);
 
 export const sectionSchema = z.discriminatedUnion("type", [
   z.strictObject({ id, type: z.literal("hero"), media: mediaSchema.nullable(), title: z.string(), intro: z.array(z.string()), credit: z.string() }),
   // empty `project` = film slot not filled yet (editor placeholder; renders nothing in the site)
-  z.strictObject({ id, type: z.literal("film"), project: z.string(), file: z.string().optional() }),
+  z.strictObject({ id, type: z.literal("film"), project: z.string(), file: z.string().optional(), webm: z.string().optional(), poster: z.string().optional() }),
   z.strictObject({ id, type: z.literal("credits"), items: z.array(z.strictObject({ label: z.string(), value: z.array(z.string()) })) }),
   z.strictObject({
     id,
@@ -88,10 +89,10 @@ export const siteSchema = z.strictObject({
 });
 
 export type Frame = z.infer<typeof frameSchema>;
-export const frameN = (f: Frame) => (typeof f === "string" ? f : f.n);
+export const frameFile = (f: Frame) => (typeof f === "string" ? f : f.file);
 export const frameAlt = (f: Frame) => (typeof f === "string" ? undefined : f.alt);
 /** Set (or clear) a frame's alt text; a frame without alt stays a plain string in the file. */
-export const withFrameAlt = (f: Frame, alt: string): Frame => (alt ? { n: frameN(f), alt } : frameN(f));
+export const withFrameAlt = (f: Frame, alt: string): Frame => (alt ? { file: frameFile(f), alt } : frameFile(f));
 
 export type Media = z.infer<typeof mediaSchema>;
 export type Still = Extract<Media, { kind: "still" }>;

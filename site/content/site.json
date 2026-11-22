@@ -20,7 +20,9 @@
           "media": {
             "kind": "video",
             "project": "galvany",
-            "type": "header"
+            "file": "galvany_header_h264.mp4",
+            "webm": "galvany_header_av1.webm",
+            "poster": "galvany_header_poster.jpg"
           }
         }
       ]
@@ -38,7 +40,9 @@
           "media": {
             "kind": "video",
             "project": "eucerin",
-            "type": "header"
+            "file": "eucerin_header_h264.mp4",
+            "webm": "eucerin_header_av1.webm",
+            "poster": "eucerin_header_poster.jpg"
           }
         },
         {
@@ -51,7 +55,9 @@
           "media": {
             "kind": "video",
             "project": "zeiss",
-            "type": "header"
+            "file": "zeiss_header_h264.mp4",
+            "webm": "zeiss_header_av1.webm",
+            "poster": "zeiss_header_poster.jpg"
           }
         }
       ]
@@ -69,7 +75,9 @@
           "media": {
             "kind": "video",
             "project": "mercedes02",
-            "type": "header"
+            "file": "mercedes02_header_h264.mp4",
+            "webm": "mercedes02_header_av1.webm",
+            "poster": "mercedes02_header_poster.jpg"
           }
         },
         {
@@ -81,7 +89,9 @@
           "media": {
             "kind": "video",
             "project": "mercedes01",
-            "type": "header"
+            "file": "mercedes01_header_h264.mp4",
+            "webm": "mercedes01_header_av1.webm",
+            "poster": "mercedes01_header_poster.jpg"
           }
         }
       ]
@@ -98,7 +108,9 @@
           "media": {
             "kind": "video",
             "project": "walterknoll",
-            "type": "header"
+            "file": "walterknoll_header_h264.mp4",
+            "webm": "walterknoll_header_av1.webm",
+            "poster": "walterknoll_header_poster.jpg"
           }
         },
         {
@@ -110,8 +122,9 @@
           "media": {
             "kind": "video",
             "project": "weleda",
-            "type": "clip",
-            "n": "02"
+            "file": "weleda_clip_02_h264.mp4",
+            "webm": "weleda_clip_02_av1.webm",
+            "poster": "weleda_clip_02_poster.jpg"
           }
         },
         {
@@ -124,8 +137,9 @@
           "media": {
             "kind": "video",
             "project": "seabob",
-            "type": "clip",
-            "n": "17"
+            "file": "seabob_clip_17_h264.mp4",
+            "webm": "seabob_clip_17_av1.webm",
+            "poster": "seabob_clip_17_poster.jpg"
           }
         }
       ]
@@ -142,7 +156,9 @@
           "media": {
             "kind": "video",
             "project": "zdf",
-            "type": "header"
+            "file": "zdf_header_h264.mp4",
+            "webm": "zdf_header_av1.webm",
+            "poster": "zdf_header_poster.jpg"
           }
         }
       ]
@@ -159,7 +175,9 @@
           "media": {
             "kind": "video",
             "project": "look",
-            "type": "header"
+            "file": "look_header_h264.mp4",
+            "webm": "look_header_av1.webm",
+            "poster": "look_header_poster.jpg"
           }
         },
         {
@@ -172,7 +190,9 @@
           "media": {
             "kind": "video",
             "project": "lavita",
-            "type": "header"
+            "file": "lavita_header_h264.mp4",
+            "webm": "lavita_header_av1.webm",
+            "poster": "lavita_header_poster.jpg"
           }
         }
       ]
@@ -190,7 +210,9 @@
           "media": {
             "kind": "video",
             "project": "rowa",
-            "type": "header"
+            "file": "rowa_header_h264.mp4",
+            "webm": "rowa_header_av1.webm",
+            "poster": "rowa_header_poster.jpg"
           }
         },
         {
@@ -202,7 +224,9 @@
           "media": {
             "kind": "video",
             "project": "buzzforbees",
-            "type": "header"
+            "file": "buzzforbees_header_h264.mp4",
+            "webm": "buzzforbees_header_av1.webm",
+            "poster": "buzzforbees_header_poster.jpg"
           }
         }
       ]
@@ -220,7 +244,9 @@
           "media": {
             "kind": "video",
             "project": "microsoft",
-            "type": "header"
+            "file": "microsoft_header_h264.mp4",
+            "webm": "microsoft_header_av1.webm",
+            "poster": "microsoft_header_poster.jpg"
           }
         }
       ]
@@ -237,8 +263,9 @@
           "media": {
             "kind": "video",
             "project": "zoozoos",
-            "type": "clip",
-            "n": "01"
+            "file": "zoozoos_clip_01_h264.mp4",
+            "webm": "zoozoos_clip_01_av1.webm",
+            "poster": "zoozoos_clip_01_poster.jpg"
           }
         },
         {
@@ -250,7 +277,8 @@
           "media": {
             "kind": "video",
             "project": "portraits",
-            "type": "header"
+            "file": "portraits_header_h264.mp4",
+            "webm": "portraits_header_av1.webm"
           }
         }
       ]
@@ -267,7 +295,9 @@
           "media": {
             "kind": "video",
             "project": "pitch",
-            "type": "header"
+            "file": "pitch_header_h264.mp4",
+            "webm": "pitch_header_av1.webm",
+            "poster": "pitch_header_poster.jpg"
           }
         },
         {
@@ -279,7 +309,9 @@
           "media": {
             "kind": "video",
             "project": "paypal",
-            "type": "header"
+            "file": "paypal_header_h264.mp4",
+            "webm": "paypal_header_av1.webm",
+            "poster": "paypal_header_poster.jpg"
           }
         }
       ]

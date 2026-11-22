@@ -1,6 +1,6 @@
 // Shared <head> metadata: title, description, canonical URL, Open Graph / Twitter cards,
 // robots and JSON-LD. (charset and viewport come from renderer/+onRenderHtml.tsx.) Pages on the new system render this from their +Head.tsx.
-import { masterUrls, stillUrl, videoUrls } from "../lib/assets";
+import { stillUrl, videoUrls } from "../lib/assets";
 import { SITE, absoluteUrl } from "../lib/config";
 import type { Media, Project } from "../lib/types";
 
@@ -17,8 +17,8 @@ export type SeoProps = {
 export function mediaImage(m: Media | null | undefined): { url: string; alt?: string } | undefined {
   if (!m) return undefined;
   if (m.kind === "still") return { url: stillUrl(m), alt: m.alt };
-  const poster = m.type === "master" ? masterUrls(m.project, m.n).poster : videoUrls(m).poster;
-  return { url: poster, alt: m.alt };
+  const poster = videoUrls(m).poster;
+  return poster ? { url: poster, alt: m.alt } : undefined;
 }
 
 /** The link-preview image of a project: its own `image`, else the hero media. */

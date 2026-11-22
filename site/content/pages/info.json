@@ -9,8 +9,9 @@
       "media": {
         "kind": "video",
         "project": "portraits",
-        "type": "clip",
-        "n": "01",
+        "file": "portraits_clip_01_h264.mp4",
+        "webm": "portraits_clip_01_av1.webm",
+        "poster": "portraits_clip_01_poster.jpg",
         "alt": "Animated avatar portrait of Christian Zschunke"
       },
       "title": "Hi, I'm Chris. I was born, stuff happend, now I design things.",

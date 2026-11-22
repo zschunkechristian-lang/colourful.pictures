@@ -9,7 +9,9 @@
       "media": {
         "kind": "video",
         "project": "lavita",
-        "type": "header",
+        "file": "lavita_header_h264.mp4",
+        "webm": "lavita_header_av1.webm",
+        "poster": "lavita_header_poster.jpg",
         "alt": "Animated LaVita character moving through a handcrafted world of cells"
       },
       "title": "LaVita **dared to stand** out in the german media landscape by commiting to the craft of animation.",
@@ -25,7 +27,9 @@
       "id": "c827aa55",
       "type": "film",
       "project": "lavita",
-      "file": "clip_01"
+      "file": "lavita_clip_01_h264.mp4",
+      "webm": "lavita_clip_01_av1.webm",
+      "poster": "lavita_clip_01_poster.jpg"
     },
     {
       "id": "b505da92",
@@ -88,17 +92,17 @@
       "id": "3f0757e0",
       "type": "carousel",
       "frames": [
-        "105",
-        "106",
-        "107",
-        "108",
-        "109",
-        "110",
-        "111",
-        "101",
-        "102",
-        "103",
-        "104"
+        "lavita_frame_105.jpg",
+        "lavita_frame_106.jpg",
+        "lavita_frame_107.jpg",
+        "lavita_frame_108.jpg",
+        "lavita_frame_109.jpg",
+        "lavita_frame_110.jpg",
+        "lavita_frame_111.jpg",
+        "lavita_frame_101.jpg",
+        "lavita_frame_102.jpg",
+        "lavita_frame_103.jpg",
+        "lavita_frame_104.jpg"
       ],
       "project": "lavita"
     },
@@ -109,15 +113,18 @@
       "media": {
         "kind": "video",
         "project": "lavita",
-        "type": "clip",
-        "n": "12"
+        "file": "lavita_clip_12_h264.mp4",
+        "webm": "lavita_clip_12_av1.webm",
+        "poster": "lavita_clip_12_poster.jpg"
       }
     },
     {
       "id": "8ebac489",
       "type": "film",
       "project": "lavita",
-      "file": "clip_03"
+      "file": "lavita_clip_03_h264.mp4",
+      "webm": "lavita_clip_03_av1.webm",
+      "poster": "lavita_clip_03_poster.jpg"
     },
     {
       "id": "913ce636",
@@ -131,20 +138,20 @@
       "id": "91d0d9a3",
       "type": "carousel",
       "frames": [
-        "012",
-        "042",
-        "043",
-        "044",
-        "036",
-        "051",
-        "048",
-        "068",
-        "070",
-        "084",
-        "087",
-        "093",
-        "098",
-        "099"
+        "lavita_frame_012.jpg",
+        "lavita_frame_042.jpg",
+        "lavita_frame_043.jpg",
+        "lavita_frame_044.jpg",
+        "lavita_frame_036.jpg",
+        "lavita_frame_051.jpg",
+        "lavita_frame_048.jpg",
+        "lavita_frame_068.jpg",
+        "lavita_frame_070.jpg",
+        "lavita_frame_084.jpg",
+        "lavita_frame_087.jpg",
+        "lavita_frame_093.jpg",
+        "lavita_frame_098.jpg",
+        "lavita_frame_099.jpg"
       ],
       "project": "lavita"
     },
@@ -158,8 +165,9 @@
           "media": {
             "kind": "video",
             "project": "lavita",
-            "type": "clip",
-            "n": "08"
+            "file": "lavita_clip_08_h264.mp4",
+            "webm": "lavita_clip_08_av1.webm",
+            "poster": "lavita_clip_08_poster.jpg"
           }
         },
         {
@@ -167,7 +175,7 @@
           "media": {
             "kind": "still",
             "project": "lavita",
-            "n": "060"
+            "file": "lavita_frame_060.jpg"
           }
         }
       ]
@@ -182,7 +190,7 @@
           "media": {
             "kind": "still",
             "project": "lavita",
-            "n": "015"
+            "file": "lavita_frame_015.jpg"
           }
         }
       ]
@@ -197,7 +205,7 @@
           "media": {
             "kind": "still",
             "project": "lavita",
-            "n": "045"
+            "file": "lavita_frame_045.jpg"
           }
         },
         {
@@ -205,8 +213,9 @@
           "media": {
             "kind": "video",
             "project": "lavita",
-            "type": "clip",
-            "n": "10"
+            "file": "lavita_clip_10_h264.mp4",
+            "webm": "lavita_clip_10_av1.webm",
+            "poster": "lavita_clip_10_poster.jpg"
           }
         }
       ]
@@ -226,8 +235,9 @@
           "media": {
             "kind": "video",
             "project": "lavita",
-            "type": "clip",
-            "n": "11"
+            "file": "lavita_clip_11_h264.mp4",
+            "webm": "lavita_clip_11_av1.webm",
+            "poster": "lavita_clip_11_poster.jpg"
           }
         }
       ]
@@ -242,7 +252,7 @@
           "media": {
             "kind": "still",
             "project": "lavita",
-            "n": "041"
+            "file": "lavita_frame_041.jpg"
           }
         },
         {
@@ -250,8 +260,9 @@
           "media": {
             "kind": "video",
             "project": "lavita",
-            "type": "clip",
-            "n": "04"
+            "file": "lavita_clip_04_h264.mp4",
+            "webm": "lavita_clip_04_av1.webm",
+            "poster": "lavita_clip_04_poster.jpg"
           }
         }
       ]
@@ -274,8 +285,9 @@
           "media": {
             "kind": "video",
             "project": "lavita",
-            "type": "clip",
-            "n": "13"
+            "file": "lavita_clip_13_h264.mp4",
+            "webm": "lavita_clip_13_av1.webm",
+            "poster": "lavita_clip_13_poster.jpg"
           }
         }
       ]

@@ -9,7 +9,9 @@
       "media": {
         "kind": "video",
         "project": "galvany",
-        "type": "header"
+        "file": "galvany_header_h264.mp4",
+        "webm": "galvany_header_av1.webm",
+        "poster": "galvany_header_poster.jpg"
       },
       "title": "Galvany asked what it would take to make their brand feel as** effortless** as their tech.",
       "intro": [
@@ -23,7 +25,9 @@
       "id": "cf9e68af",
       "type": "film",
       "project": "galvany",
-      "file": "master_01"
+      "file": "galvany_master_01_h264.mp4",
+      "webm": "galvany_master_01_av1.webm",
+      "poster": "galvany_master_01_poster.jpg"
     },
     {
       "id": "e5bce3ab",
@@ -76,14 +80,14 @@
       "id": "8293cce4",
       "type": "carousel",
       "frames": [
-        "74",
-        "67",
-        "68",
-        "69",
-        "70",
-        "71",
-        "72",
-        "73"
+        "galvany_frame_74.jpg",
+        "galvany_frame_67.jpg",
+        "galvany_frame_68.jpg",
+        "galvany_frame_69.jpg",
+        "galvany_frame_70.jpg",
+        "galvany_frame_71.jpg",
+        "galvany_frame_72.jpg",
+        "galvany_frame_73.jpg"
       ]
     },
     {
@@ -96,7 +100,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "08"
+            "file": "galvany_frame_08.jpg"
           }
         },
         {
@@ -104,7 +108,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "26"
+            "file": "galvany_frame_26.jpg"
           }
         }
       ]
@@ -119,7 +123,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "40"
+            "file": "galvany_frame_40.jpg"
           }
         },
         {
@@ -127,7 +131,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "48"
+            "file": "galvany_frame_48.jpg"
           }
         },
         {
@@ -135,7 +139,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "43"
+            "file": "galvany_frame_43.jpg"
           }
         }
       ]
@@ -158,8 +162,9 @@
           "media": {
             "kind": "video",
             "project": "galvany",
-            "type": "clip",
-            "n": "09"
+            "file": "galvany_clip_09_h264.mp4",
+            "webm": "galvany_clip_09_av1.webm",
+            "poster": "galvany_clip_09_poster.jpg"
           }
         },
         {
@@ -167,8 +172,9 @@
           "media": {
             "kind": "video",
             "project": "galvany",
-            "type": "clip",
-            "n": "04"
+            "file": "galvany_clip_04_h264.mp4",
+            "webm": "galvany_clip_04_av1.webm",
+            "poster": "galvany_clip_04_poster.jpg"
           }
         }
       ]
@@ -191,7 +197,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "75"
+            "file": "galvany_frame_75.jpg"
           }
         },
         {
@@ -199,7 +205,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "76"
+            "file": "galvany_frame_76.jpg"
           }
         },
         {
@@ -207,7 +213,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "77"
+            "file": "galvany_frame_77.jpg"
           }
         },
         {
@@ -215,7 +221,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "79"
+            "file": "galvany_frame_79.jpg"
           }
         }
       ]
@@ -235,8 +241,9 @@
       "media": {
         "kind": "video",
         "project": "galvany",
-        "type": "clip",
-        "n": "05"
+        "file": "galvany_clip_05_h264.mp4",
+        "webm": "galvany_clip_05_av1.webm",
+        "poster": "galvany_clip_05_poster.jpg"
       }
     },
     {
@@ -257,7 +264,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "17"
+            "file": "galvany_frame_17.jpg"
           }
         },
         {
@@ -265,8 +272,9 @@
           "media": {
             "kind": "video",
             "project": "galvany",
-            "type": "clip",
-            "n": "08"
+            "file": "galvany_clip_08_h264.mp4",
+            "webm": "galvany_clip_08_av1.webm",
+            "poster": "galvany_clip_08_poster.jpg"
           }
         }
       ]
@@ -281,7 +289,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "65"
+            "file": "galvany_frame_65.jpg"
           }
         },
         {
@@ -289,8 +297,9 @@
           "media": {
             "kind": "video",
             "project": "galvany",
-            "type": "clip",
-            "n": "07"
+            "file": "galvany_clip_07_h264.mp4",
+            "webm": "galvany_clip_07_av1.webm",
+            "poster": "galvany_clip_07_poster.jpg"
           }
         }
       ]
@@ -313,7 +322,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "64",
+            "file": "galvany_frame_64.jpg",
             "optimize": false
           }
         },
@@ -322,7 +331,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "30"
+            "file": "galvany_frame_30.jpg"
           }
         }
       ]
@@ -337,7 +346,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "55"
+            "file": "galvany_frame_55.jpg"
           }
         },
         {
@@ -345,7 +354,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "59"
+            "file": "galvany_frame_59.jpg"
           }
         }
       ]
@@ -360,7 +369,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "21"
+            "file": "galvany_frame_21.jpg"
           }
         },
         {
@@ -368,7 +377,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "34"
+            "file": "galvany_frame_34.jpg"
           }
         }
       ]
@@ -383,7 +392,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "36"
+            "file": "galvany_frame_36.jpg"
           }
         },
         {
@@ -391,7 +400,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "26"
+            "file": "galvany_frame_26.jpg"
           }
         },
         {
@@ -399,7 +408,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "27"
+            "file": "galvany_frame_27.jpg"
           }
         },
         {
@@ -407,7 +416,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "37"
+            "file": "galvany_frame_37.jpg"
           }
         },
         {
@@ -415,7 +424,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "43"
+            "file": "galvany_frame_43.jpg"
           }
         },
         {
@@ -423,7 +432,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "46"
+            "file": "galvany_frame_46.jpg"
           }
         }
       ]
@@ -438,7 +447,7 @@
           "media": {
             "kind": "still",
             "project": "galvany",
-            "n": "74"
+            "file": "galvany_frame_74.jpg"
           }
         }
       ]

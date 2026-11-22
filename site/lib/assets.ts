@@ -1,33 +1,18 @@
 // Where media lives and how filenames are built. This is the single place that
 // knows the bucket layout (it replaces the old window.MIM.buildAssetUrl script).
 //
-//   stills:  <CDN>/<project>/stills/<project>_frame_<n>.jpg   (or _frame_<n>.webp when n ends in ".webp")
-//   video:   <CDN>/<project>/video/<project>_{header|master|clip_<n>}_{h264.mp4|av1.webm|poster.jpg}
+//   stills:  <CDN>/<project>/stills/<file>   (any filename; the editor picks from a scan of the folder)
+//   video:   <CDN>/<project>/video/<file>   (an mp4, plus an optional webm and poster; any filenames)
 
 export const CDN = "https://assets.colourful.pictures/website/projects";
 
 import type { Media, Still, Video } from "./schema";
 export type { Media, Still, Video };
 
-/** `n` is the part after `_frame_`; ".jpg" is implied, a webp still carries its extension ("07.webp"). */
-export const stillUrl = (m: Pick<Still, "project" | "n"> & Partial<Still>) => `${CDN}/${m.project}/stills/${m.project}_frame_${m.n}${/\.webp$/.test(m.n) ? "" : ".jpg"}`;
+export const stillUrl = (m: Pick<Still, "project" | "file">) => `${CDN}/${m.project}/stills/${encodeURIComponent(m.file)}`;
 
-export function videoUrls(m: Video) {
-  const base = `${CDN}/${m.project}/video`;
-  const stem = m.type === "clip" ? `${m.project}_clip_${m.n}` : `${m.project}_${m.type}`;
-  return {
-    poster: `${base}/${stem}_poster.jpg`,
-    mp4: `${base}/${stem}_h264.mp4`,
-    webm: `${base}/${stem}_av1.webm`,
-  };
-}
-
-/** The master film is named `<project>_master_01_*` (numbered), unlike the other types. */
-export function masterUrls(project: string, file = "master_01") {
-  const base = `${CDN}/${project}/video`;
-  return {
-    poster: `${base}/${project}_${file}_poster.jpg`,
-    mp4: `${base}/${project}_${file}_h264.mp4`,
-    webm: `${base}/${project}_${file}_av1.webm`,
-  };
+/** The mp4 is the baseline; the AV1 webm and the poster are only there when the video has them. */
+export function videoUrls(m: { project: string; file: string; webm?: string; poster?: string }) {
+  const url = (f: string) => `${CDN}/${m.project}/video/${encodeURIComponent(f)}`;
+  return { mp4: url(m.file), webm: m.webm ? url(m.webm) : undefined, poster: m.poster ? url(m.poster) : undefined };
 }

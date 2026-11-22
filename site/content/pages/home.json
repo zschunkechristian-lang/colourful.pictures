@@ -9,8 +9,9 @@
       "media": {
         "kind": "video",
         "project": "reel",
-        "type": "clip",
-        "n": "01",
+        "file": "reel_clip_01_h264.mp4",
+        "webm": "reel_clip_01_av1.webm",
+        "poster": "reel_clip_01_poster.jpg",
         "alt": "Showreel of Christian Zschunke: 3D animation, brand and motion design work"
       }
     },

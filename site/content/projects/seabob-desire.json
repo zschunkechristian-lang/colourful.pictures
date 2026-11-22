@@ -9,8 +9,9 @@
       "media": {
         "kind": "video",
         "project": "seabob",
-        "type": "clip",
-        "n": "17"
+        "file": "seabob_clip_17_h264.mp4",
+        "webm": "seabob_clip_17_av1.webm",
+        "poster": "seabob_clip_17_poster.jpg"
       },
       "title": "How do you make an object desireable?",
       "intro": [
@@ -50,8 +51,9 @@
           "media": {
             "kind": "video",
             "project": "seabob",
-            "type": "clip",
-            "n": "22"
+            "file": "seabob_clip_22_h264.mp4",
+            "webm": "seabob_clip_22_av1.webm",
+            "poster": "seabob_clip_22_poster.jpg"
           }
         },
         {
@@ -59,8 +61,9 @@
           "media": {
             "kind": "video",
             "project": "seabob",
-            "type": "clip",
-            "n": "26"
+            "file": "seabob_clip_26_h264.mp4",
+            "webm": "seabob_clip_26_av1.webm",
+            "poster": "seabob_clip_26_poster.jpg"
           }
         }
       ]

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { masterUrls } from "../lib/assets";
+import { videoUrls } from "../lib/assets";
 import { useLazyVideo } from "./Media";
 
 /** The big film player: click to play/pause, scrub bar, fullscreen. */
-export function Player({ project, file = "master_01" }: { project: string; file?: string }) {
-  const urls = masterUrls(project, file);
+export function Player({ project, file, webm, poster }: { project: string; file: string; webm?: string; poster?: string }) {
+  const urls = videoUrls({ project, file, webm, poster });
   const video = useRef<HTMLVideoElement>(null);
   const box = useRef<HTMLDivElement>(null);
   const fill = useRef<HTMLDivElement>(null);

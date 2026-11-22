@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { flyResumeTime } from "../lib/fly";
-import { stillUrl, videoUrls, masterUrls, type Media as MediaT, type Video } from "../lib/assets";
+import { stillUrl, videoUrls, type Media as MediaT, type Video } from "../lib/assets";
 
 /** Free a video's decoder and buffers. Safari keeps removed video elements alive for a long while and
  *  only allows a few at once, so after some page changes new videos would stay blank. */
@@ -14,7 +14,7 @@ export function releaseVideo(el: HTMLVideoElement) {
 }
 
 /** Lazy-load a video's sources when it gets within ~1600px of the viewport. */
-export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls: { poster: string; mp4: string; webm: string }, opts: { autoplay: boolean }) {
+export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls: { poster?: string; mp4: string; webm?: string }, opts: { autoplay: boolean }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -25,12 +25,12 @@ export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls
     const load = () => {
       if (loaded) return;
       loaded = true;
-      el.poster = urls.poster;
+      if (urls.poster) el.poster = urls.poster;
       // AV1 webm only where the browser can play it. Safari is skipped even if it claims support:
       // giving up on its AV1 webm is slow, and it plays the mp4 anyway.
       const safari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
-      const av1 = !safari && el.canPlayType('video/webm; codecs="av01.0.05M.08"') !== "";
-      const sources = av1 ? ([["video/webm", urls.webm], ["video/mp4", urls.mp4]] as const) : ([["video/mp4", urls.mp4]] as const);
+      const av1 = !!urls.webm && !safari && el.canPlayType('video/webm; codecs="av01.0.05M.08"') !== "";
+      const sources = av1 ? ([["video/webm", urls.webm!], ["video/mp4", urls.mp4]] as const) : ([["video/mp4", urls.mp4]] as const);
       for (const [type, src] of sources) {
         const s = document.createElement("source");
         s.type = type;
@@ -107,4 +107,3 @@ export function MediaView({ media, hover = false, resume = false }: { media: Med
   return hover ? <HoverVideo media={media} /> : <AutoVideo media={media} resume={resume} />;
 }
 
-export { masterUrls };

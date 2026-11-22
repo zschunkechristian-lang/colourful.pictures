@@ -9,7 +9,9 @@
       "media": {
         "kind": "video",
         "project": "mercedes02",
-        "type": "header",
+        "file": "mercedes02_header_h264.mp4",
+        "webm": "mercedes02_header_av1.webm",
+        "poster": "mercedes02_header_poster.jpg",
         "alt": "Animation of reflective metal and glass surfaces for Mercedes-Benz MB.OS"
       },
       "title": "Mercedes asked how to translate luxury into the digital space?",
@@ -24,7 +26,9 @@
       "id": "4aebc774",
       "type": "film",
       "project": "mercedes02",
-      "file": "master_01"
+      "file": "mercedes02_master_01_h264.mp4",
+      "webm": "mercedes02_master_01_av1.webm",
+      "poster": "mercedes02_master_01_poster.jpg"
     },
     {
       "id": "8837b327",
@@ -85,25 +89,25 @@
       "id": "24bb7e89",
       "type": "carousel",
       "frames": [
-        "256",
-        "255",
-        "258",
-        "260",
-        "262",
-        "355",
-        "359",
-        "364",
-        "368",
-        "370",
-        "371",
-        "374",
-        "377",
-        "383",
-        "387",
-        "391",
-        "395",
-        "398",
-        "408"
+        "mercedes02_frame_256.jpg",
+        "mercedes02_frame_255.jpg",
+        "mercedes02_frame_258.jpg",
+        "mercedes02_frame_260.jpg",
+        "mercedes02_frame_262.jpg",
+        "mercedes02_frame_355.jpg",
+        "mercedes02_frame_359.jpg",
+        "mercedes02_frame_364.jpg",
+        "mercedes02_frame_368.jpg",
+        "mercedes02_frame_370.jpg",
+        "mercedes02_frame_371.jpg",
+        "mercedes02_frame_374.jpg",
+        "mercedes02_frame_377.jpg",
+        "mercedes02_frame_383.jpg",
+        "mercedes02_frame_387.jpg",
+        "mercedes02_frame_391.jpg",
+        "mercedes02_frame_395.jpg",
+        "mercedes02_frame_398.jpg",
+        "mercedes02_frame_408.jpg"
       ],
       "project": "mercedes02"
     },
@@ -125,7 +129,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "18"
+            "file": "mercedes02_frame_18.jpg"
           }
         },
         {
@@ -133,7 +137,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "17"
+            "file": "mercedes02_frame_17.jpg"
           }
         }
       ]
@@ -148,7 +152,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "146"
+            "file": "mercedes02_frame_146.jpg"
           }
         },
         {
@@ -156,7 +160,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "147"
+            "file": "mercedes02_frame_147.jpg"
           }
         }
       ]
@@ -171,7 +175,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "53"
+            "file": "mercedes02_frame_53.jpg"
           }
         },
         {
@@ -179,7 +183,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "34"
+            "file": "mercedes02_frame_34.jpg"
           }
         }
       ]
@@ -191,8 +195,9 @@
       "media": {
         "kind": "video",
         "project": "mercedes02",
-        "type": "clip",
-        "n": "01"
+        "file": "mercedes02_clip_01_h264.mp4",
+        "webm": "mercedes02_clip_01_av1.webm",
+        "poster": "mercedes02_clip_01_poster.jpg"
       }
     },
     {
@@ -213,7 +218,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "02"
+            "file": "mercedes02_frame_02.jpg"
           }
         },
         {
@@ -221,8 +226,9 @@
           "media": {
             "kind": "video",
             "project": "mercedes02",
-            "type": "clip",
-            "n": "09"
+            "file": "mercedes02_clip_09_h264.mp4",
+            "webm": "mercedes02_clip_09_av1.webm",
+            "poster": "mercedes02_clip_09_poster.jpg"
           }
         }
       ]
@@ -237,7 +243,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "07"
+            "file": "mercedes02_frame_07.jpg"
           }
         },
         {
@@ -245,7 +251,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "276"
+            "file": "mercedes02_frame_276.jpg"
           }
         }
       ]
@@ -260,7 +266,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "340",
+            "file": "mercedes02_frame_340.jpg",
             "optimize": false
           }
         },
@@ -269,7 +275,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "281"
+            "file": "mercedes02_frame_281.jpg"
           }
         }
       ]
@@ -284,7 +290,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "418"
+            "file": "mercedes02_frame_418.jpg"
           }
         },
         {
@@ -292,7 +298,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "417",
+            "file": "mercedes02_frame_417.jpg",
             "optimize": false
           }
         }
@@ -308,7 +314,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "341"
+            "file": "mercedes02_frame_341.jpg"
           }
         }
       ]
@@ -323,8 +329,9 @@
           "media": {
             "kind": "video",
             "project": "mercedes02",
-            "type": "clip",
-            "n": "06"
+            "file": "mercedes02_clip_06_h264.mp4",
+            "webm": "mercedes02_clip_06_av1.webm",
+            "poster": "mercedes02_clip_06_poster.jpg"
           }
         },
         {
@@ -332,7 +339,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "14"
+            "file": "mercedes02_frame_14.jpg"
           }
         }
       ]
@@ -347,7 +354,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "97"
+            "file": "mercedes02_frame_97.jpg"
           }
         },
         {
@@ -355,7 +362,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "106"
+            "file": "mercedes02_frame_106.jpg"
           }
         },
         {
@@ -363,8 +370,9 @@
           "media": {
             "kind": "video",
             "project": "mercedes02",
-            "type": "clip",
-            "n": "01"
+            "file": "mercedes02_clip_01_h264.mp4",
+            "webm": "mercedes02_clip_01_av1.webm",
+            "poster": "mercedes02_clip_01_poster.jpg"
           }
         }
       ]
@@ -379,7 +387,7 @@
           "media": {
             "kind": "still",
             "project": "mercedes02",
-            "n": "16"
+            "file": "mercedes02_frame_16.jpg"
           }
         }
       ]

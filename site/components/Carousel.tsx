@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { stillUrl } from "../lib/assets";
-import { frameAlt, frameN, type Frame } from "../lib/schema";
+import { frameAlt, frameFile, type Frame } from "../lib/schema";
 
 /** Time each image is shown before the carousel moves on by itself. */
 const AUTOPLAY_MS = 4500;
@@ -106,7 +106,7 @@ export function Carousel({ project, frames }: { project: string; frames: Frame[]
             return (
               <div className="carousel__slide" key={i} aria-hidden={i !== index} role="group" aria-roledescription="slide" aria-label={`${num} of ${n}`}>
                 {/* only the active frame and its neighbours are fetched */}
-                <img src={Math.abs(i - index) <= 1 ? stillUrl({ kind: "still", project, n: frameN(f) }) : undefined} alt={frameAlt(f) ?? ""} />
+                <img src={Math.abs(i - index) <= 1 ? stillUrl({ project, file: frameFile(f) }) : undefined} alt={frameAlt(f) ?? ""} />
               </div>
             );
           })}

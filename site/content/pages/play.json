@@ -14,7 +14,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "01",
+            "file": "playground_frame_01.jpg",
             "alt": "Playground experiment: complexity"
           }
         },
@@ -23,7 +23,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "02",
+            "file": "playground_frame_02.jpg",
             "alt": "Playground experiment: slices"
           }
         },
@@ -32,7 +32,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "03",
+            "file": "playground_frame_03.jpg",
             "alt": "Playground experiment: slices"
           }
         },
@@ -41,8 +41,7 @@
           "media": {
             "kind": "video",
             "project": "playground",
-            "type": "clip",
-            "n": "01",
+            "file": "playground_clip_01_h264.mp4",
             "alt": "Playground experiment: gradient animation"
           }
         },
@@ -51,8 +50,7 @@
           "media": {
             "kind": "video",
             "project": "playground",
-            "type": "clip",
-            "n": "02",
+            "file": "playground_clip_02_h264.mp4",
             "alt": "Playground experiment: gradient animation"
           }
         }
@@ -69,8 +67,7 @@
           "media": {
             "kind": "video",
             "project": "playground",
-            "type": "clip",
-            "n": "03",
+            "file": "playground_clip_03_h264.mp4",
             "alt": "Playground experiment: slit-scan animation"
           }
         },
@@ -79,7 +76,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "04",
+            "file": "playground_frame_04.jpg",
             "alt": "Slit-scan experiment"
           }
         },
@@ -88,7 +85,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "05",
+            "file": "playground_frame_05.jpg",
             "alt": "Slit-scan experiment"
           }
         },
@@ -97,7 +94,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "06",
+            "file": "playground_frame_06.jpg",
             "alt": "Slit-scan experiment"
           }
         },
@@ -106,7 +103,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "07",
+            "file": "playground_frame_07.jpg",
             "alt": "Slit-scan experiment"
           }
         },
@@ -115,7 +112,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "08",
+            "file": "playground_frame_08.jpg",
             "alt": "Slit-scan experiment"
           }
         }
@@ -132,7 +129,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "09",
+            "file": "playground_frame_09.jpg",
             "alt": "Portrait study"
           }
         },
@@ -141,7 +138,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "10",
+            "file": "playground_frame_10.jpg",
             "alt": "Portrait study"
           }
         },
@@ -150,7 +147,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "11",
+            "file": "playground_frame_11.jpg",
             "alt": "Portrait study"
           }
         },
@@ -159,8 +156,7 @@
           "media": {
             "kind": "video",
             "project": "playground",
-            "type": "clip",
-            "n": "04",
+            "file": "playground_clip_04_h264.mp4",
             "alt": "Felt texture animation"
           }
         },
@@ -169,7 +165,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "12",
+            "file": "playground_frame_12.jpg",
             "alt": "Playground experiment: xotq"
           }
         }
@@ -186,7 +182,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "13",
+            "file": "playground_frame_13.jpg",
             "alt": "Playground experiment: xotq"
           }
         },
@@ -195,7 +191,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "14",
+            "file": "playground_frame_14.jpg",
             "alt": "Barclays visual"
           }
         },
@@ -204,7 +200,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "15",
+            "file": "playground_frame_15.jpg",
             "alt": "Lise character render"
           }
         },
@@ -213,7 +209,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "16",
+            "file": "playground_frame_16.jpg",
             "alt": "Lise character render"
           }
         }
@@ -230,7 +226,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "17",
+            "file": "playground_frame_17.jpg",
             "alt": "Lise character render"
           }
         },
@@ -239,7 +235,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "18",
+            "file": "playground_frame_18.jpg",
             "alt": "Lise character render"
           }
         },
@@ -248,7 +244,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "19",
+            "file": "playground_frame_19.jpg",
             "alt": "Lise character render"
           }
         },
@@ -257,7 +253,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "20",
+            "file": "playground_frame_20.jpg",
             "alt": "Lise character render"
           }
         },
@@ -266,7 +262,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "21",
+            "file": "playground_frame_21.jpg",
             "alt": "Lise character render"
           }
         }
@@ -283,7 +279,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "22",
+            "file": "playground_frame_22.jpg",
             "alt": "Trident render"
           }
         },
@@ -292,7 +288,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "n": "23",
+            "file": "playground_frame_23.jpg",
             "alt": "Trident render"
           }
         }
@@ -309,8 +305,7 @@
           "media": {
             "kind": "video",
             "project": "playground",
-            "type": "clip",
-            "n": "05",
+            "file": "playground_clip_05_h264.mp4",
             "alt": "Animated avatar portrait"
           }
         }

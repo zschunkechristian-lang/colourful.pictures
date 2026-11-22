@@ -1,6 +1,6 @@
 // Pure content operations for the editor: section catalog, row presets, insert/move/duplicate/
 // delete, empty-slot counting. No React here, so everything is easy to reason about.
-import { frameN, newId, type Cell, type Project, type Section, type SiteData, type Tile } from "../lib/schema";
+import { frameFile, newId, type Cell, type Project, type Section, type SiteData, type Tile } from "../lib/schema";
 
 export type RowPreset = { label: string; spans: number[] };
 
@@ -105,27 +105,21 @@ import type { Media } from "../lib/schema";
 
 /** What a media item is, independent of where it is used. Used for "used on this page" markers. */
 export type Item =
-  | { kind: "still"; project: string; n: string }
-  | { kind: "clip"; project: string; n: string }
-  | { kind: "header"; project: string }
-  | { kind: "master"; project: string; file: string };
+  | { kind: "still"; project: string; file: string }
+  | { kind: "video"; project: string; file: string; webm?: string; poster?: string };
 
 export const itemKey = (i: Item) =>
-  i.kind === "still" ? `s:${i.project}:${i.n}` : i.kind === "clip" ? `c:${i.project}:${i.n}` : i.kind === "header" ? `h:${i.project}` : `m:${i.project}:${i.file}`;
+  i.kind === "still" ? `s:${i.project}:${i.file}` : `v:${i.project}:${i.file}`;
 
 export function mediaToItem(m: Media | null): Item | null {
   if (!m) return null;
-  if (m.kind === "still") return { kind: "still", project: m.project, n: m.n };
-  if (m.type === "clip") return { kind: "clip", project: m.project, n: m.n ?? "" };
-  if (m.type === "header") return { kind: "header", project: m.project };
-  return { kind: "master", project: m.project, file: m.n ?? "master_01" };
+  if (m.kind === "still") return { kind: "still", project: m.project, file: m.file };
+  return { kind: "video", project: m.project, file: m.file, ...(m.webm ? { webm: m.webm } : {}), ...(m.poster ? { poster: m.poster } : {}) };
 }
 
 export function itemToMedia(i: Item): Media | null {
-  if (i.kind === "still") return { kind: "still", project: i.project, n: i.n };
-  if (i.kind === "clip") return { kind: "video", project: i.project, type: "clip", n: i.n };
-  if (i.kind === "header") return { kind: "video", project: i.project, type: "header" };
-  return null;
+  if (i.kind === "still") return { kind: "still", project: i.project, file: i.file };
+  return { kind: "video", project: i.project, file: i.file, ...(i.webm ? { webm: i.webm } : {}), ...(i.poster ? { poster: i.poster } : {}) };
 }
 
 /** Everything this page already shows, as item keys. */
@@ -135,8 +129,8 @@ export function usedKeys(p: Project): Set<string> {
   for (const s of p.sections) {
     if (s.type === "row") s.cells.forEach((c) => add(c.media));
     else if (hasMediaSlot(s)) add(s.media);
-    else if (s.type === "film" && s.project) used.add(itemKey({ kind: "master", project: s.project, file: s.file ?? "master_01" }));
-    else if (s.type === "carousel") s.frames.forEach((f) => used.add(itemKey({ kind: "still", project: s.project ?? p.slug, n: frameN(f) })));
+    else if (s.type === "film" && s.project && s.file) used.add(itemKey({ kind: "video", project: s.project, file: s.file }));
+    else if (s.type === "carousel") s.frames.forEach((f) => used.add(itemKey({ kind: "still", project: s.project ?? p.slug, file: frameFile(f) })));
   }
   return used;
 }
