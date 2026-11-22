@@ -25,6 +25,7 @@
 .cms-status { padding: 0 8px; color: var(--cms-muted); white-space: nowrap; max-width: 28ch; overflow: hidden; text-overflow: ellipsis; }
 .cms-status--dirty { color: #ffcf6b; }
 .cms-status--error { color: #ff7b7b; }
+.cms-prlink { color: var(--cms-muted); padding: 0 8px; text-decoration: underline; white-space: nowrap; }
 .cms-panel {
   position: fixed; top: 0; right: 0; bottom: 0; width: 340px; z-index: 99999; padding: 16px;
   display: flex; flex-direction: column; gap: 14px; overflow: auto;

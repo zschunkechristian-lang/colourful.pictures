@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Project, SiteData } from "../lib/schema";
 
-type SaveState = { kind: "idle" } | { kind: "saving" } | { kind: "saved" } | { kind: "error"; message: string };
+type SaveState = { kind: "idle" } | { kind: "saving" } | { kind: "saved"; pr?: string } | { kind: "error"; message: string };
 type Doc = { project: Project; site: SiteData };
 
 const COALESCE_MS = 800;
@@ -20,11 +20,14 @@ export function useProjectStore(initial: Project, initialSite: SiteData, onChang
   const [saved, setSaved] = useState(() => ({ project: JSON.stringify(initial), site: JSON.stringify(initialSite) }));
   const [save, setSave] = useState<SaveState>({ kind: "idle" });
   const [canSave, setCanSave] = useState<boolean | null>(null); // null = still checking
+  const [remote, setRemote] = useState(false); // saves go to a GitHub pull request instead of local files
   const last = useRef<{ key: string; at: number } | null>(null);
 
   // is the dev save endpoint reachable?
   useEffect(() => {
-    fetch("/__cms/ping").then((r) => setCanSave(r.ok)).catch(() => setCanSave(false));
+    fetch("/__cms/ping")
+      .then(async (r) => { setCanSave(r.ok); setRemote(r.ok && !!(await r.json().catch(() => ({}))).remote); })
+      .catch(() => setCanSave(false));
   }, []);
 
   const apply = useCallback((next: Doc) => {
@@ -73,24 +76,26 @@ export function useProjectStore(initial: Project, initialSite: SiteData, onChang
     const res = await fetch(url, { method: "POST", headers: { "content-type": "application/json", "x-cms": "1" }, body: JSON.stringify(body) });
     const j = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(j.error ? `${j.error}${j.issues ? `: ${j.issues[0].path.join(".")} ${j.issues[0].message}` : ""}` : `HTTP ${res.status}`);
+    return j as { pr?: string };
   };
 
   const saveNow = useCallback(async () => {
     setSave({ kind: "saving" });
     try {
+      let pr: string | undefined;
       if (projectDirty) {
-        await post(`/__cms/project/${doc.project.slug}`, doc.project);
+        pr = (await post(`/__cms/project/${doc.project.slug}`, doc.project)).pr;
         setSaved((s) => ({ ...s, project: JSON.stringify(doc.project) }));
       }
       if (siteDirty) {
-        await post("/__cms/site", doc.site);
+        pr = (await post("/__cms/site", doc.site)).pr ?? pr;
         setSaved((s) => ({ ...s, site: JSON.stringify(doc.site) }));
       }
-      setSave({ kind: "saved" });
+      setSave({ kind: "saved", pr });
     } catch (err) {
       setSave({ kind: "error", message: err instanceof Error ? err.message : "save failed" });
     }
   }, [doc, projectDirty, siteDirty]);
 
-  return { present: doc.project, site: doc.site, commit, commitSite, undo, redo, canUndo: past.length > 0, canRedo: future.length > 0, dirty, projectDirty, siteDirty, save, saveNow, canSave };
+  return { present: doc.project, site: doc.site, commit, commitSite, undo, redo, canUndo: past.length > 0, canRedo: future.length > 0, dirty, projectDirty, siteDirty, save, saveNow, canSave, remote };
 }

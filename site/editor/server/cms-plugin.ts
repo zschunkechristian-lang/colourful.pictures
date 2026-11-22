@@ -1,33 +1,14 @@
-// Dev-only content API for the editor. It is a Vite plugin with `apply: "serve"`, so it
-// exists only while `npm run dev` is running and is never part of a production build.
-//
-//   GET  /__cms/ping                 -> { ok: true }   (the editor uses this to know saving is available)
-//   POST /__cms/project/<slug>       -> validates the body against projectSchema and writes
-//                                       site/content/projects/<slug>.json (existing projects only);
-//                                       the pages home / info / play live in site/content/pages/
-//   POST /__cms/site                 -> validates against siteSchema and writes site/content/site.json
-//   POST /__cms/new-project          -> { slug, title } creates a starter site/content/projects/<slug>.json
-//   POST /__cms/refresh-media        -> lists the R2 bucket, rewrites site/content/media-manifest.json
-//                                       and returns it (the picker's "Refresh media" button)
-//
-// Guards: localhost host only, same-origin only, a custom header (blocks simple cross-site
-// form posts), size limit, slug allow-list, schema validation, atomic write.
+// Dev-only content API for the editor: a Vite plugin with `apply: "serve"`, so it exists only
+// while `npm run dev` is running and is never part of a production build. The routes and all
+// validation live in ./core.ts (shared with the edit Worker); this file only adds
+//   - the localhost / same-origin guard, and
+//   - a file-backed ContentStore that writes into the working tree.
 import fs from "node:fs";
 import path from "node:path";
-import type { IncomingMessage, ServerResponse } from "node:http";
+import type { IncomingMessage } from "node:http";
 import type { Plugin } from "vite";
-import { buildManifest, MANIFEST_FILE, writeManifest } from "../../../scripts/lib/r2-manifest.mjs";
-import { newId, projectSchema, serializeProject, serializeSite, siteSchema, type Project } from "../../lib/schema";
-
-/** Page slugs that are not projects (their files are in site/content/pages, their URLs are /, /info, /play). */
-const RESERVED = ["home", "info", "play"];
-const MAX_BODY = 2 * 1024 * 1024;
-
-function send(res: ServerResponse, status: number, body: unknown) {
-  res.statusCode = status;
-  res.setHeader("content-type", "application/json");
-  res.end(JSON.stringify(body));
-}
+import { buildManifest } from "../../../scripts/lib/r2-manifest.mjs";
+import { handleCms, MAX_BODY, type ContentStore } from "./core";
 
 function isLocalRequest(req: IncomingMessage) {
   const host = (req.headers.host ?? "").replace(/:\d+$/, "");
@@ -37,7 +18,7 @@ function isLocalRequest(req: IncomingMessage) {
   return true;
 }
 
-function readBody(req: IncomingMessage): Promise<string> {
+function readBody(req: IncomingMessage): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     let size = 0;
     const chunks: Buffer[] = [];
@@ -48,20 +29,37 @@ function readBody(req: IncomingMessage): Promise<string> {
         req.destroy();
       } else chunks.push(c);
     });
-    req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    req.on("end", () => resolve(Buffer.concat(chunks)));
     req.on("error", reject);
   });
 }
 
 export function cmsPlugin(): Plugin {
-  const projectsDir = path.resolve(process.cwd(), "site/content/projects");
-  const pagesDir = path.resolve(process.cwd(), "site/content/pages");
-  const siteFile = path.resolve(process.cwd(), "site/content/site.json");
-  const mediaFile = path.resolve(process.cwd(), MANIFEST_FILE);
+  const root = process.cwd();
   // Files the editor just wrote. Vite would hot-reload the page for them, which would throw
   // away the editor's undo history and open panels, so those updates are swallowed. Edits made
   // from anywhere else (an IDE, Claude, git) are not in this map and reload as usual.
   const ownWrites = new Map<string, number>();
+
+  const store: ContentStore = {
+    async read(rel) {
+      try {
+        return fs.readFileSync(path.resolve(root, rel), "utf8");
+      } catch {
+        return null;
+      }
+    },
+    async write(rel, text) {
+      const file = path.resolve(root, rel);
+      if (fs.existsSync(file) && fs.readFileSync(file, "utf8") === text) return; // nothing changed
+      ownWrites.set(file, Date.now());
+      const tmp = `${file}.${process.pid}.tmp`;
+      fs.writeFileSync(tmp, text);
+      fs.renameSync(tmp, file);
+    },
+    buildManifest, // lists the R2 bucket with the read-only token from .env: a few Class A operations
+  };
+
   return {
     name: "site-cms",
     apply: "serve",
@@ -71,95 +69,22 @@ export function cmsPlugin(): Plugin {
     },
     configureServer(server) {
       server.middlewares.use("/__cms", async (req, res) => {
+        const send = (status: number, body: string, type = "application/json") => {
+          res.statusCode = status;
+          res.setHeader("content-type", type);
+          res.end(body);
+        };
         try {
-          if (!isLocalRequest(req)) return send(res, 403, { ok: false, error: "local requests only" });
+          if (!isLocalRequest(req)) return send(403, JSON.stringify({ ok: false, error: "local requests only" }));
           const url = new URL(req.url ?? "/", "http://local");
-
-          if (req.method === "GET" && url.pathname === "/ping") return send(res, 200, { ok: true });
-
-          const m = /^\/project\/([a-z0-9-]+)$/.exec(url.pathname);
-          if (req.method === "POST" && m) {
-            if (req.headers["x-cms"] !== "1") return send(res, 403, { ok: false, error: "missing x-cms header" });
-            const slug = m[1];
-            const dir = RESERVED.includes(slug) ? pagesDir : projectsDir;
-            const file = path.join(dir, `${slug}.json`);
-            if (path.dirname(file) !== dir || !fs.existsSync(file)) return send(res, 404, { ok: false, error: `no project "${slug}"` });
-
-            let json: unknown;
-            try {
-              json = JSON.parse(await readBody(req));
-            } catch {
-              return send(res, 400, { ok: false, error: "invalid JSON body" });
-            }
-            const parsed = projectSchema.safeParse(json);
-            if (!parsed.success) return send(res, 400, { ok: false, error: "schema validation failed", issues: parsed.error.issues.slice(0, 10) });
-            if (parsed.data.slug !== slug) return send(res, 400, { ok: false, error: "slug in body does not match the URL" });
-
-            const tmp = `${file}.${process.pid}.tmp`;
-            fs.writeFileSync(tmp, serializeProject(parsed.data));
-            ownWrites.set(file, Date.now());
-            fs.renameSync(tmp, file);
-            return send(res, 200, { ok: true });
-          }
-
-          if (req.method === "POST" && url.pathname === "/site") {
-            if (req.headers["x-cms"] !== "1") return send(res, 403, { ok: false, error: "missing x-cms header" });
-            let json: unknown;
-            try {
-              json = JSON.parse(await readBody(req));
-            } catch {
-              return send(res, 400, { ok: false, error: "invalid JSON body" });
-            }
-            const parsed = siteSchema.safeParse(json);
-            if (!parsed.success) return send(res, 400, { ok: false, error: "schema validation failed", issues: parsed.error.issues.slice(0, 10) });
-            const tmp = `${siteFile}.${process.pid}.tmp`;
-            fs.writeFileSync(tmp, serializeSite(parsed.data));
-            ownWrites.set(siteFile, Date.now());
-            fs.renameSync(tmp, siteFile);
-            return send(res, 200, { ok: true });
-          }
-
-          if (req.method === "POST" && url.pathname === "/new-project") {
-            if (req.headers["x-cms"] !== "1") return send(res, 403, { ok: false, error: "missing x-cms header" });
-            let body: { slug?: unknown; title?: unknown };
-            try {
-              body = JSON.parse(await readBody(req));
-            } catch {
-              return send(res, 400, { ok: false, error: "invalid JSON body" });
-            }
-            const slug = typeof body.slug === "string" ? body.slug : "";
-            if (!/^[a-z0-9-]+$/.test(slug)) return send(res, 400, { ok: false, error: "slug may only contain a-z, 0-9 and -" });
-            if (RESERVED.includes(slug)) return send(res, 400, { ok: false, error: `"${slug}" is reserved for a page` });
-            const file = path.join(projectsDir, `${slug}.json`);
-            if (path.dirname(file) !== projectsDir) return send(res, 400, { ok: false, error: "bad slug" });
-            if (fs.existsSync(file)) return send(res, 409, { ok: false, error: `project "${slug}" already exists` });
-            const title = typeof body.title === "string" ? body.title.trim() : "";
-            const project: Project = {
-              slug,
-              title: title || slug,
-              description: "",
-              sections: [
-                { id: newId(), type: "hero", media: null, title: "", intro: [""], credit: "" },
-                { id: newId(), type: "film", project: "" },
-                { id: newId(), type: "credits", items: [{ label: "Client", value: [] }, { label: "Year", value: [] }, { label: "Creative Direction", value: [] }] },
-              ],
-            };
-            ownWrites.set(file, Date.now()); // the editor navigates there itself: no page reload for the open page
-            fs.writeFileSync(file, serializeProject(projectSchema.parse(project)));
-            return send(res, 200, { ok: true, slug });
-          }
-
-          if (req.method === "POST" && url.pathname === "/refresh-media") {
-            if (req.headers["x-cms"] !== "1") return send(res, 403, { ok: false, error: "missing x-cms header" });
-            const manifest = await buildManifest(); // lists the R2 bucket: a few Class A operations
-            ownWrites.set(mediaFile, Date.now()); // the picker swaps the new data in itself: no page reload
-            writeManifest(manifest, mediaFile);
-            return send(res, 200, { ok: true, manifest });
-          }
-
-          send(res, 404, { ok: false, error: "not found" });
+          const hasBody = req.method !== "GET" && req.method !== "HEAD";
+          const headers = new Headers();
+          for (const [k, v] of Object.entries(req.headers)) if (typeof v === "string") headers.set(k, v);
+          const request = new Request(url, { method: req.method, headers, body: hasBody ? new Uint8Array(await readBody(req)) : undefined });
+          const response = await handleCms(request, url.pathname, store);
+          send(response.status, await response.text(), response.headers.get("content-type") ?? "application/json");
         } catch (err) {
-          send(res, 500, { ok: false, error: err instanceof Error ? err.message : "server error" });
+          send(500, JSON.stringify({ ok: false, error: err instanceof Error ? err.message : "server error" }));
         }
       });
     },
