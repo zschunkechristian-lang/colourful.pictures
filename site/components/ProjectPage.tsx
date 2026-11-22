@@ -63,7 +63,8 @@ export function ProjectPage({ project: loaded, site: loadedSite, current }: { pr
           {!project.sections.some((s) => s.type === "hero") && <h1 className="sr-only">{project.title ?? project.slug}</h1>}
           {/* edit mode: the editor draws the sections itself (same SectionView, plus controls) into this slot */}
           {editing ? <div ref={setSlot} style={{ display: "contents" }} /> : project.sections.map((s) => <SectionView key={s.id} section={s} slug={project.slug} />)}
-          {editing ? <div ref={setClosingSlot} style={{ display: "contents" }} /> : <ClosingView closing={site.closing} />}
+          {/* the contact blurb leads the project grid on every page except Home, where the bio is followed straight by the grid */}
+          {project.slug !== "home" && (editing ? <div ref={setClosingSlot} style={{ display: "contents" }} /> : <ClosingView closing={site.closing} />)}
           {editing ? <div ref={setTilesSlot} style={{ display: "contents" }} /> : site.projectGrid.map((row, i) => <TileRow key={i} row={row} />)}
         </main>
       </div>
