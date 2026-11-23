@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { flyResumeTime } from "../lib/fly";
 import { stillUrl, videoUrls, type Media as MediaT, type Video } from "../lib/assets";
 
@@ -12,6 +12,36 @@ export function releaseVideo(el: HTMLVideoElement) {
     el.load();
   } catch { /* nothing to free */ }
 }
+
+// Skeleton placeholder behind every media slot (styles: "Media skeleton" in site.css). The shimmer is a 45deg band
+// sweeping from the top-left to the bottom-right corner. It moves at the same speed in every slot, so the time
+// per sweep follows the slot's size; that and the band's length are written to CSS variables here.
+const SK_SPEED = 400; // px per second
+const SK_BAND = 220; // px, across the band
+const R2 = Math.SQRT2;
+
+export function useSkeleton(ref: RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const size = () => {
+      const { width: w, height: h } = el.getBoundingClientRect();
+      const along = (w + h) / R2; // the slot's extent along the sweep direction
+      el.style.setProperty("--sk-band", `${SK_BAND}px`);
+      el.style.setProperty("--sk-len", `${2 * (w + h)}px`); // long enough to cover the slot at any angle of attack
+      el.style.setProperty("--sk-from", `${-SK_BAND / 2 / R2}px`);
+      el.style.setProperty("--sk-to", `${(along + SK_BAND / 2) / R2}px`);
+      el.style.setProperty("--sk-dur", `${((along + SK_BAND) / SK_SPEED).toFixed(2)}s`);
+    };
+    size();
+    const ro = new ResizeObserver(size);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref]);
+}
+
+/** The slot's first frame (or the still) is on screen: the skeleton can stop. Set on the DOM directly, no re-render. */
+export const loaded = (ref: RefObject<HTMLElement | null>, on: boolean) => (on ? ref.current?.setAttribute("data-loaded", "") : ref.current?.removeAttribute("data-loaded"));
 
 /** Lazy-load a video's sources when it gets within ~1600px of the viewport. */
 export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls: { poster?: string; mp4: string; webm?: string }, opts: { autoplay: boolean }) {
@@ -60,8 +90,10 @@ export function useLazyVideo(ref: React.RefObject<HTMLVideoElement | null>, urls
 /** Muted looping clip that plays on its own. With `resume` (the hero) it carries on from the tile clip it came from. */
 export function AutoVideo({ media, className, resume }: { media: Video; className?: string; resume?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
+  const box = useRef<HTMLDivElement>(null);
   const urls = videoUrls(media);
   useLazyVideo(ref, urls, { autoplay: true });
+  useSkeleton(box);
   useEffect(() => {
     const el = ref.current;
     if (!resume || !el) return;
@@ -72,8 +104,8 @@ export function AutoVideo({ media, className, resume }: { media: Video; classNam
     return () => el.removeEventListener("loadedmetadata", seek);
   }, [resume, urls.mp4]);
   return (
-    <div className={`media ${className ?? ""}`}>
-      <video key={urls.mp4} ref={ref} poster={urls.poster} muted loop playsInline autoPlay aria-label={media.alt || undefined} aria-hidden={media.alt ? undefined : true} />
+    <div ref={box} className={`media ${className ?? ""}`}>
+      <video key={urls.mp4} ref={ref} poster={urls.poster} onLoadStart={() => loaded(box, false)} onLoadedData={() => loaded(box, true)} muted loop playsInline autoPlay aria-label={media.alt || undefined} aria-hidden={media.alt ? undefined : true} />
     </div>
   );
 }
@@ -81,23 +113,35 @@ export function AutoVideo({ media, className, resume }: { media: Video; classNam
 /** Tile preview: shows a frame, plays while hovered (desktop) or autoplays (<=767px). */
 export function HoverVideo({ media }: { media: Video }) {
   const ref = useRef<HTMLVideoElement>(null);
+  const box = useRef<HTMLDivElement>(null);
   const small = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
   const urls = videoUrls(media);
   useLazyVideo(ref, urls, { autoplay: small });
+  useSkeleton(box);
   return (
     <div
+      ref={box}
       className="media"
       onMouseEnter={() => !small && ref.current?.play().catch(() => {})}
       onMouseLeave={() => !small && ref.current?.pause()}
       onTouchStart={() => { const v = ref.current; if (v && !small) (v.paused ? v.play().catch(() => {}) : v.pause()); }}
     >
-      <video key={urls.mp4} ref={ref} poster={urls.poster} muted loop playsInline aria-label={media.alt || undefined} aria-hidden={media.alt ? undefined : true} />
+      <video key={urls.mp4} ref={ref} poster={urls.poster} onLoadStart={() => loaded(box, false)} onLoadedData={() => loaded(box, true)} muted loop playsInline aria-label={media.alt || undefined} aria-hidden={media.alt ? undefined : true} />
     </div>
   );
 }
 
 export function Still({ media, alt = "" }: { media: Extract<MediaT, { kind: "still" }>; alt?: string }) {
-  return <img src={stillUrl(media)} alt={media.alt ?? alt} loading="lazy" decoding="async" />;
+  const box = useRef<HTMLDivElement>(null);
+  const img = useRef<HTMLImageElement>(null);
+  useSkeleton(box);
+  // an image that finished loading before hydration never fires onLoad here
+  useEffect(() => { if (img.current?.complete && img.current.naturalWidth) loaded(box, true); }, []);
+  return (
+    <div ref={box} className="media">
+      <img ref={img} src={stillUrl(media)} alt={media.alt ?? alt} loading="lazy" decoding="async" onLoad={() => loaded(box, true)} />
+    </div>
+  );
 }
 
 /** `media: null` is an empty slot: it renders nothing in the site, the editor draws a placeholder over it. */

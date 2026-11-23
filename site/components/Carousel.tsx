@@ -1,9 +1,27 @@
 import { useEffect, useRef, useState } from "react";
 import { stillUrl } from "../lib/assets";
 import { frameAlt, frameFile, type Frame } from "../lib/schema";
+import { loaded, useSkeleton } from "./Media";
 
 /** Time each image is shown before the carousel moves on by itself. */
 const AUTOPLAY_MS = 4500;
+
+/** One frame, with the media skeleton (see components/Media.tsx) behind it until its image is on screen. */
+function Slide({ src, alt, hidden, label }: { src?: string; alt: string; hidden: boolean; label: string }) {
+  const box = useRef<HTMLDivElement>(null);
+  const img = useRef<HTMLImageElement>(null);
+  useSkeleton(box);
+  useEffect(() => {
+    // an image that finished loading before hydration never fires onLoad here; one that is let go has to show the skeleton again
+    loaded(box, !!src && !!img.current?.complete && !!img.current.naturalWidth);
+  }, [src]);
+  return (
+    <div ref={box} className="carousel__slide media" aria-hidden={hidden} role="group" aria-roledescription="slide" aria-label={label}>
+      {/* only the active frame and its neighbours are fetched */}
+      <img ref={img} src={src} alt={alt} onLoad={() => loaded(box, true)} />
+    </div>
+  );
+}
 
 /**
  * Infinite carousel: click the left half of the image to go back, the right half to go
@@ -104,10 +122,7 @@ export function Carousel({ project, frames }: { project: string; frames: Frame[]
           {slides.map((f, i) => {
             const num = ((i - 1 + n) % n) + 1; // position of the real frame this slide shows
             return (
-              <div className="carousel__slide" key={i} aria-hidden={i !== index} role="group" aria-roledescription="slide" aria-label={`${num} of ${n}`}>
-                {/* only the active frame and its neighbours are fetched */}
-                <img src={Math.abs(i - index) <= 1 ? stillUrl({ project, file: frameFile(f) }) : undefined} alt={frameAlt(f) ?? ""} />
-              </div>
+              <Slide key={i} src={Math.abs(i - index) <= 1 ? stillUrl({ project, file: frameFile(f) }) : undefined} alt={frameAlt(f) ?? ""} hidden={i !== index} label={`${num} of ${n}`} />
             );
           })}
         </div>
