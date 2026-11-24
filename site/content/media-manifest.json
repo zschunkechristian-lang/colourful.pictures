@@ -247,6 +247,9 @@
       ],
       "videos": [
         {
+          "file": "./MIM_Ecuerin_Clip_01H.264 Main L4.1.mp4"
+        },
+        {
           "file": "eucerin_clip_01_h264.mp4",
           "webm": "eucerin_clip_01_av1.webm",
           "poster": "eucerin_clip_01_poster.jpg"
@@ -360,9 +363,6 @@
           "file": "eucerin_header_h264.mp4",
           "webm": "eucerin_header_av1.webm",
           "poster": "eucerin_header_poster.jpg"
-        },
-        {
-          "file": "MIM_Ecuerin_Clip_01H.264 Main L4.1.mp4"
         }
       ]
     },
@@ -581,9 +581,9 @@
       "stills": [],
       "videos": [
         {
-          "file": "GRAD_LQ_v004_h264.mp4",
-          "webm": "GRAD_LQ_v004_av1.webm",
-          "poster": "GRAD_LQ_v004_poster.jpg"
+          "file": "./GRAD_LQ_v004_h264.mp4",
+          "webm": "./GRAD_LQ_v004_av1.webm",
+          "poster": "./GRAD_LQ_v004_poster.jpg"
         }
       ]
     },
@@ -591,12 +591,12 @@
       "stills": [],
       "videos": [
         {
+          "file": "./MIM_GreenIce_Clip_01H.264 Main L4.1.mp4"
+        },
+        {
           "file": "greenice_header_h264.mp4",
           "webm": "greenice_header_av1.webm",
           "poster": "greenice_header_poster.jpg"
-        },
-        {
-          "file": "MIM_GreenIce_Clip_01H.264 Main L4.1.mp4"
         }
       ]
     },
@@ -604,12 +604,12 @@
       "stills": [],
       "videos": [
         {
+          "file": "./MIM_HH_Clip_01H.264 Main L3.1.mp4"
+        },
+        {
           "file": "hh_header_h264.mp4",
           "webm": "hh_header_av1.webm",
           "poster": "hh_header_poster.jpg"
-        },
-        {
-          "file": "MIM_HH_Clip_01H.264 Main L3.1.mp4"
         }
       ]
     },
@@ -808,12 +808,12 @@
       "stills": [],
       "videos": [
         {
+          "file": "./MIM_Look_Clip_01H.265 Main L4.1.mp4"
+        },
+        {
           "file": "look_header_h264.mp4",
           "webm": "look_header_av1.webm",
           "poster": "look_header_poster.jpg"
-        },
-        {
-          "file": "MIM_Look_Clip_01H.265 Main L4.1.mp4"
         }
       ]
     },
@@ -823,6 +823,9 @@
       ],
       "videos": [
         {
+          "file": "./MIM_MBOS_Clips_01H.264 Main L4.1.mp4"
+        },
+        {
           "file": "MBOS/020_data_Master_HD_v004_Snippet_lq_h264.mp4",
           "webm": "MBOS/020_data_Master_HD_v004_Snippet_lq_av1.webm"
         },
@@ -830,9 +833,6 @@
           "file": "mercedes_header_h264.mp4",
           "webm": "mercedes_header_av1.webm",
           "poster": "mercedes_header_poster.jpg"
-        },
-        {
-          "file": "MIM_MBOS_Clips_01H.264 Main L4.1.mp4"
         }
       ]
     },
@@ -1518,7 +1518,7 @@
       "stills": [],
       "videos": [
         {
-          "file": "MIM_PayPal_Clip_01H.265 Main L4.1.mp4"
+          "file": "./MIM_PayPal_Clip_01H.265 Main L4.1.mp4"
         },
         {
           "file": "paypal_header_h264.mp4",
@@ -1539,92 +1539,92 @@
     },
     "playground": {
       "stills": [
-        "copi-playground-frame-1.webp",
-        "copi-playground-frame-2.webp",
-        "copi-playground-frame-3.webp",
-        "copi-playground-frame-4.webp",
-        "copi-playground-frame-5.webp",
-        "copi-playground-frame-6.webp",
-        "copi-playground-frame-7.webp",
-        "copi-playground-frame-8.webp",
-        "copi-playground-frame-9.webp",
-        "copi-playground-frame-10.webp",
-        "copi-playground-frame-11.webp",
-        "copi-playground-frame-12.webp",
-        "copi-playground-frame-13.webp",
-        "copi-playground-frame-14.webp",
-        "copi-playground-frame-15.webp",
-        "copi-playground-frame-16.webp",
-        "copi-playground-frame-17.webp",
-        "copi-playground-frame-18.webp",
-        "copi-playground-frame-19.webp",
-        "copi-playground-frame-20.webp",
-        "copi-playground-frame-21.webp",
-        "copi-playground-frame-22.webp",
-        "copi-playground-frame-23.webp",
-        "copi-playground-frame-24.webp",
-        "copi-playground-frame-25.webp",
-        "copi-playground-frame-26.webp",
-        "copi-playground-frame-27.webp",
-        "copi-playground-frame-28.webp"
+        "./copi-playground-frame-1.webp",
+        "./copi-playground-frame-2.webp",
+        "./copi-playground-frame-3.webp",
+        "./copi-playground-frame-4.webp",
+        "./copi-playground-frame-5.webp",
+        "./copi-playground-frame-6.webp",
+        "./copi-playground-frame-7.webp",
+        "./copi-playground-frame-8.webp",
+        "./copi-playground-frame-9.webp",
+        "./copi-playground-frame-10.webp",
+        "./copi-playground-frame-11.webp",
+        "./copi-playground-frame-12.webp",
+        "./copi-playground-frame-13.webp",
+        "./copi-playground-frame-14.webp",
+        "./copi-playground-frame-15.webp",
+        "./copi-playground-frame-16.webp",
+        "./copi-playground-frame-17.webp",
+        "./copi-playground-frame-18.webp",
+        "./copi-playground-frame-19.webp",
+        "./copi-playground-frame-20.webp",
+        "./copi-playground-frame-21.webp",
+        "./copi-playground-frame-22.webp",
+        "./copi-playground-frame-23.webp",
+        "./copi-playground-frame-24.webp",
+        "./copi-playground-frame-25.webp",
+        "./copi-playground-frame-26.webp",
+        "./copi-playground-frame-27.webp",
+        "./copi-playground-frame-28.webp"
       ],
       "videos": [
         {
-          "file": "copi-avatar-01_h264.mp4",
-          "webm": "copi-avatar-01_av1.webm",
-          "poster": "copi-avatar-01_poster.jpg"
+          "file": "./copi-avatar-01_h264.mp4",
+          "webm": "./copi-avatar-01_av1.webm",
+          "poster": "./copi-avatar-01_poster.jpg"
         },
         {
-          "file": "copi-felt-experiment-03_h264.mp4",
-          "webm": "copi-felt-experiment-03_av1.webm",
-          "poster": "copi-felt-experiment-03_poster.jpg"
+          "file": "./copi-felt-experiment-03_h264.mp4",
+          "webm": "./copi-felt-experiment-03_av1.webm",
+          "poster": "./copi-felt-experiment-03_poster.jpg"
         },
         {
-          "file": "copi-gradient-01_h264.mp4",
-          "webm": "copi-gradient-01_av1.webm",
-          "poster": "copi-gradient-01_poster.jpg"
+          "file": "./copi-gradient-01_h264.mp4",
+          "webm": "./copi-gradient-01_av1.webm",
+          "poster": "./copi-gradient-01_poster.jpg"
         },
         {
-          "file": "copi-gradients-02_h264.mp4",
-          "webm": "copi-gradients-02_av1.webm",
-          "poster": "copi-gradients-02_poster.jpg"
+          "file": "./copi-gradients-02_h264.mp4",
+          "webm": "./copi-gradients-02_av1.webm",
+          "poster": "./copi-gradients-02_poster.jpg"
         },
         {
-          "file": "copi-marbles-01_h264.mp4",
-          "webm": "copi-marbles-01_av1.webm",
-          "poster": "copi-marbles-01_poster.jpg"
+          "file": "./copi-marbles-01_h264.mp4",
+          "webm": "./copi-marbles-01_av1.webm",
+          "poster": "./copi-marbles-01_poster.jpg"
         },
         {
-          "file": "copi-slitscan-01_h264.mp4",
-          "webm": "copi-slitscan-01_av1.webm",
-          "poster": "copi-slitscan-01_poster.jpg"
+          "file": "./copi-slitscan-01_h264.mp4",
+          "webm": "./copi-slitscan-01_av1.webm",
+          "poster": "./copi-slitscan-01_poster.jpg"
         },
         {
-          "file": "MIM_Playground_cz_gradient_01.mp4"
+          "file": "./MIM_Playground_cz_gradient_01.mp4"
         },
         {
-          "file": "MIM_Playground_cz_gradient_02.mp4"
+          "file": "./MIM_Playground_cz_gradient_02.mp4"
         },
         {
-          "file": "Mim.CoPiAvatar.01.mp4"
+          "file": "./Mim.CoPiAvatar.01.mp4"
         },
         {
-          "file": "MIM.playground.felt.01.mp4"
+          "file": "./MIM.playground.felt.01.mp4"
         },
         {
-          "file": "MIM.playground.slitscan.01_h264.mp4",
-          "webm": "MIM.playground.slitscan.01_av1.webm",
-          "poster": "MIM.playground.slitscan.01_poster.jpg"
+          "file": "./MIM.playground.slitscan.01_h264.mp4",
+          "webm": "./MIM.playground.slitscan.01_av1.webm",
+          "poster": "./MIM.playground.slitscan.01_poster.jpg"
         },
         {
-          "file": "MIM.playground.slitscan.01.mp4",
-          "webm": "MIM.playground.slitscan.01_av1.webm",
-          "poster": "MIM.playground.slitscan.01_poster.jpg"
+          "file": "./MIM.playground.slitscan.01.mp4",
+          "webm": "./MIM.playground.slitscan.01_av1.webm",
+          "poster": "./MIM.playground.slitscan.01_poster.jpg"
         },
         {
-          "file": "XOTQ_Parfume_4by5_1_h264.mp4",
-          "webm": "XOTQ_Parfume_4by5_1_av1.webm",
-          "poster": "XOTQ_Parfume_4by5_1_poster.jpg"
+          "file": "./XOTQ_Parfume_4by5_1_h264.mp4",
+          "webm": "./XOTQ_Parfume_4by5_1_av1.webm",
+          "poster": "./XOTQ_Parfume_4by5_1_poster.jpg"
         }
       ]
     },
@@ -1797,7 +1797,7 @@
       ],
       "videos": [
         {
-          "file": "MIM_Seabob_Clip_01H.264 Main L4.1.mp4"
+          "file": "./MIM_Seabob_Clip_01H.264 Main L4.1.mp4"
         },
         {
           "file": "seabob_clip_1_h264.mp4",
@@ -1999,7 +1999,7 @@
       "stills": [],
       "videos": [
         {
-          "file": "MIM_Weleda_Clip_01H.264 Main L5.1.mp4"
+          "file": "./MIM_Weleda_Clip_01H.264 Main L5.1.mp4"
         },
         {
           "file": "weleda_clip_01_h264.mp4",
