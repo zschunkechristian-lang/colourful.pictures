@@ -89,3 +89,10 @@ test("GitHub errors surface without the response body", async () => {
   const store = githubStore({ token: "t", repo: "o/r", base: "main", branch: "cms/edit", buildManifest: async () => ({}), fetch });
   await assert.rejects(store.write("site/content/x.json", "a"), (e: Error) => /HTTP 403/.test(e.message) && !/secret/.test(e.message));
 });
+
+test("an unchanged file on a branch level with main opens no pull request (GitHub would answer 422)", async () => {
+  const fake = fakeGithub({ branch: true, file: "same", ahead: 0 });
+  const info = await make(fake).write("site/content/media-manifest.json", "same");
+  assert.deepEqual(info, {});
+  assert.ok(!fake.calls.some((c) => c.url === "/pulls" && c.method === "POST"));
+});

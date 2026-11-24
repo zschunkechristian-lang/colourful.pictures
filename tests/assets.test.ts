@@ -25,3 +25,17 @@ test("groupVideos accepts single mp4 files and attaches what matches", async () 
     [{ file: "a_h264.mp4", webm: "a_av1.webm", poster: "a_poster.jpg" }, { file: "b.mp4", poster: "b.jpg" }],
   );
 });
+
+test("a name with a folder is served from the project folder", () => {
+  assert.equal(stillUrl({ project: "zdf", file: "extra/a b.webp" }), `${CDN}/zdf/extra/a%20b.webp`);
+  assert.equal(stillUrl({ project: "zdf", file: "./top.webp" }), `${CDN}/zdf/top.webp`);
+  assert.equal(videoUrls({ project: "zdf", file: "cuts/x.mp4", poster: "cuts/x.jpg" }).poster, `${CDN}/zdf/cuts/x.jpg`);
+});
+
+test("manifestFromKeys lists files from any subfolder", async () => {
+  const { manifestFromKeys } = await import("../scripts/lib/manifest-core.mjs");
+  const k = (p: string) => `website/projects/zdf/${p}`;
+  const m = manifestFromKeys([k("stills/a.jpg"), k("stills/old/b.webp"), k("extra/c.WEBP"), k("top.png"), k("video/v.mp4"), k("video/v.jpg"), k("cuts/w.mp4"), k("cuts/w.jpg"), k("cuts/notes.txt"), k("extra/")]);
+  assert.deepEqual(m.projects.zdf.stills, ["./top.png", "a.jpg", "extra/c.WEBP", "stills/old/b.webp"]);
+  assert.deepEqual(m.projects.zdf.videos, [{ file: "cuts/w.mp4", poster: "cuts/w.jpg" }, { file: "v.mp4", poster: "v.jpg" }]);
+});
