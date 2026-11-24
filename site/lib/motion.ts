@@ -73,7 +73,7 @@ export function initMotion(root: HTMLElement): () => void {
       presence(
         el,
         () => gsap.to(split.words, { opacity: 1, y: 0, filter: "blur(0px)", ease: IN_EASE, duration: IN_S, stagger: Math.min(0.06, 0.5 / split.words.length), overwrite: true }),
-        (dir) => gsap.to(split.words, { ...hidden, y: -20 * dir, ease: OUT_EASE, duration: OUT_S, stagger: 0, overwrite: true }),
+        (dir) => gsap.to(split.words, { ...hidden, y: 20 * dir, ease: OUT_EASE, duration: OUT_S, stagger: 0, overwrite: true }),
       );
     });
 
@@ -84,7 +84,7 @@ export function initMotion(root: HTMLElement): () => void {
       presence(
         el,
         () => gsap.to(cells, { opacity: 1, y: 0, ease: IN_EASE, duration: IN_S, stagger: 0.12, overwrite: true }),
-        (dir) => gsap.to(cells, { opacity: 0, y: -50 * dir, ease: OUT_EASE, duration: OUT_S, stagger: 0, overwrite: true }),
+        (dir) => gsap.to(cells, { opacity: 0, y: 50 * dir, ease: OUT_EASE, duration: OUT_S, stagger: 0, overwrite: true }),
       );
     });
 
@@ -93,7 +93,7 @@ export function initMotion(root: HTMLElement): () => void {
       presence(
         el,
         () => gsap.to(el, { opacity: 1, y: 0, ease: IN_EASE, duration: IN_S, overwrite: true }),
-        (dir) => gsap.to(el, { opacity: 0, y: -20 * dir, ease: OUT_EASE, duration: OUT_S, overwrite: true }),
+        (dir) => gsap.to(el, { opacity: 0, y: 20 * dir, ease: OUT_EASE, duration: OUT_S, overwrite: true }),
       );
     });
   }, root);
