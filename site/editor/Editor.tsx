@@ -1,7 +1,7 @@
-// The in-page editor (dev only). ProjectPage mounts this lazily when edit mode is
-// switched on; production builds never include it (guarded by import.meta.env.DEV).
+// The in-page editor (dev server and the edit build only). ProjectPage mounts this lazily when edit
+// mode is switched on; the public build never includes it (guarded by a build-time constant).
 import { useEffect, useState } from "react";
-import type { Project, SiteData } from "../lib/schema";
+import { projectSchema, siteSchema, type Project, type SiteData } from "../lib/schema";
 import { useProjectStore } from "./store";
 import { EditableSections } from "./EditableSections";
 import { EditableSite } from "./EditableSite";
@@ -30,9 +30,45 @@ const isTyping = (t: EventTarget | null) => {
   return !!el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || (el.isContentEditable && !el.hasAttribute("data-cms-text")));
 };
 
-export default function Editor({ project, site: initialSite, onChange, onSiteChange, mode, setMode, slots }: Props) {
+/**
+ * On the edit site the pages are built into the bundle, so after a save they are out of date until the
+ * pull request is merged and the site redeployed. Before the editor starts it therefore asks the save
+ * API for the latest stored content and swaps it in, so earlier edits are never overwritten by stale ones.
+ * With the dev server (files on disk, always current) nothing is fetched.
+ */
+function useLatestContent({ project, site, onChange, onSiteChange }: Props) {
+  const [latest, setLatest] = useState<{ project: Project; site: SiteData } | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      let next = { project, site };
+      try {
+        const ping = await fetch("/__cms/ping");
+        if (ping.ok && (await ping.json()).remote) {
+          const [p, s] = await Promise.all([fetch(`/__cms/project/${project.slug}`), fetch("/__cms/site")]);
+          const pp = p.ok ? projectSchema.safeParse(await p.json()) : null;
+          const ss = s.ok ? siteSchema.safeParse(await s.json()) : null;
+          next = { project: pp?.success ? pp.data : project, site: ss?.success ? ss.data : site };
+        }
+      } catch { /* offline or unreachable: edit what the page was built with; saving will report the problem */ }
+      if (cancelled) return;
+      if (JSON.stringify(next.project) !== JSON.stringify(project)) onChange(next.project);
+      if (JSON.stringify(next.site) !== JSON.stringify(site)) onSiteChange(next.site);
+      setLatest(next);
+    })();
+    return () => { cancelled = true; };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once, when the editor opens
+  return latest;
+}
+
+export default function Editor(props: Props) {
+  const latest = useLatestContent(props);
+  return latest ? <EditorBody {...props} project={latest.project} site={latest.site} /> : null;
+}
+
+function EditorBody({ project, site: initialSite, onChange, onSiteChange, mode, setMode, slots }: Props) {
   const store = useProjectStore(project, initialSite, onChange, onSiteChange);
-  const { present, site, commit, commitSite, undo, redo, dirty, save, saveNow, canSave } = store;
+  const { present, site, commit, commitSite, undo, redo, dirty, save, saveNow, canSave, remote } = store;
   const [panel, setPanel] = useState<"page" | "new" | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [target, setTarget] = useState<PickTarget | null>(null);
@@ -98,11 +134,11 @@ export default function Editor({ project, site: initialSite, onChange, onSiteCha
   }, [editing]);
 
   const status =
-    canSave === false ? "Saving unavailable (dev server not reachable)"
+    canSave === false ? "Saving unavailable (server not reachable)"
     : save.kind === "saving" ? "Saving…"
     : save.kind === "error" ? `Save failed: ${save.message}`
     : dirty ? "Unsaved changes"
-    : save.kind === "saved" ? (empty ? `Saved with ${empty} empty slot${empty > 1 ? "s" : ""}` : "Saved")
+    : save.kind === "saved" ? (empty ? `Saved with ${empty} empty slot${empty > 1 ? "s" : ""}` : remote ? "Saved to pull request" : "Saved")
     : "No changes";
 
   const close = () => {
@@ -124,13 +160,14 @@ export default function Editor({ project, site: initialSite, onChange, onSiteCha
         <button aria-pressed={panel === "new"} onClick={() => { setTarget(null); setPanel(panel === "new" ? null : "new"); }} title="Create a new project page">New…</button>
         {empty > 0 && <span className="cms-warn" title="Empty slots render nothing on the live site. Saving still works.">⚠ {empty} empty</span>}
         <span className={`cms-status cms-status--${save.kind === "error" || canSave === false ? "error" : dirty ? "dirty" : "ok"}`}>{status}</span>
+        {remote && save.kind === "saved" && save.pr && <a className="cms-prlink" href={save.pr} target="_blank" rel="noreferrer" title="Merge the pull request to publish">PR ↗</a>}
         <button className="cms-primary" onClick={saveNow} disabled={!dirty || !canSave || save.kind === "saving"} title="Save (⌘S)">Save</button>
         <button onClick={close} title="Close editor">✕</button>
       </div>
 
       {editing && slots && <EditableSite project={present} site={site} commitSite={commitSite} slots={slots} pick={(t) => { setPanel(null); setTarget(t); }} />}
       {editing && target && <Picker key={JSON.stringify(target)} project={present} site={site} target={target} commit={commit} commitSite={commitSite} onClose={() => setTarget(null)} />}
-      {panel === "new" && <NewProject dirty={dirty} onClose={() => setPanel(null)} />}
+      {panel === "new" && <NewProject dirty={dirty} remote={remote} onClose={() => setPanel(null)} />}
       {panel === "page" && (
         <aside className="cms-panel" aria-label="Page settings">
           <header><h2>Page</h2><button onClick={() => setPanel(null)} aria-label="Close panel">✕</button></header>

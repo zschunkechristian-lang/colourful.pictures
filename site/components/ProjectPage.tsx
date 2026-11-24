@@ -9,9 +9,10 @@ import type { Mode } from "../editor/Editor";
 import "../styles/fonts.css";
 import "../styles/site.css";
 
-// The editor is dev-only: `import.meta.env.DEV` is a build-time constant, so in production
-// this whole branch (and the editor module) is removed from the bundle.
-const Editor = import.meta.env.DEV ? lazy(() => import("../editor/Editor")) : null;
+// The editor exists in the dev server and in the edit build (`npm run build:edit`, see docs/remote-editing.md).
+// `__EDITOR__` is a build-time constant (vite.config.ts), so in the public build this whole branch
+// and the editor module are removed from the bundle.
+const Editor = __EDITOR__ ? lazy(() => import("../editor/Editor")) : null;
 
 export function ProjectPage({ project: loaded, site: loadedSite, current }: { project: Project; site: SiteData; current?: string }) {
   const root = useRef<HTMLDivElement>(null);
@@ -26,7 +27,7 @@ export function ProjectPage({ project: loaded, site: loadedSite, current }: { pr
 
   // `?edit` in the URL opens the editor straight away (client-side only, so SSR stays plain)
   useEffect(() => {
-    if (import.meta.env.DEV && new URLSearchParams(location.search).has("edit")) setMode("edit");
+    if (__EDITOR__ && new URLSearchParams(location.search).has("edit")) setMode("edit");
   }, []);
   // new data from outside: navigating to another page, a save, or an edit made outside the editor.
   // Adopted while rendering (not in an effect) so the new page never shows one frame of the old one.
@@ -69,7 +70,7 @@ export function ProjectPage({ project: loaded, site: loadedSite, current }: { pr
         </main>
       </div>
       {editing ? <div ref={setFooterSlot} style={{ display: "contents" }} /> : <FooterView key={project.slug} footer={footer} />}
-      {import.meta.env.DEV && mode === "off" && (
+      {__EDITOR__ && mode === "off" && (
         <button
           onClick={() => setMode("edit")}
           style={{ position: "fixed", right: 16, bottom: 16, zIndex: 100000, font: "600 12px -apple-system, sans-serif", color: "#f2f2f2", background: "#161616", border: "1px solid #333", borderRadius: 999, padding: "8px 14px", cursor: "pointer", opacity: 0.55 }}

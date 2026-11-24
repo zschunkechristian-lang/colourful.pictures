@@ -4,6 +4,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "vike build && vike prerender && node scripts/build-seo.mjs",
+    "build:edit": "VITE_EDITOR=1 vike build && VITE_EDITOR=1 vike prerender",
     "dev": "vite dev",
     "start": "vite preview",
     "typecheck": "tsc --noEmit",

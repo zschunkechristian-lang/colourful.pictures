@@ -1,0 +1,36 @@
+// The edit Worker: the editor-enabled build of the site plus the save API (worker/index.ts).
+// Deploy:  npm run build:edit && npx wrangler deploy -c wrangler.edit.jsonc
+// Setup (Access, GitHub token, hostname): docs/remote-editing.md
+{
+  "name": "colourful-pictures-edit",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-01",
+
+  // Reachable only on the Access-protected hostname below, never on a public workers.dev address.
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "edit.colourful.pictures", "custom_domain": true }],
+
+  "assets": {
+    "directory": "./dist-edit/client",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // the save API always goes through the Worker; every other path is a static file
+    "run_worker_first": ["/__cms/*"]
+  },
+
+  // read-only listing of the media bucket for "Refresh media" (no S3 keys needed)
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "copi" }],
+
+  "vars": {
+    "GITHUB_REPO": "zschunkechristian-lang/colourful.pictures",
+    "GITHUB_BASE": "main",
+    "GITHUB_BRANCH": "cms/edit",
+    // Zero Trust > Settings > Custom Pages shows the team domain; the AUD tag is on the Access application
+    "ACCESS_TEAM_DOMAIN": "morning-haze-878f.cloudflareaccess.com",
+    "ACCESS_AUD": "1750d23689fa5c1ac6b5fec6c32a491d5269f4200143349a0ff944ca6d85f643"
+  }
+  // secrets (kept out of the repo), set with `npx wrangler secret put <NAME> -c wrangler.edit.jsonc`:
+  //   GITHUB_TOKEN    fine-grained token, Contents + Pull requests read/write on this repository
+  //   ALLOWED_EMAILS  your login email (comma separated for several): only these may save, on top of the Access policy
+}
