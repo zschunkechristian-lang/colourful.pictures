@@ -84,7 +84,7 @@ export function initMotion(root: HTMLElement): () => void {
       presence(
         el,
         () => gsap.to(cells, { opacity: 1, y: 0, ease: IN_EASE, duration: IN_S, stagger: 0.12, overwrite: true }),
-        (dir) => gsap.to(cells, { opacity: 0, y: 50 * dir, ease: OUT_EASE, duration: OUT_S, stagger: 0, overwrite: true }),
+        (dir) => gsap.to(cells, { opacity: 0, y: 50 * dir, ease: OUT_EASE, duration: OUT_S, stagger: 0.06, overwrite: true }),
       );
     });
 
