@@ -4,6 +4,83 @@
   "description": "Experiments, sketches and personal work by Christian Zschunke: slit-scan, felt, portraits and more.",
   "sections": [
     {
+      "id": "3401dd56",
+      "type": "row",
+      "cells": [
+        {
+          "span": 8,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "file": "./XOTQ_Parfume_4by5_1_h264.mp4",
+            "webm": "./XOTQ_Parfume_4by5_1_av1.webm",
+            "poster": "./XOTQ_Parfume_4by5_1_poster.jpg"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-26.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "48d5aa06",
+      "type": "row",
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-17.webp"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-15.webp"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-19.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "acf19714",
+      "type": "row",
+      "compact": true,
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-1.webp"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-2.webp"
+          }
+        }
+      ]
+    },
+    {
       "id": "85f6e5f1",
       "type": "row",
       "cells": [
