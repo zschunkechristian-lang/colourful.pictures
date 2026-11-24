@@ -121,8 +121,13 @@ export async function handleCms(req: Request, path: string, store: ContentStore)
 
     if (post && path === "/refresh-media") {
       const manifest = await store.buildManifest();
-      const info = await store.write(MEDIA_PATH, JSON.stringify(manifest, null, 2) + "\n");
-      return json(200, { ok: true, manifest, ...info });
+      // the listing is what the picker needs; a failed save of the manifest must not hide it
+      try {
+        const info = await store.write(MEDIA_PATH, JSON.stringify(manifest, null, 2) + "\n");
+        return json(200, { ok: true, manifest, ...info });
+      } catch (err) {
+        return json(200, { ok: true, manifest, warning: err instanceof Error ? err.message : "manifest not saved" });
+      }
     }
 
     return fail(404, "not found");

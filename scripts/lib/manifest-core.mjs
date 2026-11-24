@@ -30,24 +30,36 @@ export function groupVideos(files) {
     .sort((a, b) => a.file.localeCompare(b.file, "en", { numeric: true }));
 }
 
-/** Builds the manifest object from the bucket's object keys (pure: shared by the S3 lister and the Worker's R2 binding). */
+/**
+ * Builds the manifest object from the bucket's object keys (pure: shared by the S3 lister and the Worker's R2 binding).
+ * Every file under `website/projects/<project>/` counts, in whatever subfolder. Files in `stills/` and `video/`
+ * are listed by bare name (the legacy form); anywhere else by their path from the project folder
+ * ("extra/shot.webp", or "./shot.webp" for the project folder itself), which assets.ts serves as is. Videos are grouped per folder, and an image that
+ * shares its name with a video in the same folder is that video's poster, not a still.
+ */
 export function manifestFromKeys(keys) {
   const projects = {};
-  const videoFiles = {};
+  const dirs = {}; // project -> dir -> files
   for (const k of keys) {
-    const m = /^website\/projects\/([^/]+)\/(stills|video)\/(.+)$/.exec(k);
+    const m = /^website\/projects\/([^/]+)\/(.+)$/.exec(k);
     if (!m) continue;
-    const [, project, dir, file] = m;
-    const p = (projects[project] ??= { stills: [], videos: [] });
-    if (dir === "stills") {
-      // every image in the folder counts, whatever it is called
-      if (IMAGE.test(file) && !file.includes("/")) p.stills.push(file);
-    } else if (!file.includes("/")) {
-      (videoFiles[project] ??= []).push(file);
-    }
+    const [, project, rel] = m;
+    const cut = rel.lastIndexOf("/");
+    const dir = cut < 0 ? "" : rel.slice(0, cut);
+    const file = rel.slice(cut + 1);
+    if (!file) continue; // folder placeholder key
+    ((dirs[project] ??= {})[dir] ??= []).push(file);
   }
-  for (const [project, files] of Object.entries(videoFiles)) (projects[project] ??= { stills: [], videos: [] }).videos = groupVideos(files);
-  for (const p of Object.values(projects)) {
+  for (const [project, byDir] of Object.entries(dirs)) {
+    const p = (projects[project] = { stills: [], videos: [] });
+    for (const [dir, files] of Object.entries(byDir)) {
+      const prefix = dir === "stills" || dir === "video" ? "" : `${dir || "."}/`; // "./x" = directly in the project folder
+      const videos = groupVideos(files);
+      const posters = new Set(videos.map((v) => v.poster));
+      for (const v of videos) p.videos.push({ file: prefix + v.file, ...(v.webm ? { webm: prefix + v.webm } : {}), ...(v.poster ? { poster: prefix + v.poster } : {}) });
+      if (dir === "video") continue; // images next to the legacy videos are posters only
+      for (const f of files) if (IMAGE.test(f) && !posters.has(f)) p.stills.push(prefix + f);
+    }
     p.stills.sort((a, b) => a.localeCompare(b, "en", { numeric: true }));
     p.videos.sort((a, b) => a.file.localeCompare(b.file, "en", { numeric: true }));
   }

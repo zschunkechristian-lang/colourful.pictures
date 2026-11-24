@@ -71,9 +71,15 @@ export function githubStore(cfg: GithubConfig): ContentStore {
       }
     })());
 
-  const pullRequest = async (): Promise<string> => {
+  /** The open pull request's URL (opened when missing), or null when the branch has nothing main lacks:
+   *  GitHub refuses a pull request without commits (HTTP 422), and there is nothing to publish then. */
+  const pullRequest = async (committed: boolean): Promise<string | null> => {
     const open = (await (await must(await gh(`/pulls?state=open&base=${encodeURIComponent(cfg.base)}&head=${encodeURIComponent(`${owner}:${cfg.branch}`)}`), "listing pull requests")).json()) as { html_url: string }[];
     if (open[0]) return open[0].html_url;
+    if (!committed) {
+      const cmp = (await (await must(await gh(`/compare/${cfg.base}...${cfg.branch}`), "comparing branches")).json()) as { ahead_by: number };
+      if (cmp.ahead_by === 0) return null;
+    }
     const created = (await (await must(await gh("/pulls", {
       method: "POST",
       body: JSON.stringify({
@@ -98,13 +104,17 @@ export function githubStore(cfg: GithubConfig): ContentStore {
     },
 
     async write(path, text): Promise<WriteInfo> {
+      const info = async (committed: boolean): Promise<WriteInfo> => {
+        const pr = await pullRequest(committed);
+        return pr ? { pr, branch: cfg.branch } : {};
+      };
       await prepare();
       const cur = await gh(`/contents/${encPath(path)}?ref=${encodeURIComponent(cfg.branch)}`);
       let sha: string | undefined;
       if (cur.status !== 404) {
         const meta = (await (await must(cur, `reading ${path}`)).json()) as { sha: string; content?: string; encoding?: string };
         sha = meta.sha;
-        if (meta.encoding === "base64" && meta.content && b64ToUtf8(meta.content) === text) return { pr: await pullRequest(), branch: cfg.branch };
+        if (meta.encoding === "base64" && meta.content && b64ToUtf8(meta.content) === text) return info(false);
       }
       await must(
         await gh(`/contents/${encPath(path)}`, {
@@ -113,7 +123,7 @@ export function githubStore(cfg: GithubConfig): ContentStore {
         }),
         `saving ${path}`,
       );
-      return { pr: await pullRequest(), branch: cfg.branch };
+      return info(true);
     },
   };
 }
