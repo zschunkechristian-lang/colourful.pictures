@@ -360,6 +360,9 @@
           "file": "eucerin_header_h264.mp4",
           "webm": "eucerin_header_av1.webm",
           "poster": "eucerin_header_poster.jpg"
+        },
+        {
+          "file": "MIM_Ecuerin_Clip_01H.264 Main L4.1.mp4"
         }
       ]
     },
@@ -443,7 +446,83 @@
         "galvany_frame_76.jpg",
         "galvany_frame_77.jpg",
         "galvany_frame_78.jpg",
-        "galvany_frame_79.jpg"
+        "galvany_frame_79.jpg",
+        "stills/test/galvany_appanimation_temperature_0001.webp",
+        "stills/test/galvany_appanimation_temperature_0002.webp",
+        "stills/test/galvany_appanimation_temperature_0003.webp",
+        "stills/test/galvany_appanimation_temperature_0004.webp",
+        "stills/test/galvany_appanimation_temperature_0005.webp",
+        "stills/test/galvany_appanimation_temperature_0006.webp",
+        "stills/test/galvany_appanimation_temperature_0007.webp",
+        "stills/test/galvany_appanimation_temperature_0008.webp",
+        "stills/test/galvany_appanimation_temperature_0009.webp",
+        "stills/test/galvany_appanimation_temperature_0010.webp",
+        "stills/test/galvany_appanimation_temperature_0011.webp",
+        "stills/test/galvany_appanimation_temperature_0012.webp",
+        "stills/test/galvany_appanimation_temperature_0013.webp",
+        "stills/test/galvany_appanimation_temperature_0014.webp",
+        "stills/test/galvany_appanimation_temperature_0015.webp",
+        "stills/test/galvany_appanimation_temperature_0016.webp",
+        "stills/test/galvany_appanimation_temperature_0017.webp",
+        "stills/test/galvany_appanimation_temperature_0018.webp",
+        "stills/test/galvany_appanimation_temperature_0019.webp",
+        "stills/test/galvany_appanimation_temperature_0020.webp",
+        "stills/test/galvany_appanimation_temperature_0021.webp",
+        "stills/test/galvany_appanimation_temperature_0022.webp",
+        "stills/test/galvany_appanimation_temperature_0023.webp",
+        "stills/test/galvany_appanimation_temperature_0024.webp",
+        "stills/test/galvany_appanimation_temperature_0025.webp",
+        "stills/test/galvany_appanimation_temperature_0026.webp",
+        "stills/test/galvany_appanimation_temperature_0027.webp",
+        "stills/test/galvany_appanimation_temperature_0028.webp",
+        "stills/test/galvany_appanimation_temperature_0029.webp",
+        "stills/test/galvany_appanimation_temperature_0030.webp",
+        "stills/test/galvany_appanimation_temperature_0031.webp",
+        "stills/test/galvany_appanimation_temperature_0032.webp",
+        "stills/test/galvany_appanimation_temperature_0033.webp",
+        "stills/test/galvany_appanimation_temperature_0034.webp",
+        "stills/test/galvany_appanimation_temperature_0035.webp",
+        "stills/test/galvany_appanimation_temperature_0036.webp",
+        "stills/test/galvany_appanimation_temperature_0037.webp",
+        "stills/test/galvany_appanimation_temperature_0038.webp",
+        "stills/test/galvany_appanimation_temperature_0039.webp",
+        "stills/test/galvany_appanimation_temperature_0040.webp",
+        "stills/test/galvany_appanimation_temperature_0041.webp",
+        "stills/test/galvany_appanimation_temperature_0042.webp",
+        "stills/test/galvany_appanimation_temperature_0043.webp",
+        "stills/test/galvany_appanimation_temperature_0044.webp",
+        "stills/test/galvany_appanimation_temperature_0045.webp",
+        "stills/test/galvany_appanimation_temperature_0046.webp",
+        "stills/test/galvany_appanimation_temperature_0047.webp",
+        "stills/test/galvany_appanimation_temperature_0048.webp",
+        "stills/test/galvany_appanimation_temperature_0049.webp",
+        "stills/test/galvany_appanimation_temperature_0050.webp",
+        "stills/test/galvany_appanimation_temperature_0051.webp",
+        "stills/test/galvany_appanimation_temperature_0052.webp",
+        "stills/test/galvany_appanimation_temperature_0053.webp",
+        "stills/test/galvany_appanimation_temperature_0054.webp",
+        "stills/test/galvany_appanimation_temperature_0055.webp",
+        "stills/test/galvany_appanimation_temperature_0056.webp",
+        "stills/test/galvany_appanimation_temperature_0057.webp",
+        "stills/test/galvany_appanimation_temperature_0058.webp",
+        "stills/test/galvany_appanimation_temperature_0059.webp",
+        "stills/test/galvany_appanimation_temperature_0060.webp",
+        "stills/test/galvany_appanimation_temperature_0061.webp",
+        "stills/test/galvany_appanimation_temperature_0062.webp",
+        "stills/test/galvany_appanimation_temperature_0063.webp",
+        "stills/test/galvany_appanimation_temperature_0064.webp",
+        "stills/test/galvany_appanimation_temperature_0065.webp",
+        "stills/test/galvany_appanimation_temperature_0066.webp",
+        "stills/test/galvany_appanimation_temperature_0067.webp",
+        "stills/test/galvany_appanimation_temperature_0068.webp",
+        "stills/test/galvany_appanimation_temperature_0069.webp",
+        "stills/test/galvany_appanimation_temperature_0070.webp",
+        "stills/test/galvany_appanimation_temperature_0071.webp",
+        "stills/test/galvany_appanimation_temperature_0072.webp",
+        "stills/test/galvany_appanimation_temperature_0073.webp",
+        "stills/test/galvany_appanimation_temperature_0074.webp",
+        "stills/test/galvany_appanimation_temperature_0075.webp",
+        "stills/test/galvany_appanimation_temperature_0076.webp"
       ],
       "videos": [
         {
@@ -498,6 +577,16 @@
         }
       ]
     },
+    "gradients": {
+      "stills": [],
+      "videos": [
+        {
+          "file": "GRAD_LQ_v004_h264.mp4",
+          "webm": "GRAD_LQ_v004_av1.webm",
+          "poster": "GRAD_LQ_v004_poster.jpg"
+        }
+      ]
+    },
     "greenice": {
       "stills": [],
       "videos": [
@@ -505,6 +594,9 @@
           "file": "greenice_header_h264.mp4",
           "webm": "greenice_header_av1.webm",
           "poster": "greenice_header_poster.jpg"
+        },
+        {
+          "file": "MIM_GreenIce_Clip_01H.264 Main L4.1.mp4"
         }
       ]
     },
@@ -515,6 +607,9 @@
           "file": "hh_header_h264.mp4",
           "webm": "hh_header_av1.webm",
           "poster": "hh_header_poster.jpg"
+        },
+        {
+          "file": "MIM_HH_Clip_01H.264 Main L3.1.mp4"
         }
       ]
     },
@@ -716,16 +811,28 @@
           "file": "look_header_h264.mp4",
           "webm": "look_header_av1.webm",
           "poster": "look_header_poster.jpg"
+        },
+        {
+          "file": "MIM_Look_Clip_01H.265 Main L4.1.mp4"
         }
       ]
     },
     "mercedes": {
-      "stills": [],
+      "stills": [
+        "MBOS/Mercedes_MBOS_020_data_HD_Master_v003_alt_poster.jpg"
+      ],
       "videos": [
+        {
+          "file": "MBOS/020_data_Master_HD_v004_Snippet_lq_h264.mp4",
+          "webm": "MBOS/020_data_Master_HD_v004_Snippet_lq_av1.webm"
+        },
         {
           "file": "mercedes_header_h264.mp4",
           "webm": "mercedes_header_av1.webm",
           "poster": "mercedes_header_poster.jpg"
+        },
+        {
+          "file": "MIM_MBOS_Clips_01H.264 Main L4.1.mp4"
         }
       ]
     },
@@ -1240,6 +1347,51 @@
           "file": "mercedes02_master_01_h264.mp4",
           "webm": "mercedes02_master_01_av1.webm",
           "poster": "mercedes02_master_01_poster.jpg"
+        },
+        {
+          "file": "video/raw/anim_R26_intro_S01-02_v03.mp4"
+        },
+        {
+          "file": "video/raw/LookDev_INTRO_v01_1280x720px.mp4"
+        },
+        {
+          "file": "video/raw/lookdev_R26_cables_v05.mp4"
+        },
+        {
+          "file": "video/raw/lookdev_R26_DATA_GRAPH_v02.mp4"
+        },
+        {
+          "file": "video/raw/lookdev_R26_DATA_PATH_v01.mp4"
+        },
+        {
+          "file": "video/raw/lookdev_R26_DATA_SHOT_v01_1280x720px.mp4"
+        },
+        {
+          "file": "video/raw/lookdev_R26_DATA_SHOT_v01_anim.mp4"
+        },
+        {
+          "file": "video/raw/lookdev_R26_DATA_STREAM_v01_720x720px.mp4"
+        },
+        {
+          "file": "video/raw/lookdev_R26_DATA_STREAM_v01.mp4"
+        },
+        {
+          "file": "video/raw/lookdev_R26_SHOT_CARZOOM_v01_4k_MED.mp4"
+        },
+        {
+          "file": "video/raw/MB_Pitch_circles_square_01.mp4"
+        },
+        {
+          "file": "video/raw/MB_Pitch_Stones_v01_720x1280.mp4"
+        },
+        {
+          "file": "video/raw/MB_RnD_ChairParticles_v001_1280x720.mp4"
+        },
+        {
+          "file": "video/raw/MB_RnD_Scanning_v001_1280x720.mp4"
+        },
+        {
+          "file": "video/raw/MERCEDES_Infotainment_10ANTO_22_003_16x9_4k_noVO_DC_2303071442FLMNS.mp4"
         }
       ]
     },
@@ -1366,6 +1518,9 @@
       "stills": [],
       "videos": [
         {
+          "file": "MIM_PayPal_Clip_01H.265 Main L4.1.mp4"
+        },
+        {
           "file": "paypal_header_h264.mp4",
           "webm": "paypal_header_av1.webm",
           "poster": "paypal_header_poster.jpg"
@@ -1379,6 +1534,97 @@
           "file": "pitch_header_h264.mp4",
           "webm": "pitch_header_av1.webm",
           "poster": "pitch_header_poster.jpg"
+        }
+      ]
+    },
+    "playground": {
+      "stills": [
+        "copi-playground-frame-1.webp",
+        "copi-playground-frame-2.webp",
+        "copi-playground-frame-3.webp",
+        "copi-playground-frame-4.webp",
+        "copi-playground-frame-5.webp",
+        "copi-playground-frame-6.webp",
+        "copi-playground-frame-7.webp",
+        "copi-playground-frame-8.webp",
+        "copi-playground-frame-9.webp",
+        "copi-playground-frame-10.webp",
+        "copi-playground-frame-11.webp",
+        "copi-playground-frame-12.webp",
+        "copi-playground-frame-13.webp",
+        "copi-playground-frame-14.webp",
+        "copi-playground-frame-15.webp",
+        "copi-playground-frame-16.webp",
+        "copi-playground-frame-17.webp",
+        "copi-playground-frame-18.webp",
+        "copi-playground-frame-19.webp",
+        "copi-playground-frame-20.webp",
+        "copi-playground-frame-21.webp",
+        "copi-playground-frame-22.webp",
+        "copi-playground-frame-23.webp",
+        "copi-playground-frame-24.webp",
+        "copi-playground-frame-25.webp",
+        "copi-playground-frame-26.webp",
+        "copi-playground-frame-27.webp",
+        "copi-playground-frame-28.webp"
+      ],
+      "videos": [
+        {
+          "file": "copi-avatar-01_h264.mp4",
+          "webm": "copi-avatar-01_av1.webm",
+          "poster": "copi-avatar-01_poster.jpg"
+        },
+        {
+          "file": "copi-felt-experiment-03_h264.mp4",
+          "webm": "copi-felt-experiment-03_av1.webm",
+          "poster": "copi-felt-experiment-03_poster.jpg"
+        },
+        {
+          "file": "copi-gradient-01_h264.mp4",
+          "webm": "copi-gradient-01_av1.webm",
+          "poster": "copi-gradient-01_poster.jpg"
+        },
+        {
+          "file": "copi-gradients-02_h264.mp4",
+          "webm": "copi-gradients-02_av1.webm",
+          "poster": "copi-gradients-02_poster.jpg"
+        },
+        {
+          "file": "copi-marbles-01_h264.mp4",
+          "webm": "copi-marbles-01_av1.webm",
+          "poster": "copi-marbles-01_poster.jpg"
+        },
+        {
+          "file": "copi-slitscan-01_h264.mp4",
+          "webm": "copi-slitscan-01_av1.webm",
+          "poster": "copi-slitscan-01_poster.jpg"
+        },
+        {
+          "file": "MIM_Playground_cz_gradient_01.mp4"
+        },
+        {
+          "file": "MIM_Playground_cz_gradient_02.mp4"
+        },
+        {
+          "file": "Mim.CoPiAvatar.01.mp4"
+        },
+        {
+          "file": "MIM.playground.felt.01.mp4"
+        },
+        {
+          "file": "MIM.playground.slitscan.01_h264.mp4",
+          "webm": "MIM.playground.slitscan.01_av1.webm",
+          "poster": "MIM.playground.slitscan.01_poster.jpg"
+        },
+        {
+          "file": "MIM.playground.slitscan.01.mp4",
+          "webm": "MIM.playground.slitscan.01_av1.webm",
+          "poster": "MIM.playground.slitscan.01_poster.jpg"
+        },
+        {
+          "file": "XOTQ_Parfume_4by5_1_h264.mp4",
+          "webm": "XOTQ_Parfume_4by5_1_av1.webm",
+          "poster": "XOTQ_Parfume_4by5_1_poster.jpg"
         }
       ]
     },
@@ -1550,6 +1796,9 @@
         "mim.seabob.frame.032.webp"
       ],
       "videos": [
+        {
+          "file": "MIM_Seabob_Clip_01H.264 Main L4.1.mp4"
+        },
         {
           "file": "seabob_clip_1_h264.mp4",
           "webm": "seabob_clip_1_av1.webm",
@@ -1749,6 +1998,9 @@
     "weleda": {
       "stills": [],
       "videos": [
+        {
+          "file": "MIM_Weleda_Clip_01H.264 Main L5.1.mp4"
+        },
         {
           "file": "weleda_clip_01_h264.mp4",
           "webm": "weleda_clip_01_av1.webm",
