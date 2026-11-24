@@ -4,6 +4,22 @@
   "description": "Experiments, sketches and personal work by Christian Zschunke: slit-scan, felt, portraits and more.",
   "sections": [
     {
+      "id": "d3f7f5e8",
+      "type": "row",
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "file": "./copi-marbles-01_h264.mp4",
+            "webm": "./copi-marbles-01_av1.webm",
+            "poster": "./copi-marbles-01_poster.jpg"
+          }
+        }
+      ]
+    },
+    {
       "id": "3401dd56",
       "type": "row",
       "cells": [
@@ -23,6 +39,20 @@
             "kind": "still",
             "project": "playground",
             "file": "./copi-playground-frame-26.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "3983283e",
+      "type": "row",
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-14.webp"
           }
         }
       ]
@@ -53,6 +83,30 @@
             "kind": "still",
             "project": "playground",
             "file": "./copi-playground-frame-19.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cea0dfb7",
+      "type": "row",
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "file": "./MIM.playground.slitscan.01_h264.mp4",
+            "webm": "./MIM.playground.slitscan.01_av1.webm",
+            "poster": "./MIM.playground.slitscan.01_poster.jpg"
+          }
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "file": "./MIM.playground.felt.01.mp4"
           }
         }
       ]
@@ -107,30 +161,6 @@
       ]
     },
     {
-      "id": "cea0dfb7",
-      "type": "row",
-      "cells": [
-        {
-          "span": 6,
-          "media": {
-            "kind": "video",
-            "project": "playground",
-            "file": "./MIM.playground.slitscan.01_h264.mp4",
-            "webm": "./MIM.playground.slitscan.01_av1.webm",
-            "poster": "./MIM.playground.slitscan.01_poster.jpg"
-          }
-        },
-        {
-          "span": 6,
-          "media": {
-            "kind": "video",
-            "project": "playground",
-            "file": "./MIM.playground.felt.01.mp4"
-          }
-        }
-      ]
-    },
-    {
       "id": "4e4542f8",
       "type": "row",
       "cells": [
@@ -156,6 +186,22 @@
             "kind": "still",
             "project": "playground",
             "file": "./copi-playground-frame-13.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "39bc5817",
+      "type": "row",
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "file": "./copi-avatar-01_h264.mp4",
+            "webm": "./copi-avatar-01_av1.webm",
+            "poster": "./copi-avatar-01_poster.jpg"
           }
         }
       ]
@@ -202,7 +248,54 @@
             "kind": "still",
             "project": "playground",
             "file": "./copi-playground-frame-9.webp"
+          },
+          "position": "100% 53%"
+        }
+      ]
+    },
+    {
+      "id": "fb8206bb",
+      "type": "row",
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-8.webp"
+          },
+          "position": "68% 7%"
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-7.webp"
           }
+        }
+      ]
+    },
+    {
+      "id": "8ce49fcd",
+      "type": "row",
+      "cells": [
+        {
+          "span": 7,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-23.webp"
+          }
+        },
+        {
+          "span": 5,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-24.webp"
+          },
+          "position": "56% 52%"
         }
       ]
     },
