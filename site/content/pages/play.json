@@ -4,27 +4,33 @@
   "description": "Experiments, sketches and personal work by Christian Zschunke: slit-scan, felt, portraits and more.",
   "sections": [
     {
-      "id": "cfce977c",
+      "id": "d3f7f5e8",
       "type": "row",
-      "window": 2,
-      "compact": true,
       "cells": [
         {
-          "span": 2,
+          "span": 12,
           "media": {
-            "kind": "still",
+            "kind": "video",
             "project": "playground",
-            "file": "playground_frame_01.jpg",
-            "alt": "Playground experiment: complexity"
+            "file": "./copi-marbles-01_h264.mp4",
+            "webm": "./copi-marbles-01_av1.webm",
+            "poster": "./copi-marbles-01_poster.jpg"
           }
-        },
+        }
+      ]
+    },
+    {
+      "id": "3401dd56",
+      "type": "row",
+      "cells": [
         {
-          "span": 2,
+          "span": 8,
           "media": {
-            "kind": "still",
+            "kind": "video",
             "project": "playground",
-            "file": "playground_frame_02.jpg",
-            "alt": "Playground experiment: slices"
+            "file": "./XOTQ_Parfume_4by5_1_h264.mp4",
+            "webm": "./XOTQ_Parfume_4by5_1_av1.webm",
+            "poster": "./XOTQ_Parfume_4by5_1_poster.jpg"
           }
         },
         {
@@ -32,158 +38,35 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "file": "playground_frame_03.jpg",
-            "alt": "Playground experiment: slices"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "video",
-            "project": "playground",
-            "file": "playground_clip_01_h264.mp4",
-            "alt": "Playground experiment: gradient animation"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "video",
-            "project": "playground",
-            "file": "playground_clip_02_h264.mp4",
-            "alt": "Playground experiment: gradient animation"
+            "file": "./copi-playground-frame-26.webp"
           }
         }
       ]
     },
     {
-      "id": "20a92d5d",
+      "id": "3983283e",
       "type": "row",
-      "window": 2,
-      "compact": true,
       "cells": [
         {
-          "span": 2,
-          "media": {
-            "kind": "video",
-            "project": "playground",
-            "file": "playground_clip_03_h264.mp4",
-            "alt": "Playground experiment: slit-scan animation"
-          }
-        },
-        {
-          "span": 2,
+          "span": 12,
           "media": {
             "kind": "still",
             "project": "playground",
-            "file": "playground_frame_04.jpg",
-            "alt": "Slit-scan experiment"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_05.jpg",
-            "alt": "Slit-scan experiment"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_06.jpg",
-            "alt": "Slit-scan experiment"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_07.jpg",
-            "alt": "Slit-scan experiment"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_08.jpg",
-            "alt": "Slit-scan experiment"
+            "file": "./copi-playground-frame-14.webp"
           }
         }
       ]
     },
     {
-      "id": "847bf270",
+      "id": "48d5aa06",
       "type": "row",
-      "window": 2,
-      "compact": true,
       "cells": [
         {
-          "span": 2,
+          "span": 4,
           "media": {
             "kind": "still",
             "project": "playground",
-            "file": "playground_frame_09.jpg",
-            "alt": "Portrait study"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_10.jpg",
-            "alt": "Portrait study"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_11.jpg",
-            "alt": "Portrait study"
-          }
-        },
-        {
-          "span": 3,
-          "media": {
-            "kind": "video",
-            "project": "playground",
-            "file": "playground_clip_04_h264.mp4",
-            "alt": "Felt texture animation"
-          }
-        },
-        {
-          "span": 3,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_12.jpg",
-            "alt": "Playground experiment: xotq"
-          }
-        }
-      ]
-    },
-    {
-      "id": "1d38b195",
-      "type": "row",
-      "window": 2,
-      "compact": true,
-      "cells": [
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_13.jpg",
-            "alt": "Playground experiment: xotq"
+            "file": "./copi-playground-frame-17.webp"
           }
         },
         {
@@ -191,8 +74,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "file": "playground_frame_14.jpg",
-            "alt": "Barclays visual"
+            "file": "./copi-playground-frame-15.webp"
           }
         },
         {
@@ -200,78 +82,38 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "file": "playground_frame_15.jpg",
-            "alt": "Lise character render"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_16.jpg",
-            "alt": "Lise character render"
+            "file": "./copi-playground-frame-19.webp"
           }
         }
       ]
     },
     {
-      "id": "b6782d36",
+      "id": "cea0dfb7",
       "type": "row",
-      "window": 2,
-      "compact": true,
       "cells": [
         {
-          "span": 4,
+          "span": 6,
           "media": {
-            "kind": "still",
+            "kind": "video",
             "project": "playground",
-            "file": "playground_frame_17.jpg",
-            "alt": "Lise character render"
+            "file": "./MIM.playground.slitscan.01_h264.mp4",
+            "webm": "./MIM.playground.slitscan.01_av1.webm",
+            "poster": "./MIM.playground.slitscan.01_poster.jpg"
           }
         },
         {
-          "span": 2,
+          "span": 6,
           "media": {
-            "kind": "still",
+            "kind": "video",
             "project": "playground",
-            "file": "playground_frame_18.jpg",
-            "alt": "Lise character render"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_19.jpg",
-            "alt": "Lise character render"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_20.jpg",
-            "alt": "Lise character render"
-          }
-        },
-        {
-          "span": 2,
-          "media": {
-            "kind": "still",
-            "project": "playground",
-            "file": "playground_frame_21.jpg",
-            "alt": "Lise character render"
+            "file": "./MIM.playground.felt.01.mp4"
           }
         }
       ]
     },
     {
-      "id": "2289dd15",
+      "id": "acf19714",
       "type": "row",
-      "window": 2,
       "compact": true,
       "cells": [
         {
@@ -279,8 +121,7 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "file": "playground_frame_22.jpg",
-            "alt": "Trident render"
+            "file": "./copi-playground-frame-1.webp"
           }
         },
         {
@@ -288,9 +129,173 @@
           "media": {
             "kind": "still",
             "project": "playground",
-            "file": "playground_frame_23.jpg",
-            "alt": "Trident render"
+            "file": "./copi-playground-frame-2.webp"
           }
+        }
+      ]
+    },
+    {
+      "id": "85f6e5f1",
+      "type": "row",
+      "cells": [
+        {
+          "span": 5,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "file": "./copi-gradients-02_h264.mp4",
+            "webm": "./copi-gradients-02_av1.webm",
+            "poster": "./copi-gradients-02_poster.jpg"
+          }
+        },
+        {
+          "span": 7,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "file": "./copi-gradient-01_h264.mp4",
+            "webm": "./copi-gradient-01_av1.webm",
+            "poster": "./copi-gradient-01_poster.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4e4542f8",
+      "type": "row",
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-11.webp"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-12.webp"
+          }
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-13.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "39bc5817",
+      "type": "row",
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "video",
+            "project": "playground",
+            "file": "./copi-avatar-01_h264.mp4",
+            "webm": "./copi-avatar-01_av1.webm",
+            "poster": "./copi-avatar-01_poster.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "id": "a84d228d",
+      "type": "row",
+      "cells": [
+        {
+          "span": 12,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-3.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ee7495c4",
+      "type": "row",
+      "cells": [
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-6.webp"
+          },
+          "position": "81% 77%"
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-10.webp"
+          },
+          "position": "14% 30%"
+        },
+        {
+          "span": 4,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-9.webp"
+          },
+          "position": "100% 53%"
+        }
+      ]
+    },
+    {
+      "id": "fb8206bb",
+      "type": "row",
+      "cells": [
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-8.webp"
+          },
+          "position": "68% 7%"
+        },
+        {
+          "span": 6,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-7.webp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "8ce49fcd",
+      "type": "row",
+      "cells": [
+        {
+          "span": 7,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-23.webp"
+          }
+        },
+        {
+          "span": 5,
+          "media": {
+            "kind": "still",
+            "project": "playground",
+            "file": "./copi-playground-frame-24.webp"
+          },
+          "position": "56% 52%"
         }
       ]
     },
